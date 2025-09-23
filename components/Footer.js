@@ -21,14 +21,14 @@ const Footer = () => {
     <Container $fullwidth>
       <LeftSection $direction="column">
         <RoutesContainer $alignitems="flex-end">
-          {ROUTES.map((route) => (
-            <RoutesName>{route}</RoutesName>
+          {ROUTES.map((route, index) => (
+            <RoutesName key={index}>{route}</RoutesName>
           ))}
         </RoutesContainer>
         <DashedSeparator />
         <SubroutesContainer $direction="column">
-          {SUB_ROUTES.map((subroute) => (
-            <RoutesName>{subroute}</RoutesName>
+          {SUB_ROUTES.map((subroute, index) => (
+            <RoutesName key={index}>{subroute}</RoutesName>
           ))}
         </SubroutesContainer>
         <LogoContainer $alignitems="flex-end">
