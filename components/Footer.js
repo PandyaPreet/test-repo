@@ -142,7 +142,7 @@ const RightSectionInnerContainer = styled(Flex)`
   align-self: stretch;
   background: ${(props) => props.bg};
   &:hover {
-    background: var(--500, #1a1919);
+    background: var(--500, #1e1e1e);
   }
 `;
 

@@ -4,6 +4,9 @@ html,
 body {
   font-family: 'ArialCustom', sans-serif;
   margin: 0;
+  padding: 0;
+
+
   
 }
 
