@@ -3,7 +3,6 @@ const GlobalStyles = createGlobalStyle`
 html,
 body {
   font-family: 'ArialCustom', sans-serif;
-  background: rgba(24,24,24,1);
   margin: 0;
   
 }
