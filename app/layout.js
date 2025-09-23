@@ -1,6 +1,7 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <ProviderLayout>
+            <Navbar />
             {children}
             <Footer />
           </ProviderLayout>

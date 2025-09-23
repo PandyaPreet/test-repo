@@ -88,8 +88,8 @@ const FooterBrandLogo = () => {
           y2="23.6802"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" />
-          <stop offset="1" stop-color="white" />
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="white" />
         </linearGradient>
       </defs>
     </svg>
