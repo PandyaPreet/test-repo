@@ -1,5 +1,4 @@
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 
@@ -9,10 +8,7 @@ export function HeroSection() {
       <HeroInner>
         <HeroImageWrapper>
           <HeroContent>
-            <HeroTitle>
-              Repair.Replace. <br />
-              Maintain.
-            </HeroTitle>
+            <HeroTitle>Repair.Replace. Maintain.</HeroTitle>
             <HeroSubtitle>
               When products break or fail,
               <br /> so can the customer relationship with your brand.
@@ -23,21 +19,24 @@ export function HeroSection() {
       <DescriptionContainer>
         <DescriptionWrapper>
           <DescriptionChildWrapper>
+            <DescriptionIcon>/</DescriptionIcon>
             <DescriptionsText>
-              / Ensure Protect delivers partner-first service plans and programs
+              Ensure Protect delivers partner-first service plans and programs
               designed for today’s multi-channel economy.
             </DescriptionsText>
           </DescriptionChildWrapper>
         </DescriptionWrapper>
+
         <DescriptionBorderWrapper />
 
         <DescriptionSecondWrapper>
           <DescriptionChildWrapper>
-            <DescriptionsText>
-              //We help brands unlock scalable aftermarket revenue and increase
+            <DescriptionIcon>//</DescriptionIcon>
+            <BrandsanotherText>
+              We help brands unlock scalable aftermarket revenue and increase
               customer satisfaction with service contracts featuring repair,
               replacement, and maintenance programs.
-            </DescriptionsText>
+            </BrandsanotherText>
           </DescriptionChildWrapper>
         </DescriptionSecondWrapper>
 
@@ -88,7 +87,7 @@ const HeroTitle = styled.div`
   letter-spacing: -3.52px;
   text-transform: uppercase;
   color: #fff;
-  text-align: center;
+  text-indent: 9%;
 `;
 
 const HeroSubtitle = styled.div`
@@ -103,6 +102,13 @@ const DescriptionContainer = styled(Flex)`
   width: 100%;
   margin: 0 auto;
   align-items: center;
+`;
+
+const DescriptionIcon = styled.span`
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
 `;
 
 const DescriptionWrapper = styled(Flex)`
@@ -128,6 +134,11 @@ const DescriptionsText = styled.span`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
+  text-indent: 27%;
+`;
+
+const BrandsanotherText = styled(DescriptionsText)`
+  text-indent: 35%;
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`
