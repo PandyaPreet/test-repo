@@ -39,18 +39,12 @@ export default function Navbar() {
           <MenuContainer>
             {MENU_ITEMS?.map((item) => (
               <MenuItemWrapper key={item.name}>
-                <MenuItem>
+                <MenuItem $alignitems="center">
                   {item.name}
                   {item.submenu && (
-                    <span
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginLeft: "4px",
-                      }}
-                    >
+                    <MenuWrapper>
                       <MenuIcon />
-                    </span>
+                    </MenuWrapper>
                   )}
                 </MenuItem>
                 {item.submenu && (
@@ -87,12 +81,17 @@ export default function Navbar() {
 
 const Main = styled(Flex)`
   padding: 8.5px;
-  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
 `;
 
 const Container = styled(Flex)`
   width: 100%;
   padding: 8px;
+  background-color: white;
 `;
 
 const SubContainer = styled(Flex)`
@@ -116,6 +115,10 @@ const MenuItem = styled(Flex)`
 
 const ActionButtons = styled(Flex)`
   gap: 8px;
+`;
+
+const MenuWrapper = styled(Flex)`
+  align-items: "center";
 `;
 
 const LoginButton = styled.button`
@@ -156,6 +159,7 @@ const Submenu = styled(Flex)`
   top: 43px;
   padding: 8px 8px 8px 0;
   /* background: #702727ff; */
+  background-color: #fff;
 `;
 
 const SubmenuFrame = styled(Flex)`

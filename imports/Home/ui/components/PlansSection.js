@@ -61,17 +61,14 @@ const PlansSection = () => {
         </PlansDetails>
         <PlansBannerContainer $alignitems="center">
           {BANNER_IMAGES.map((banner, index) => (
-            <PlansBannerImagesBackground
-              bg={banner.bgColor}
-              hoverImg={banner.bgImage}
-              key={index}
-            >
+            <PlansBannerImagesBackground bg={banner.bgColor} key={index}>
               <PlansBannerImageWrapper>
                 <Image
                   src={banner.bgImage}
                   width={509}
                   height={760}
                   style={{ height: "100%" }}
+                  alt="plans banner image"
                 />
               </PlansBannerImageWrapper>
             </PlansBannerImagesBackground>
@@ -145,7 +142,7 @@ const PlansBannerContainer = styled(Flex)`
   flex: 1 0 0;
 `;
 
-const PlansBannerImageWrapper = styled.image`
+const PlansBannerImageWrapper = styled.div`
   height: 100%;
   display: none;
 `;

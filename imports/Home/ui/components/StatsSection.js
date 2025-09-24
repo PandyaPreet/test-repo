@@ -33,8 +33,8 @@ const StatsSection = () => {
         </StatsTitle>
       </StatsTitleWrapper>
       <StatsMetricsWrapper $alignitems="center">
-        {STATS.map((stat) => (
-          <StatsMetricsBlock $direction="column">
+        {STATS.map((stat, index) => (
+          <StatsMetricsBlock $direction="column" key={index}>
             <StatsMetricsValue>{stat.value}</StatsMetricsValue>
             <StatsMetricsDescription>
               {stat.description}
