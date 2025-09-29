@@ -92,6 +92,7 @@ const Container = styled(Flex)`
   width: 100%;
   padding: 8px;
   background-color: white;
+  box-sizing: border-box;
 `;
 
 const SubContainer = styled(Flex)`
@@ -157,8 +158,8 @@ const Submenu = styled(Flex)`
   position: absolute;
   display: none;
   top: 43px;
+  left: 0;
   padding: 8px 8px 8px 0;
-  /* background: #702727ff; */
   background-color: #fff;
 `;
 
