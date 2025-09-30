@@ -149,10 +149,8 @@ const MenuItemWrapper = styled(Flex)`
   position: relative;
   flex-direction: column;
 
-  /* how long it should wait before hiding after mouse leaves / blur */
   --hide-delay: 300ms;
 
-  /* When hovered or focused anywhere inside, remove hide delay */
   &:hover,
   &:focus-within {
     --hide-delay: 0s;
@@ -166,23 +164,19 @@ const Submenu = styled(Flex)`
   padding: 8px 8px 8px 0;
   background-color: #fff;
 
-  /* Start hidden but keep it in layout flow for smoother transitions */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(4px);
 
-  /* Fade + slide; visibility toggles after a delay so it doesn't blink */
   transition: opacity 150ms ease, transform 150ms ease,
     visibility 0s linear var(--hide-delay);
 
-  /* OPEN STATES: when the wrapper is hovered OR anything inside is focused */
   ${MenuItemWrapper}:focus-within & {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
-    /* show immediately (no delay on the way in) */
     transition-delay: 0s, 0s, 0s;
   }
 `;
