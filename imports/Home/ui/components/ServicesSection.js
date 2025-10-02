@@ -1,54 +1,117 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-
 import Image from "next/image";
-import React, { Fragment } from "react";
-
+import React, {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
-
-const SERVICE_FEATURES = [
-  {
-    id: "1/4",
-    title: "Flexible Program Design",
-    description:
-      "Modular extended service plans tailored by product category, sales channel, and lifecycle stage / Support for power tools, consumer electronics, smart devices, home tech, appliances, and more",
-    bgcolor: "var(--200, #f2f2f2)",
-    icon: "/assets/services-icon-1.svg",
-  },
-  {
-    id: "2/4",
-    title: "Revenue-Sharing Business Models",
-    description:
-      "Drive margin with reserve participation, renewal campaigns, and upsell opportunities / Analytics dashboards that show plan performance and profit potential",
-
-    bgcolor: "var(--100, #FFF)",
-    icon: "/assets/services-icon-2.svg",
-  },
-  {
-    id: "3/4",
-    title: "End-to-End Service Procedures & Fulfillment",
-    description:
-      "We manage claims, customer support, repairs, and logistics under your brand / Reduce overhead while improving NPS and response time",
-    bgcolor: "var(--200, #f2f2f2)",
-    icon: "/assets/services-icon-3.svg",
-  },
-  {
-    id: "4/4",
-    title: "Embedded Digital Experiences",
-    description:
-      "Add warranty offers to checkout, portals, or mobile apps / Our APIs and no-code modules simplify integration into any digital ecosystem",
-    bgcolor: "var(--100, #FFF)",
-    icon: "/assets/services-icon-4.svg",
-  },
-];
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ServicesSection = () => {
+  const card1Ref = useRef(null);
+  const card2Ref = useRef(null);
+  const card3Ref = useRef(null);
+  const card4Ref = useRef(null);
+  const [areFirstThreeSticked, setAreFirstThreeSticked] = useState(false);
+
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // Increased duration for slower animations
+      easing: "ease-in-out-cubic", // Smooth easing function
+      once: false, // Animation can happen every time element comes into view
+      mirror: true, // Animate out when scrolling past
+      offset: 100, // Start animation a bit earlier
+      delay: 100, // Small delay for smoother sequencing
+    });
+
+    // Refresh AOS when DOM changes
+    AOS.refresh();
+  }, []);
+
+  useLayoutEffect(() => {
+    const TOL = 15; // tolerance for "is sticky" checks (px)
+    const LOCK_MARGIN = 40; // extra margin before locking (prevents early lock)
+    const UNLOCK_MARGIN = 80; // how far to scroll back up before unlocking
+
+    const checkStickyCards = () => {
+      if (
+        !card1Ref.current ||
+        !card2Ref.current ||
+        !card3Ref.current ||
+        !card4Ref.current
+      )
+        return;
+
+      const card1Rect = card1Ref.current.getBoundingClientRect();
+      const card2Rect = card2Ref.current.getBoundingClientRect();
+      const card3Rect = card3Ref.current.getBoundingClientRect();
+      const card4Rect = card4Ref.current.getBoundingClientRect();
+
+      const top1 = 8 * 16;
+      const top2 = 16 * 16;
+      const top3 = 24 * 16;
+      const top4 = 32 * 16;
+
+      const card1Sticky = Math.abs(card1Rect.top - top1) < TOL;
+      const card2Sticky = Math.abs(card2Rect.top - top2) < TOL;
+      const card3Sticky = Math.abs(card3Rect.top - top3) < TOL;
+      const card4Sticky = Math.abs(card4Rect.top - top4) < TOL;
+
+      // ---- Hysteresis logic ----
+      if (!areFirstThreeSticked) {
+        // Lock only when 1–3 are sticky and 4 is *clearly* not yet sticky
+        const fourNotYetSticky = card4Rect.top - top4 > LOCK_MARGIN;
+        if (card1Sticky && card2Sticky && card3Sticky && card4Sticky) {
+          setAreFirstThreeSticked(true);
+        }
+      } else {
+        // Unlock only after user scrolls back up far enough
+        const scrolledUpEnough = card1Rect.top > top1 + UNLOCK_MARGIN;
+        if (scrolledUpEnough) {
+          setAreFirstThreeSticked(false);
+        }
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          checkStickyCards();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    checkStickyCards();
+
+    return () => window.removeEventListener("scroll", onScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areFirstThreeSticked]);
+
+  // Optional: Log when the state changes
+  useEffect(() => {
+    if (areFirstThreeSticked) {
+      console.log("First 3 cards are now sticked!");
+    }
+  }, [areFirstThreeSticked]);
+
   return (
     <Fragment>
       <ServicesHeader>
-        <ServicesPagination>0/4</ServicesPagination>
-        <ServicesHeaderTitle>
+        <ServicesPagination data-aos="fade-up" data-aos-delay="100">
+          0/4
+        </ServicesPagination>
+        <ServicesHeaderTitle data-aos="fade-up" data-aos-delay="200">
           A Smarter{" "}
           <ServicesHeaderTitleDark>
             Approach <br /> to Service Plans
@@ -56,40 +119,207 @@ const ServicesSection = () => {
         </ServicesHeaderTitle>
       </ServicesHeader>
 
-      <div style={{ display: "block", height: "100vh" }}>
-        <ServicesWrapper $direction="column" className="services-container">
-          {SERVICE_FEATURES.map((service, index) => (
-            <ServicesContainer
-              key={index}
-              $direction="column"
-              bgcolor={service.bgcolor}
-              $justifycontent="center"
-              className="services-cards"
+      <ServicesWrapper
+        $direction="column"
+        className="services-container"
+        $isFirstThreeSticked={areFirstThreeSticked}
+      >
+        {/* Card 1 */}
+        <ServicesContainer
+          ref={card1Ref}
+          $direction="column"
+          bgcolor="var(--200, #f2f2f2)"
+          $justifycontent="center"
+          className="services-cards"
+          $isFirstThreeSticked={areFirstThreeSticked}
+          data-aos="fade-up"
+          data-aos-delay="300"
+          data-aos-duration="1000"
+        >
+          <ServicesInnerWrapper>
+            <ServicesPagination>1/4</ServicesPagination>
+            <ServicesDetailsContainer
+              $justifycontent="space-between"
+              $alignitems="center"
             >
-              <ServicesInnerWrapper>
-                <ServicesPagination>{service.id}</ServicesPagination>
-                <ServicesDetailsContainer
-                  $justifycontent="space-between"
-                  $alignitems="center"
+              <ServicesDetailsContent $direction="column">
+                <ServicesTitle
+                  data-aos="fade-right"
+                  data-aos-delay="400"
+                  data-aos-duration="800"
                 >
-                  <ServicesDetailsContent $direction="column">
-                    <ServicesTitle>{service.title}</ServicesTitle>
-                    <ServicesDescription>
-                      {service.description}
-                    </ServicesDescription>
-                  </ServicesDetailsContent>
-                  <Image
-                    src={service.icon}
-                    height={120}
-                    width={120}
-                    alt="some icon"
-                  />
-                </ServicesDetailsContainer>
-              </ServicesInnerWrapper>
-            </ServicesContainer>
-          ))}
-        </ServicesWrapper>
-      </div>
+                  Flexible Program Design
+                </ServicesTitle>
+                <ServicesDescription
+                  data-aos="fade-right"
+                  data-aos-delay="500"
+                  data-aos-duration="800"
+                >
+                  Modular extended service plans tailored by product category,
+                  sales channel, and lifecycle stage / Support for power tools,
+                  consumer electronics, smart devices, home tech, appliances,
+                  and more
+                </ServicesDescription>
+              </ServicesDetailsContent>
+              <Image
+                src="/assets/services-icon-1.svg"
+                height={120}
+                width={120}
+                alt="some icon"
+                data-aos="zoom-in"
+                data-aos-delay="600"
+                data-aos-duration="800"
+              />
+            </ServicesDetailsContainer>
+          </ServicesInnerWrapper>
+        </ServicesContainer>
+
+        {/* Card 2 */}
+        <ServicesContainer
+          ref={card2Ref}
+          $direction="column"
+          bgcolor="var(--100, #FFF)"
+          $justifycontent="center"
+          className="services-cards"
+          $isFirstThreeSticked={areFirstThreeSticked}
+          data-aos="fade-up"
+          data-aos-delay="200"
+          data-aos-duration="1000"
+        >
+          <ServicesInnerWrapper>
+            <ServicesPagination>2/4</ServicesPagination>
+            <ServicesDetailsContainer
+              $justifycontent="space-between"
+              $alignitems="center"
+            >
+              <ServicesDetailsContent $direction="column">
+                <ServicesTitle
+                  data-aos="fade-right"
+                  data-aos-delay="300"
+                  data-aos-duration="800"
+                >
+                  Revenue-Sharing Business Models
+                </ServicesTitle>
+                <ServicesDescription
+                  data-aos="fade-right"
+                  data-aos-delay="400"
+                  data-aos-duration="800"
+                >
+                  Drive margin with reserve participation, renewal campaigns,
+                  and upsell opportunities / Analytics dashboards that show plan
+                  performance and profit potential
+                </ServicesDescription>
+              </ServicesDetailsContent>
+              <Image
+                src="/assets/services-icon-2.svg"
+                height={120}
+                width={120}
+                alt="some icon"
+                data-aos="zoom-in"
+                data-aos-delay="500"
+                data-aos-duration="800"
+              />
+            </ServicesDetailsContainer>
+          </ServicesInnerWrapper>
+        </ServicesContainer>
+
+        {/* Card 3 */}
+        <ServicesContainer
+          ref={card3Ref}
+          $direction="column"
+          bgcolor="var(--200, #f2f2f2)"
+          $justifycontent="center"
+          className="services-cards"
+          $isFirstThreeSticked={areFirstThreeSticked}
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-duration="1000"
+        >
+          <ServicesInnerWrapper>
+            <ServicesPagination>3/4</ServicesPagination>
+            <ServicesDetailsContainer
+              $justifycontent="space-between"
+              $alignitems="center"
+            >
+              <ServicesDetailsContent $direction="column">
+                <ServicesTitle
+                  data-aos="fade-right"
+                  data-aos-delay="200"
+                  data-aos-duration="800"
+                >
+                  End-to-End Service Procedures & Fulfillment
+                </ServicesTitle>
+                <ServicesDescription
+                  data-aos="fade-right"
+                  data-aos-delay="300"
+                  data-aos-duration="800"
+                >
+                  We manage claims, customer support, repairs, and logistics
+                  under your brand / Reduce overhead while improving NPS and
+                  response time
+                </ServicesDescription>
+              </ServicesDetailsContent>
+              <Image
+                src="/assets/services-icon-3.svg"
+                height={120}
+                width={120}
+                alt="some icon"
+                data-aos="zoom-in"
+                data-aos-delay="400"
+                data-aos-duration="800"
+              />
+            </ServicesDetailsContainer>
+          </ServicesInnerWrapper>
+        </ServicesContainer>
+
+        {/* Card 4 */}
+        <ServicesContainer
+          ref={card4Ref}
+          $direction="column"
+          bgcolor="var(--100, #FFF)"
+          $justifycontent="center"
+          className="services-cards"
+          $isFirstThreeSticked={areFirstThreeSticked}
+          data-aos="fade-up"
+          data-aos-duration="1200"
+        >
+          <ServicesInnerWrapper>
+            <ServicesPagination>4/4</ServicesPagination>
+            <ServicesDetailsContainer
+              $justifycontent="space-between"
+              $alignitems="center"
+            >
+              <ServicesDetailsContent $direction="column">
+                <ServicesTitle
+                  data-aos="fade-right"
+                  data-aos-delay="100"
+                  data-aos-duration="800"
+                >
+                  Embedded Digital Experiences
+                </ServicesTitle>
+                <ServicesDescription
+                  data-aos="fade-right"
+                  data-aos-delay="200"
+                  data-aos-duration="800"
+                >
+                  Add warranty offers to checkout, portals, or mobile apps / Our
+                  APIs and no-code modules simplify integration into any digital
+                  ecosystem
+                </ServicesDescription>
+              </ServicesDetailsContent>
+              <Image
+                src="/assets/services-icon-4.svg"
+                height={120}
+                width={120}
+                alt="some icon"
+                data-aos="zoom-in"
+                data-aos-delay="300"
+                data-aos-duration="800"
+              />
+            </ServicesDetailsContainer>
+          </ServicesInnerWrapper>
+        </ServicesContainer>
+      </ServicesWrapper>
     </Fragment>
   );
 };
@@ -125,33 +355,42 @@ const ServicesHeaderTitleDark = styled.div`
 
 const ServicesWrapper = styled(Flex)`
   gap: 0px;
+  height: 100vh;
+  top: 200px;
+  position: ${({ $isFirstThreeSticked }) =>
+    $isFirstThreeSticked ? "relative !important" : "unset"};
 `;
 
 const ServicesContainer = styled(Flex)`
   height: 100%;
   max-height: 281px;
+  width: 100%;
   padding: 48px 16px;
   gap: 10px;
   align-self: stretch;
   border-top: 1px dashed var(--40, rgba(26, 25, 25, 0.4));
   background: ${({ bgcolor }) => bgcolor};
-  position: sticky;
-  position: -webkit-sticky;
+  position: ${({ $isFirstThreeSticked }) =>
+    $isFirstThreeSticked ? "absolute !important" : "sticky"};
 
   &:nth-child(1) {
-    top: calc(8rem + 0 * 8rem);
+    top: ${({ $isFirstThreeSticked }) =>
+      $isFirstThreeSticked ? "calc(8rem + 0 * 8rem)" : "calc(8rem + 0 * 8rem)"};
     z-index: 1;
   }
   &:nth-child(2) {
-    top: calc(8rem + 1 * 8rem);
+    top: ${({ $isFirstThreeSticked }) =>
+      $isFirstThreeSticked ? "calc(8rem + 1 * 8rem)" : "calc(8rem + 1 * 8rem)"};
     z-index: 2;
   }
   &:nth-child(3) {
-    top: calc(8rem + 2 * 8rem);
+    top: ${({ $isFirstThreeSticked }) =>
+      $isFirstThreeSticked ? "calc(8rem + 2 * 8rem)" : "calc(8rem + 2 * 8rem)"};
     z-index: 3;
   }
   &:nth-child(4) {
-    top: calc(8rem + 3 * 8rem);
+    top: ${({ $isFirstThreeSticked }) =>
+      $isFirstThreeSticked ? "calc(8rem + 3 * 8rem)" : "calc(8rem + 3 * 8rem)"};
     z-index: 4;
   }
 `;
