@@ -10,8 +10,6 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const ServicesSection = () => {
   const card1Ref = useRef(null);
@@ -19,21 +17,6 @@ const ServicesSection = () => {
   const card3Ref = useRef(null);
   const card4Ref = useRef(null);
   const [areFirstThreeSticked, setAreFirstThreeSticked] = useState(false);
-
-  // Initialize AOS
-  useEffect(() => {
-    AOS.init({
-      duration: 1200, // Increased duration for slower animations
-      easing: "ease-in-out-cubic", // Smooth easing function
-      once: true, // Animation can happen every time element comes into view
-      mirror: false, // Animate out when scrolling past
-      offset: 100, // Start animation a bit earlier
-      delay: 100, // Small delay for smoother sequencing
-    });
-
-    // Refresh AOS when DOM changes
-    AOS.refresh();
-  }, []);
 
   useLayoutEffect(() => {
     const TOL = 15; // tolerance for "is sticky" checks (px)
@@ -132,9 +115,6 @@ const ServicesSection = () => {
           $justifycontent="center"
           className="services-cards"
           $isFirstThreeSticked={areFirstThreeSticked}
-          data-aos="fade-up"
-          data-aos-delay="300"
-          data-aos-duration="1000"
         >
           <ServicesInnerWrapper>
             <ServicesPagination>1/4</ServicesPagination>
@@ -143,13 +123,7 @@ const ServicesSection = () => {
               $alignitems="center"
             >
               <ServicesDetailsContent $direction="column">
-                <ServicesTitle
-                  data-aos="fade-right"
-                  data-aos-delay="400"
-                  data-aos-duration="800"
-                >
-                  Flexible Program Design
-                </ServicesTitle>
+                <ServicesTitle>Flexible Program Design</ServicesTitle>
                 <ServicesDescription>
                   Modular extended service plans tailored by product category,
                   sales channel, and lifecycle stage / Support for power tools,
@@ -175,9 +149,6 @@ const ServicesSection = () => {
           $justifycontent="center"
           className="services-cards"
           $isFirstThreeSticked={areFirstThreeSticked}
-          data-aos="fade-up"
-          data-aos-delay="200"
-          data-aos-duration="1000"
         >
           <ServicesInnerWrapper>
             <ServicesPagination>2/4</ServicesPagination>
@@ -186,13 +157,7 @@ const ServicesSection = () => {
               $alignitems="center"
             >
               <ServicesDetailsContent $direction="column">
-                <ServicesTitle
-                  data-aos="fade-right"
-                  data-aos-delay="300"
-                  data-aos-duration="800"
-                >
-                  Revenue-Sharing Business Models
-                </ServicesTitle>
+                <ServicesTitle>Revenue-Sharing Business Models</ServicesTitle>
                 <ServicesDescription>
                   Drive margin with reserve participation, renewal campaigns,
                   and upsell opportunities / Analytics dashboards that show plan
@@ -217,9 +182,6 @@ const ServicesSection = () => {
           $justifycontent="center"
           className="services-cards"
           $isFirstThreeSticked={areFirstThreeSticked}
-          data-aos="fade-up"
-          data-aos-delay="100"
-          data-aos-duration="1000"
         >
           <ServicesInnerWrapper>
             <ServicesPagination>3/4</ServicesPagination>
@@ -228,11 +190,7 @@ const ServicesSection = () => {
               $alignitems="center"
             >
               <ServicesDetailsContent $direction="column">
-                <ServicesTitle
-                  data-aos="fade-right"
-                  data-aos-delay="200"
-                  data-aos-duration="800"
-                >
+                <ServicesTitle>
                   End-to-End Service Procedures & Fulfillment
                 </ServicesTitle>
                 <ServicesDescription>
@@ -259,8 +217,6 @@ const ServicesSection = () => {
           $justifycontent="center"
           className="services-cards"
           $isFirstThreeSticked={areFirstThreeSticked}
-          data-aos="fade-up"
-          data-aos-duration="1200"
         >
           <ServicesInnerWrapper>
             <ServicesPagination>4/4</ServicesPagination>
