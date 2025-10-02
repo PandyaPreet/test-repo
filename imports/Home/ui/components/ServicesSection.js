@@ -91,10 +91,8 @@ const ServicesSection = () => {
   return (
     <Fragment>
       <ServicesHeader>
-        <ServicesPagination data-aos="fade-up" data-aos-delay="100">
-          0/4
-        </ServicesPagination>
-        <ServicesHeaderTitle data-aos="fade-up" data-aos-delay="200">
+        <ServicesPagination>0/4</ServicesPagination>
+        <ServicesHeaderTitle>
           A Smarter{" "}
           <ServicesHeaderTitleDark>
             Approach <br /> to Service Plans
@@ -285,7 +283,8 @@ const ServicesWrapper = styled(Flex)`
 
 const ServicesContainer = styled(Flex)`
   height: 100%;
-  max-height: 281px;
+  max-height: ${({ $isFirstThreeSticked }) =>
+    $isFirstThreeSticked ? "232px" : "281px"};
   width: 100%;
   padding: 48px 16px;
   gap: 10px;
