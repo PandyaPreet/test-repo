@@ -25,8 +25,8 @@ const ServicesSection = () => {
     AOS.init({
       duration: 1200, // Increased duration for slower animations
       easing: "ease-in-out-cubic", // Smooth easing function
-      once: false, // Animation can happen every time element comes into view
-      mirror: true, // Animate out when scrolling past
+      once: true, // Animation can happen every time element comes into view
+      mirror: false, // Animate out when scrolling past
       offset: 100, // Start animation a bit earlier
       delay: 100, // Small delay for smoother sequencing
     });
@@ -150,11 +150,7 @@ const ServicesSection = () => {
                 >
                   Flexible Program Design
                 </ServicesTitle>
-                <ServicesDescription
-                  data-aos="fade-right"
-                  data-aos-delay="500"
-                  data-aos-duration="800"
-                >
+                <ServicesDescription>
                   Modular extended service plans tailored by product category,
                   sales channel, and lifecycle stage / Support for power tools,
                   consumer electronics, smart devices, home tech, appliances,
@@ -166,9 +162,6 @@ const ServicesSection = () => {
                 height={120}
                 width={120}
                 alt="some icon"
-                data-aos="zoom-in"
-                data-aos-delay="600"
-                data-aos-duration="800"
               />
             </ServicesDetailsContainer>
           </ServicesInnerWrapper>
@@ -200,11 +193,7 @@ const ServicesSection = () => {
                 >
                   Revenue-Sharing Business Models
                 </ServicesTitle>
-                <ServicesDescription
-                  data-aos="fade-right"
-                  data-aos-delay="400"
-                  data-aos-duration="800"
-                >
+                <ServicesDescription>
                   Drive margin with reserve participation, renewal campaigns,
                   and upsell opportunities / Analytics dashboards that show plan
                   performance and profit potential
@@ -215,9 +204,6 @@ const ServicesSection = () => {
                 height={120}
                 width={120}
                 alt="some icon"
-                data-aos="zoom-in"
-                data-aos-delay="500"
-                data-aos-duration="800"
               />
             </ServicesDetailsContainer>
           </ServicesInnerWrapper>
@@ -249,11 +235,7 @@ const ServicesSection = () => {
                 >
                   End-to-End Service Procedures & Fulfillment
                 </ServicesTitle>
-                <ServicesDescription
-                  data-aos="fade-right"
-                  data-aos-delay="300"
-                  data-aos-duration="800"
-                >
+                <ServicesDescription>
                   We manage claims, customer support, repairs, and logistics
                   under your brand / Reduce overhead while improving NPS and
                   response time
@@ -264,9 +246,6 @@ const ServicesSection = () => {
                 height={120}
                 width={120}
                 alt="some icon"
-                data-aos="zoom-in"
-                data-aos-delay="400"
-                data-aos-duration="800"
               />
             </ServicesDetailsContainer>
           </ServicesInnerWrapper>
@@ -290,18 +269,8 @@ const ServicesSection = () => {
               $alignitems="center"
             >
               <ServicesDetailsContent $direction="column">
-                <ServicesTitle
-                  data-aos="fade-right"
-                  data-aos-delay="100"
-                  data-aos-duration="800"
-                >
-                  Embedded Digital Experiences
-                </ServicesTitle>
-                <ServicesDescription
-                  data-aos="fade-right"
-                  data-aos-delay="200"
-                  data-aos-duration="800"
-                >
+                <ServicesTitle>Embedded Digital Experiences</ServicesTitle>
+                <ServicesDescription>
                   Add warranty offers to checkout, portals, or mobile apps / Our
                   APIs and no-code modules simplify integration into any digital
                   ecosystem
@@ -312,9 +281,6 @@ const ServicesSection = () => {
                 height={120}
                 width={120}
                 alt="some icon"
-                data-aos="zoom-in"
-                data-aos-delay="300"
-                data-aos-duration="800"
               />
             </ServicesDetailsContainer>
           </ServicesInnerWrapper>
