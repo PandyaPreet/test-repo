@@ -1,0 +1,75 @@
+"use client";
+
+import Flex from "@/lib/atoms/Flex";
+import React from "react";
+import styled from "styled-components";
+
+export function RetailHeroSection() {
+  return (
+    <HeroWrapper $direction="column">
+      <HeroInner>
+        <HeroImageWrapper>
+          <HeroContent $direction="column">
+            <HeroTitle>
+              {" "}
+              Sell More Than <br /> Products. <br /> Sell Peace of Mind.
+            </HeroTitle>
+            <HeroSubtitle>
+              Give your customers the confidence to buy—and come back— <br /> by
+              offering protection plans they understand, value, and use.
+            </HeroSubtitle>
+          </HeroContent>
+        </HeroImageWrapper>
+      </HeroInner>
+    </HeroWrapper>
+  );
+}
+
+const HeroWrapper = styled(Flex)`
+  background: rgb(40, 119, 176);
+  width: 100%;
+`;
+
+const HeroInner = styled(Flex)`
+  width: 100%;
+  flex-direction: column;
+`;
+
+const HeroImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 780px;
+  background: url("/assets/retail-hero-bg.jpg") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-end;
+`;
+
+const HeroContent = styled(Flex)`
+  position: absolute;
+  width: 100%;
+  gap: 24px;
+  padding: 56px 16px;
+  bottom: 0;
+  justify-content: center;
+  z-index: 3;
+`;
+
+const HeroTitle = styled.div`
+  font-family: Arial;
+  font-size: 88px;
+  font-weight: 400;
+  line-height: 85%;
+  letter-spacing: -3.52px;
+  text-transform: uppercase;
+  color: #fff;
+  text-indent: 9%;
+`;
+
+const HeroSubtitle = styled.div`
+  color: #fff;
+  font-family: Arial;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+`;
