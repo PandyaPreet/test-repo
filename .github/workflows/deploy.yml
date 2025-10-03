@@ -1,0 +1,45 @@
+name: Deploy to Cloudways
+on:
+  push:
+    branches: [ main ]   # change if you deploy a different branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.CLOUDWAYS_SSH_KEY }}
+
+      - name: Run deploy script on Cloudways
+        env:
+          HOST: ${{ secrets.CLOUDWAYS_HOST }}      # e.g. 123.45.67.89
+          USER: ${{ secrets.CLOUDWAYS_USER }}      # e.g. master_xxxxx
+          APP_ID: ${{ secrets.CLOUDWAYS_APP_ID }}  # e.g. phpstack-1455262-5894270
+          REPO_SSH: ${{ secrets.REPO_SSH }}        # e.g. git@github.com:org/repo.git
+        run: |
+          ssh -o StrictHostKeyChecking=no "$USER@$HOST" "bash -s" << 'EOF'
+          set -euo pipefail
+          APP_DIR="$HOME/applications/${CLOUDWAYS_APP_ID:-$APP_ID}/public_html"
+
+          # Ensure deploy.sh exists and is executable (first time)
+          if [ ! -f "$APP_DIR/deploy.sh" ]; then
+            echo "❌ deploy.sh not found in $APP_DIR"
+            exit 1
+          fi
+          chmod +x "$APP_DIR/deploy.sh"
+
+          # Inject repo URL (first time only)
+          if ! grep -q "$REPO_SSH" "$APP_DIR/deploy.sh" 2>/dev/null; then
+            sed -i "s|<YOUR_REPO_SSH_URL>|$REPO_SSH|g" "$APP_DIR/deploy.sh"
+          fi
+
+          # Replace <APP_ID> placeholder if still present
+          if grep -q "<APP_ID>" "$APP_DIR/deploy.sh"; then
+            sed -i "s|<APP_ID>|${CLOUDWAYS_APP_ID:-$APP_ID}|g" "$APP_DIR/deploy.sh"
+          fi
+
+          # Run the deployment
+          BRANCH=main NODE_VERSION=20 "$APP_DIR/deploy.sh"
+          EOF
