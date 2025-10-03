@@ -6,24 +6,27 @@ import styled from "styled-components";
 import ArrowRight from "./svg/ArrowRight";
 import MenuIcon from "./svg/MenuIcon";
 import HeaderBrandLogo from "./svg/HeaderBrandLogo";
+import Link from "next/link";
 
 const MENU_ITEMS = [
   {
     name: "Solutions",
     submenu: [
-      "Retail",
-      "Enterprise",
-      "Healthcare",
-      "ISP Cable",
-      "OEM",
-      "Consulting",
+      { name: "Retail", href: "/solutions/retail" },
+      { name: "Enterprise", href: "/solutions/enterprise" },
+      { name: "Healthcare", href: "/solutions/healthcare" },
+      { name: "ISP Cable", href: "/solutions/isp-cable" },
+      { name: "OEM", href: "/solutions/oem" },
+      { name: "Consulting", href: "/solutions/consulting" },
     ],
+    href: "/solutions",
   },
   {
     name: "Partners",
+    href: "/",
   },
-  { name: "About us" },
-  { name: "Connect" },
+  { name: "About us", href: "/about" },
+  { name: "Connect", href: "/connect" },
 ];
 
 export default function Navbar() {
@@ -37,23 +40,28 @@ export default function Navbar() {
         <SubContainer $alignitems="center">
           <HeaderBrandLogo />
           <MenuContainer>
-            {MENU_ITEMS?.map((item) => (
-              <MenuItemWrapper key={item.name} tabIndex={0}>
-                <MenuItem $alignitems="center">
-                  {item.name}
-                  {item.submenu && (
-                    <MenuWrapper>
-                      <MenuIcon />
-                    </MenuWrapper>
-                  )}
-                </MenuItem>
+            {MENU_ITEMS?.map((item, index) => (
+              <MenuItemWrapper key={index} tabIndex={0}>
+                <Link href={item.href} passHref>
+                  <MenuItem $alignitems="center">
+                    {item.name}
+                    {item.submenu && (
+                      <MenuWrapper>
+                        <MenuIcon />
+                      </MenuWrapper>
+                    )}
+                  </MenuItem>
+                </Link>
+
                 {item.submenu && (
                   <Submenu $direction="column">
                     <SubmenuFrame>
                       <MenuFrame>
                         {item.submenu.map((sub) => (
-                          <SubmenuItemWrapper key={sub}>
-                            <SubMenuItem>{sub}</SubMenuItem>
+                          <SubmenuItemWrapper key={sub.href}>
+                            <Link href={sub.href} passHref>
+                              <SubMenuItem>{sub.name}</SubMenuItem>
+                            </Link>
                           </SubmenuItemWrapper>
                         ))}
                       </MenuFrame>
@@ -151,6 +159,11 @@ const MenuItemWrapper = styled(Flex)`
 
   --hide-delay: 300ms;
 
+  &:hover {
+    --hide-delay: 0s;
+  }
+  isolation: isolate;
+  --hide-delay: 300ms;
   &:hover,
   &:focus-within {
     --hide-delay: 0s;
@@ -159,7 +172,7 @@ const MenuItemWrapper = styled(Flex)`
 
 const Submenu = styled(Flex)`
   position: absolute;
-  top: 43px;
+  top: 100%;
   left: 0;
   padding: 8px 8px 8px 0;
   background-color: #fff;
@@ -172,7 +185,7 @@ const Submenu = styled(Flex)`
   transition: opacity 150ms ease, transform 150ms ease,
     visibility 0s linear var(--hide-delay);
 
-  ${MenuItemWrapper}:focus-within & {
+  ${MenuItemWrapper}:hover & {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;

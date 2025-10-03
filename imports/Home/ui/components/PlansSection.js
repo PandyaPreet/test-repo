@@ -8,19 +8,19 @@ import styled from "styled-components";
 const PlansSection = () => {
   const BANNER_IMAGES = [
     {
-      bgColor: "var(--3, rgba(85, 86, 89, 0.03))",
+      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
       bgImage: "/assets/plan-banner-1.jpg",
     },
     {
-      bgColor: "var(--8, rgba(85, 86, 89, 0.08))",
+      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
       bgImage: "/assets/plan-banner-2.jpg",
     },
     {
-      bgColor: "var(--12, rgba(85, 86, 89, 0.12))",
+      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
       bgImage: "/assets/plan-banner-3.jpg",
     },
     {
-      bgColor: "var(--15, rgba(85, 86, 89, 0.15))",
+      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
       bgImage: "/assets/plan-banner-4.jpg",
     },
   ];
@@ -61,7 +61,7 @@ const PlansSection = () => {
         </PlansDetails>
         <PlansBannerContainer $alignitems="center">
           {BANNER_IMAGES.map((banner, index) => (
-            <PlansBannerImagesBackground bg={banner.bgColor} key={index}>
+            <PlansBannerImagesBackground bg={banner.bgcolor} key={index}>
               <PlansBannerImageWrapper>
                 <Image
                   src={banner.bgImage}

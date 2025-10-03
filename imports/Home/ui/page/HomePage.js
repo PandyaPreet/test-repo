@@ -14,9 +14,7 @@ const HomePage = () => {
       <HeroSection />
       <PlansSection />
       <ServicesSection />
-
       <PartnersSection />
-
       <StatsSection />
       <CTASection />
     </Fragment>
