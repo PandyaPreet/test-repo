@@ -6,7 +6,6 @@ import React from "react";
 import styled from "styled-components";
 
 const CTASection = () => {
-  console.log("CTASection rendered");
   return (
     <CTABlock $direction="column" $justifycontent="center" $alignitems="center">
       <CTAInnerWrapper
