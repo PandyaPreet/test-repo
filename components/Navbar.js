@@ -23,7 +23,7 @@ const MENU_ITEMS = [
   },
   {
     name: "Partners",
-    href: "/",
+    href: "/partners",
   },
   { name: "About us", href: "/about" },
   { name: "Connect", href: "/connect" },
