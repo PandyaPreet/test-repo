@@ -33,7 +33,7 @@ function AboutUsFeatureSection() {
         <AboutUsFeatureDetails $direction="column" $justifycontent="flex-end">
           <AboutUsFeatureDetailsContainer $direction="column" $fullwidth>
             <AboutUsFeatureTitle>
-              <AboutUsFeatureTitleLight>Your</AboutUsFeatureTitleLight>
+              <AboutUsFeatureTitleLight>Your </AboutUsFeatureTitleLight>
               <AboutUsFeatureTitleDark>Brand.</AboutUsFeatureTitleDark>
               <br />
               <AboutUsFeatureTitleDark>Our Backbone.</AboutUsFeatureTitleDark>
