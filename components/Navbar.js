@@ -14,6 +14,7 @@ const MENU_ITEMS = [
     submenu: [
       { name: "Retail", href: "/solutions/retail" },
       { name: "Enterprise", href: "/solutions/enterprise" },
+      { name: "MVNO/MNO", href: "/solutions/mvno-mno" },
       { name: "Healthcare", href: "/solutions/healthcare" },
       { name: "ISP Cable", href: "/solutions/isp-cable" },
       { name: "OEM", href: "/solutions/oem" },
