@@ -59,8 +59,8 @@ function ConnectFormSection() {
             </ConnectContactContent>
           </ConnectContactCard>
 
-          <ConnectContactCardSmall>
-            <ConnectContactContent>
+          <ConnectContactCardSmall $direction="column" $alignitems="flex-start">
+            <ConnectContactContent $direction="column" $alignitems="flex-start">
               <ConnectContactTitle>Phone</ConnectContactTitle>
               <ConnectContactInfo>
                 <Image
@@ -261,6 +261,7 @@ const ConnectSendButton = styled.button`
   min-width: 406px;
   padding: 12px 80px;
   gap: 12px;
+  cursor: pointer;
 `;
 
 const ConnectButtonTextWrapper = styled(Flex)`

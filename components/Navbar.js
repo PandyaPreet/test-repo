@@ -38,7 +38,9 @@ export default function Navbar() {
     >
       <Container $justifycontent="space-between" $alignitems="center">
         <SubContainer $alignitems="center">
-          <HeaderBrandLogo />
+          <Link href={"/"}>
+            <HeaderBrandLogo />
+          </Link>
           <MenuContainer>
             {MENU_ITEMS?.map((item, index) => (
               <MenuItemWrapper key={index} tabIndex={0}>
