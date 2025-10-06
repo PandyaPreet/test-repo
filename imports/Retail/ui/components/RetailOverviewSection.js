@@ -26,7 +26,8 @@ const CARDS_DATA = [
       "Ensure Protect helps retail and ecommerce brands add high-performing extended service plans and protection programs to their point-of-sale experience.",
       "Our programs are either fully white-labeled, or co-branded, designed for multi-channel selling, and built to maximize attachment rate and lifetime value—without adding operational overhead.",
     ],
-    bgcolor: "var(--500, #2877B0);",
+    // bgcolor: "var(--500, #2877B0);",
+    bgcolor: "var(--5, rgba(26, 25, 25, 0.05));",
   },
 ];
 
@@ -46,6 +47,7 @@ const RetailOverviewSection = () => {
               $justifycontent="center"
               $alignitems="center"
               $bgcolor={bgcolor}
+              $variant={variant}
             >
               <RetailOverviewCardContent $direction="column">
                 <Flex $direction="column">
@@ -95,8 +97,7 @@ const RetailOverviewCardWrapper = styled(Flex)`
   padding: 0 80px;
   flex: 1 0 0;
   border: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
-  background: ${(props) =>
-    props.$bgcolor ? props.$bgcolor : "var(--5, rgba(26, 25, 25, 0.05))"};
+  background: ${({ $bgcolor }) => $bgcolor};
 `;
 
 const RetailOverviewCardContent = styled(Flex)`
