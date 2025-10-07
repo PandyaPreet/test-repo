@@ -9,7 +9,6 @@ import { HeroSection } from "../components/HeroSection";
 import ServicesSection from "../components/ServicesSection";
 
 const HomePage = () => {
-  console.log("Rendering HomePage");
   return (
     <Fragment>
       <HeroSection />
