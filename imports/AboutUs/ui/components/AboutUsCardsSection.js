@@ -59,6 +59,7 @@ const CardsContainer = styled(Flex)`
 const CardsWrapper = styled(Flex)`
   height: 600px;
   position: relative;
+  width: 100%;
 `;
 
 const HorizontalLineTop = styled.div`
@@ -103,6 +104,7 @@ const SecondBlock = styled.div`
 const ContentBlock = styled(Flex)`
   padding: 60px 0px;
   height: 100%;
+  width: 100%;
 `;
 
 const ContentWrapper = styled(Flex)`

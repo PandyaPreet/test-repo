@@ -38,8 +38,8 @@ const PlansBannerImageWrapper = styled.div`
 
 const PlansBannerImagesBackground = styled.div`
   height: 760px;
-  flex: 1 0 0;
   background: ${({ bg }) => bg};
+  flex: 1;
 
   &:hover {
     ${PlansBannerImageWrapper} {

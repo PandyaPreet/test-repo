@@ -32,11 +32,9 @@ function OEMCardSection() {
                 <HeaderSectionTitleDark>Case</HeaderSectionTitleDark>
               </HeaderSection>
               <SubHeaderSection>
-                As the world connects everything from thermostats to industrial
-                sensors, the need for device-level support and repair coverage
-                has grown dramatically. We offer embedded coverage that
-                activates in real time—during setup, in the app, or at the
-                dashboard level—so your customers are protected.
+                From high-end electronics to durable power tools and smart
+                devices, we tailor each plan to match the risk profile and
+                expected lifespan of the product
               </SubHeaderSection>
             </ContentSection>
           </ContentWrapper>
@@ -101,6 +99,7 @@ const CardsContainer = styled(Flex)`
 const CardsWrapper = styled(Flex)`
   height: 600px;
   position: relative;
+  width: 100%;
 `;
 
 const HorizontalLineTop = styled.div`
@@ -145,6 +144,7 @@ const SecondBlock = styled.div`
 const ContentBlock = styled(Flex)`
   padding: 60px 0px;
   height: 100%;
+  width: 100%;
 `;
 
 const ContentWrapper = styled(Flex)`
@@ -152,6 +152,7 @@ const ContentWrapper = styled(Flex)`
   background: var(--5, rgba(26, 25, 25, 0.05));
   height: 100%;
   z-index: 1;
+  width: 100%;
 `;
 
 const SubContentWrapper = styled(ContentWrapper)`
