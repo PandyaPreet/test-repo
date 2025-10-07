@@ -69,7 +69,7 @@ const RetailResultSection = () => {
     };
 
     const targetHeights = getInterpolatedHeights(progress);
-    const isFinalStage = progress >= 75;
+    const isFinalStage = progress >= 90;
 
     // Create animation timeline for better performance
     const tl = gsap.timeline();
@@ -180,7 +180,7 @@ const RetailResultSection = () => {
   }, []);
 
   return (
-    <div style={{ height: "300vh" }} ref={sectionRef}>
+    <div style={{ height: "200vh" }} ref={sectionRef}>
       <ResultContainer $justifycontent="center" $alignitems="center">
         <ResultHeaderContainer
           $direction="column"
