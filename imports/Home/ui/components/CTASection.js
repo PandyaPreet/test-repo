@@ -65,6 +65,7 @@ const CTAButton = styled(Flex)`
   padding: 12px 80px;
   gap: 12px;
   background: var(--100, #fff);
+  cursor: pointer;
 `;
 
 const ButtonText = styled.div`

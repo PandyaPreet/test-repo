@@ -1,7 +1,7 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
+import PlansImageBanner from "@/components/PlansImageBanner";
 import React from "react";
 import styled from "styled-components";
 
@@ -70,21 +70,7 @@ const SolutionsFeaturesSection = () => {
           </SolutionsFeaturesDetailsContainer>
         </SolutionsFeaturesDetails>
 
-        <SolutionsFeaturesBannerContainer $alignitems="center">
-          {BANNER_IMAGES.map((banner, index) => (
-            <SolutionsFeaturesBannerBackground bg={banner.bgcolor} key={index}>
-              <SolutionsFeaturesBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </SolutionsFeaturesBannerImageWrapper>
-            </SolutionsFeaturesBannerBackground>
-          ))}
-        </SolutionsFeaturesBannerContainer>
+        <PlansImageBanner banners={BANNER_IMAGES} />
       </SolutionsFeaturesInnerWrapper>
     </SolutionsFeaturesContainer>
   );
@@ -147,25 +133,4 @@ const SolutionsFeaturesDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const SolutionsFeaturesBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const SolutionsFeaturesBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const SolutionsFeaturesBannerBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${SolutionsFeaturesBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

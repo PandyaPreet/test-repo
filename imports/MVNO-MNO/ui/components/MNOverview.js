@@ -1,7 +1,7 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
+import PlansImageBanner from "@/components/PlansImageBanner";
 import React from "react";
 import styled from "styled-components";
 
@@ -65,22 +65,7 @@ const MNOverview = () => {
             </EnterpriseOverviewDescriptionContainer>
           </EnterpriseOverviewDetailsContainer>
         </EnterpriseOverviewDetails>
-
-        <EnterpriseOverviewBannerContainer $alignitems="center">
-          {BANNER_IMAGES.map((banner, index) => (
-            <EnterpriseOverviewBannerBackground bg={banner.bgcolor} key={index}>
-              <EnterpriseOverviewBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </EnterpriseOverviewBannerImageWrapper>
-            </EnterpriseOverviewBannerBackground>
-          ))}
-        </EnterpriseOverviewBannerContainer>
+        <PlansImageBanner banners={BANNER_IMAGES} />
       </EnterpriseOverviewInnerWrapper>
     </EnterpriseOverviewContainer>
   );
@@ -143,25 +128,4 @@ const EnterpriseOverviewDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const EnterpriseOverviewBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const EnterpriseOverviewBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const EnterpriseOverviewBannerBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${EnterpriseOverviewBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

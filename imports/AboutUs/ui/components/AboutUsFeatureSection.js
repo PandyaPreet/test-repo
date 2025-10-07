@@ -2,8 +2,8 @@
 
 import React from "react";
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
 import styled from "styled-components";
+import PlansImageBanner from "@/components/PlansImageBanner";
 
 function AboutUsFeatureSection() {
   const BANNER_IMAGES = [
@@ -63,22 +63,7 @@ function AboutUsFeatureSection() {
             </AboutUsFeatureDescriptionContainer>
           </AboutUsFeatureDetailsContainer>
         </AboutUsFeatureDetails>
-
-        <AboutUsFeatureBannerContainer $alignitems="center">
-          {BANNER_IMAGES.map((banner, index) => (
-            <AboutUsFeatureBannerBackground bg={banner.bgcolor} key={index}>
-              <AboutUsFeatureBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </AboutUsFeatureBannerImageWrapper>
-            </AboutUsFeatureBannerBackground>
-          ))}
-        </AboutUsFeatureBannerContainer>
+        <PlansImageBanner banners={BANNER_IMAGES} />
       </AboutUsFeatureInnerWrapper>
     </AboutUsFeatureContainer>
   );
@@ -141,25 +126,4 @@ const AboutUsFeatureDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const AboutUsFeatureBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const AboutUsFeatureBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const AboutUsFeatureBannerBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${AboutUsFeatureBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

@@ -1,26 +1,26 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
+import PlansImageBanner from "@/components/PlansImageBanner";
 import React from "react";
 import styled from "styled-components";
 
 function PartnersSolutionsSection() {
   const SOLUTIONS_BANNER_IMAGES = [
     {
-      bgColor: "var(--3, rgba(85, 86, 89, 0.03))",
+      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
       bgImage: "/assets/Partners/solutions-banner-1.png",
     },
     {
-      bgColor: "var(--8, rgba(85, 86, 89, 0.08))",
+      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
       bgImage: "/assets/Partners/solutions-banner-2.png",
     },
     {
-      bgColor: "var(--12, rgba(85, 86, 89, 0.12))",
+      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
       bgImage: "/assets/Partners/solutions-banner-3.png",
     },
     {
-      bgColor: "var(--15, rgba(85, 86, 89, 0.15))",
+      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
       bgImage: "/assets/Partners/solutions-banner-4.png",
     },
   ];
@@ -36,6 +36,7 @@ function PartnersSolutionsSection() {
               <PartnersSolutionTitle>
                 <PartnersSolutionTitleLight>Choose</PartnersSolutionTitleLight>
                 <PartnersSolutionTitleDark>
+                  {" "}
                   What Works
                 </PartnersSolutionTitleDark>
                 <br />
@@ -69,24 +70,7 @@ function PartnersSolutionsSection() {
             </PartnersSolutionDescriptionContainer>
           </PartnersSolutionDetailsContainer>
         </PartnersSolutionDetails>
-        <PartnersSolutionBannerContainer $alignitems="center">
-          {SOLUTIONS_BANNER_IMAGES.map((banner, index) => (
-            <PartnersSolutionBannerImagesBackground
-              bg={banner.bgColor}
-              key={index}
-            >
-              <PartnersSolutionBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="solutions banner image"
-                />
-              </PartnersSolutionBannerImageWrapper>
-            </PartnersSolutionBannerImagesBackground>
-          ))}
-        </PartnersSolutionBannerContainer>
+        <PlansImageBanner banners={SOLUTIONS_BANNER_IMAGES} />
       </PartnersSolutionInnerWrapper>
     </PartnersSolutionContainer>
   );

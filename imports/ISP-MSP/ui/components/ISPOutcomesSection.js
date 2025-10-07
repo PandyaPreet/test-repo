@@ -1,7 +1,7 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
+import PlansImageBanner from "@/components/PlansImageBanner";
 import React from "react";
 import styled from "styled-components";
 
@@ -59,22 +59,7 @@ const ISPOutcomesSection = () => {
             </ISPOutcomesDescriptionContainer>
           </ISPOutcomesDetailsContainer>
         </ISPOutcomesDetails>
-
-        <ISPOutcomesBannerContainer $alignitems="center">
-          {BANNER_IMAGES.map((banner, index) => (
-            <ISPOutcomesBannerBackground bg={banner.bgcolor} key={index}>
-              <ISPOutcomesBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </ISPOutcomesBannerImageWrapper>
-            </ISPOutcomesBannerBackground>
-          ))}
-        </ISPOutcomesBannerContainer>
+        <PlansImageBanner banners={BANNER_IMAGES} />
       </ISPOutcomesInnerWrapper>
     </ISPOutcomesContainer>
   );
@@ -139,25 +124,4 @@ const ISPOutcomesDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const ISPOutcomesBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const ISPOutcomesBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const ISPOutcomesBannerBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${ISPOutcomesBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

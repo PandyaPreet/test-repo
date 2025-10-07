@@ -84,7 +84,8 @@ const HeroInner = styled(Flex)`
 const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 780px;
+  /* height: 100vh; */
   /* padding-top: 66.66666666666667%; */
   background-size: cover;
   display: flex;
@@ -159,6 +160,7 @@ const DescriptionIcon = styled.span`
 const DescriptionWrapper = styled(Flex)`
   padding: 40px 16px 0px 16px;
   width: 316px;
+  height: 180px;
 `;
 
 const DescriptionSecondWrapper = styled(DescriptionWrapper)`

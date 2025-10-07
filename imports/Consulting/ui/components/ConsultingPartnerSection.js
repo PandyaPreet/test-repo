@@ -1,7 +1,7 @@
 "use client";
 
+import PlansImageBanner from "@/components/PlansImageBanner";
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 
@@ -31,21 +31,7 @@ const ConsultingPartnerSection = () => {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <ConsultingPartnerBannerContainer $alignitems="center">
-          {BANNER_IMAGES.map((banner, index) => (
-            <ConsultingPartnerBannerBackground bg={banner.bgcolor} key={index}>
-              <ConsultingPartnerBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </ConsultingPartnerBannerImageWrapper>
-            </ConsultingPartnerBannerBackground>
-          ))}
-        </ConsultingPartnerBannerContainer>
+        <PlansImageBanner banners={BANNER_IMAGES} />
 
         <ConsultingPartnerDetails
           $direction="column"
@@ -142,25 +128,4 @@ const ConsultingPartnerDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const ConsultingPartnerBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const ConsultingPartnerBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const ConsultingPartnerBannerBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${ConsultingPartnerBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

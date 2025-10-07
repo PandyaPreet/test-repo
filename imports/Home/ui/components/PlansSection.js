@@ -1,7 +1,7 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
+import PlansImageBanner from "@/components/PlansImageBanner";
 import React from "react";
 import styled from "styled-components";
 
@@ -59,21 +59,7 @@ const PlansSection = () => {
             </PlansDetailsDescriptionContainer>
           </PlansDetailsContainer>
         </PlansDetails>
-        <PlansBannerContainer $alignitems="center">
-          {BANNER_IMAGES.map((banner, index) => (
-            <PlansBannerImagesBackground bg={banner.bgcolor} key={index}>
-              <PlansBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </PlansBannerImageWrapper>
-            </PlansBannerImagesBackground>
-          ))}
-        </PlansBannerContainer>
+        <PlansImageBanner banners={BANNER_IMAGES} />
       </PlansInnerWrapper>
     </PlansContiner>
   );
@@ -136,25 +122,4 @@ const PlansDetailsDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const PlansBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const PlansBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const PlansBannerImagesBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${PlansBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

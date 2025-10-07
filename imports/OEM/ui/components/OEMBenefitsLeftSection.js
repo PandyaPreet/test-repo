@@ -1,25 +1,25 @@
 "use client";
 import Flex from "@/lib/atoms/Flex";
-import Image from "next/image";
+import PlansImageBanner from "@/components/PlansImageBanner";
 import React from "react";
 import styled from "styled-components";
 
 function OEMBenefitsLeftSection() {
   const BENEFITS_BANNER_IMAGES = [
     {
-      bgColor: "var(--3, rgba(85, 86, 89, 0.03))",
+      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
       bgImage: "/assets/OEM/benefits-banner-left-1.png",
     },
     {
-      bgColor: "var(--8, rgba(85, 86, 89, 0.08))",
+      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
       bgImage: "/assets/OEM/benefits-banner-left-2.png",
     },
     {
-      bgColor: "var(--12, rgba(85, 86, 89, 0.12))",
+      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
       bgImage: "/assets/OEM/benefits-banner-left-3.png",
     },
     {
-      bgColor: "var(--15, rgba(85, 86, 89, 0.15))",
+      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
       bgImage: "/assets/OEM/benefits-banner-left-4.png",
     },
   ];
@@ -29,24 +29,7 @@ function OEMBenefitsLeftSection() {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <OEMBenefitsLeftSectionBannerContainer $alignitems="center">
-          {BENEFITS_BANNER_IMAGES.map((banner, index) => (
-            <OEMBenefitsLeftSectionBannerBackground
-              bg={banner.bgColor}
-              key={index}
-            >
-              <OEMBenefitsLeftSectionBannerImageWrapper>
-                <Image
-                  src={banner.bgImage}
-                  width={509}
-                  height={760}
-                  style={{ height: "100%" }}
-                  alt="plans banner image"
-                />
-              </OEMBenefitsLeftSectionBannerImageWrapper>
-            </OEMBenefitsLeftSectionBannerBackground>
-          ))}
-        </OEMBenefitsLeftSectionBannerContainer>
+        <PlansImageBanner banners={BENEFITS_BANNER_IMAGES} />
 
         <OEMBenefitsLeftSectionDetails
           $direction="column"
@@ -159,25 +142,4 @@ const OEMBenefitsLeftSectionDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const OEMBenefitsLeftSectionBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const OEMBenefitsLeftSectionBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const OEMBenefitsLeftSectionBannerBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${OEMBenefitsLeftSectionBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;
