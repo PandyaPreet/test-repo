@@ -9,4 +9,4 @@ jobs:
     steps:
       - name: Trigger production deployment
         run: |
-          curl -X POST "http://localhost:3000/api/git-pull?server_id=1455262&app_id=5894270&git_url=git@github.com:EnsureProtect/ep-newer-version.git&branch_name=main"
+          curl -X POST "https://phpstack-1455262-5894270.cloudwaysapps.com/api/git-pull?server_id=1455262&app_id=5894270&git_url=git@github.com:EnsureProtect/ep-newer-version.git&branch_name=main"
