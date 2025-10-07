@@ -11,7 +11,9 @@ const RetailPage = () => {
       <RetailHeroSection />
       <RetailOverviewSection />
       <RetailServicesSection />
+
       <RetailResultSection />
+
       <RetailCTASection />
     </Fragment>
   );
