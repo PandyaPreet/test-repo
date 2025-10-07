@@ -92,11 +92,13 @@ const PartnersCardsTitle = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.96px;
+  width: 100%;
+  max-width: 220px;
 `;
 
 const PartnersCardsDescription = styled.div`
   color: transparent;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;

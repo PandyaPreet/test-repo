@@ -116,6 +116,8 @@ const PartnersDetailsCardsTitle = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
+  width: 100%;
+  max-width: 220px;
   letter-spacing: -0.96px;
 `;
 
@@ -138,7 +140,7 @@ const PartnersDetailsCards = styled(Flex)`
 
 const PartnersDetailsCardsDescription = styled.div`
   color: var(--100, #fff);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;

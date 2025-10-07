@@ -129,7 +129,7 @@ const EnterpriseDetailDescriptionContainer = styled(Flex)`
 
 const EnterpriseDetailDescription = styled.div`
   color: var(--500, #1a1919);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;

@@ -85,11 +85,13 @@ const CardsTitle = styled.div`
   font-weight: 400;
   line-height: 100%; /* 32px */
   letter-spacing: -0.96px;
+  width: 100%;
+  max-width: 220px;
 `;
 
 const CardsDescription = styled.div`
   color: var(--100, #fff);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%; /* 16.8px */

@@ -37,6 +37,7 @@ function OEMBenefitsRightSection() {
                   Our OEM
                 </PartnersPlansDetailsTitleDark>
                 <PartnersPlansDetailsTitleLight>
+                  {" "}
                   Offering
                 </PartnersPlansDetailsTitleLight>
                 <br />
@@ -145,7 +146,7 @@ const PartnersPlansDetailsDescriptionContainer = styled(Flex)`
 
 const PartnersPlansDetailsDescription = styled.div`
   color: var(--500, #1a1919);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;

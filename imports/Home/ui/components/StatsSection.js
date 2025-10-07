@@ -93,7 +93,7 @@ const StatsMetricsValue = styled.div`
 
 const StatsMetricsDescription = styled.div`
   color: var(--100, #4e4b4b);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
