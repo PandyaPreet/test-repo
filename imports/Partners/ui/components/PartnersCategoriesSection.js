@@ -59,6 +59,10 @@ const PartnersCardsSectionContainer = styled(Flex)`
   flex-shrink: 0;
   background: var(--100, #fff);
   position: relative;
+
+  @media (max-width: 1194px) {
+    height: auto;
+  }
 `;
 
 const PartnersCardsSectionBG = styled.div`
@@ -69,6 +73,10 @@ const PartnersCardsSectionBG = styled.div`
     url("/assets/grid-line-verticle.svg");
   background-repeat: repeat;
   background-size: 200px 200px;
+
+  @media (max-width: 1194px) {
+    background-image: none;
+  }
 `;
 
 const PartnersCardsWrapper = styled(Flex)`
@@ -77,6 +85,24 @@ const PartnersCardsWrapper = styled(Flex)`
   width: 100%;
   padding: 0px 16px;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    position: relative;
+    padding: 40px 16px;
+    background: linear-gradient(
+        0deg,
+        var(--5, rgba(26, 25, 25, 0.05)) 0%,
+        var(--5, rgba(26, 25, 25, 0.05)) 100%
+      ),
+      var(--100, #fff);
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 const PartnersCardsInnerWrapper = styled(Flex)`
@@ -94,6 +120,9 @@ const PartnersCardsTitle = styled.div`
   letter-spacing: -0.96px;
   width: 100%;
   max-width: 220px;
+  @media (max-width: 1194px) {
+    font-size: 24px;
+  }
 `;
 
 const PartnersCardsDescription = styled.div`
@@ -104,6 +133,9 @@ const PartnersCardsDescription = styled.div`
   line-height: 120%;
   letter-spacing: -0.42px;
   transition: color 0.3s ease;
+  @media (max-width: 980px) {
+    color: var(--500, #1a1919);
+  }
 `;
 
 const PartnersCards = styled(Flex)`
@@ -126,5 +158,27 @@ const PartnersCards = styled(Flex)`
     ${PartnersCardsDescription} {
       color: var(--100, #fff);
     }
+    @media (max-width: 980px) {
+      min-width: 267px;
+      border: 1px dashed rgba(26, 25, 25, 0.4);
+      background: #fff;
+
+      &:hover {
+        background: #fff;
+        border-color: rgba(26, 25, 25, 0.4);
+
+        ${PartnersCardsTitle} {
+          color: var(--500, #1a1919);
+          font-weight: 400;
+        }
+
+        ${PartnersCardsDescription} {
+          color: var(--500, #1a1919);
+        }
+      }
+    }
+  }
+  @media (max-width: 980px) {
+    min-width: 267px;
   }
 `;

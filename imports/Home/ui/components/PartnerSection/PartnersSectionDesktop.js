@@ -292,6 +292,9 @@ const PartnersDetailsCardsTitle = styled.div`
   max-width: 220px;
   letter-spacing: -0.96px;
   opacity: 0;
+  @media (max-width: 1194px) {
+    font-size: 24px;
+  }
 `;
 
 const PartnersDetailsCards = styled(Flex)`

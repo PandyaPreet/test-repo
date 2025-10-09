@@ -55,7 +55,7 @@ const StatsBlock = styled(Flex)`
   @media (max-width: 1194px) {
     padding: 120px 16px 80px 16px;
   }
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     flex-direction: column;
     align-items: flex-start;
     margin: 64px 0px;
@@ -76,7 +76,7 @@ const StatsTitle = styled.div`
   line-height: 120%;
   min-width: 314px;
   letter-spacing: -0.42px;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     br {
       display: none;
     }
@@ -86,7 +86,7 @@ const StatsTitle = styled.div`
 const StatsMetricsWrapper = styled(Flex)`
   gap: 16px;
   flex-wrap: wrap;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     flex-direction: column;
     width: 100%;
   }
@@ -101,7 +101,7 @@ const StatsMetricsBlock = styled(Flex)`
   &:last-child {
     border-right: none;
   }
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     border-right: none;
     border-bottom: 1px solid var(--10, rgba(26, 25, 25, 0.1));
     &:last-child {

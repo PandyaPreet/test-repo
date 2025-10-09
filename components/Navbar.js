@@ -195,7 +195,7 @@ const SubContainer = styled(Flex)`
 
 const MenuContainer = styled(Flex)`
   gap: 32px;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     display: none;
   }
 `;
@@ -210,7 +210,7 @@ const MenuItem = styled(Flex)`
 
 const ActionButtons = styled(Flex)`
   gap: 8px;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     display: none;
   }
 `;
@@ -325,7 +325,7 @@ const MobileMenuButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     display: block;
   }
 `;

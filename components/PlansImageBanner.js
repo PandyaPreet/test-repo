@@ -30,7 +30,7 @@ export default PlansImageBanner;
 
 const PlansBannerContainer = styled(Flex)`
   flex: 1;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     width: 100%;
   }
 `;
@@ -50,7 +50,7 @@ const PlansBannerImagesBackground = styled.div`
       display: block;
     }
   }
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     width: 100%;
     height: 450px;
   }

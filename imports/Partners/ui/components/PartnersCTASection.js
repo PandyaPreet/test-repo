@@ -39,6 +39,7 @@ export default PartnersCTASection;
 
 const PartnersCTABlock = styled(Flex)`
   height: 550px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -54,9 +55,21 @@ const PartnersCTABlock = styled(Flex)`
 
 const PartnersCTAInnerWrapper = styled(Flex)`
   height: 550px;
-  padding: 149px 422px;
+  /* padding: 149px 422px; */
   gap: 40px;
   flex-shrink: 0;
+  @media (max-width: 1194px) {
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+    gap: 16px;
+    br {
+      display: none;
+    }
+  }
 `;
 
 const PartnersCTAButton = styled(Flex)`
@@ -65,6 +78,10 @@ const PartnersCTAButton = styled(Flex)`
   padding: 12px 80px;
   gap: 12px;
   background: var(--100, #fff);
+  @media (max-width: 480px) {
+    width: 100%;
+    min-width: auto;
+  }
 `;
 
 const PartnersCTAButtonText = styled.div`
@@ -94,6 +111,9 @@ const PartnersCTATitle = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.2px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const PartnersCTADescription = styled.div`

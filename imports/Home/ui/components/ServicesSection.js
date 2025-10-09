@@ -156,7 +156,7 @@ const ServicesHeader = styled(Flex)`
   padding: 180px 16px 80px 16px;
   gap: 299px;
   background: var(--100, #fff);
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     padding: 40px 16px;
     flex-direction: column;
     gap: 40px;
@@ -200,7 +200,7 @@ const ServicesContainer = styled(Flex)`
   border-top: 1px dashed var(--40, rgba(26, 25, 25, 0.4));
   background: ${({ bgcolor }) => bgcolor};
 
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     padding: 24px 16px;
     flex-direction: column;
     gap: 40px;
@@ -211,7 +211,7 @@ const ServicesInnerWrapper = styled(Flex)`
   padding-right: 115px;
   gap: 299px;
   align-self: stretch;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     flex-direction: column;
     gap: 20px;
     padding-right: 0px;
@@ -220,7 +220,7 @@ const ServicesInnerWrapper = styled(Flex)`
 
 const ServicesDetailsContainer = styled(Flex)`
   flex: 1 0 0;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     flex-direction: column-reverse;
     align-items: flex-start;
     gap: 20px;
@@ -231,7 +231,7 @@ const ServicesDetailsContent = styled(Flex)`
   padding-right: 160px;
   gap: 64px;
   flex: 1 0 0;
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     gap: 16px;
   }
   @media (max-width: 768px) {
@@ -266,7 +266,7 @@ const ServicesDescription = styled.div`
 `;
 
 const ServicesImage = styled(Image)`
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     width: 48px;
     height: 48px;
   }
