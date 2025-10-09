@@ -54,9 +54,21 @@ const CTABlock = styled(Flex)`
 
 const CTAInnerWrapper = styled(Flex)`
   height: 550px;
-  padding: 149px 422px;
+  /* padding: 149px 422px; */
   gap: 40px;
   flex-shrink: 0;
+  @media (max-width: 1194px) {
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+    gap: 16px;
+    br {
+      display: none;
+    }
+  }
 `;
 
 const CTAButton = styled(Flex)`
@@ -66,6 +78,10 @@ const CTAButton = styled(Flex)`
   gap: 12px;
   background: var(--100, #fff);
   cursor: pointer;
+  @media (max-width: 480px) {
+    width: 100%;
+    min-width: auto;
+  }
 `;
 
 const ButtonText = styled.div`
@@ -95,6 +111,9 @@ const CTATitle = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.2px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const CTADescription = styled.div`

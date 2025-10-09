@@ -74,17 +74,36 @@ const PlansContiner = styled(Flex)`
 
 const PlansInnerWrapper = styled(Flex)`
   flex: 1 0 0;
+  @media (max-width: 960px) {
+    flex-direction: column;
+    gap: 16px;
+    padding: 64px 0px;
+  }
 `;
 
 const PlansDetails = styled(Flex)`
   width: 580px;
   padding: 0 72px 80px 16px;
   align-self: stretch;
+  @media (max-width: 960px) {
+    width: 100%;
+    padding: 24px 16px;
+  }
 `;
 
 const PlansDetailsContainer = styled(Flex)`
   max-width: 455px;
   gap: 40px;
+  @media (max-width: 960px) {
+    max-width: none;
+    width: 100%;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    max-width: none;
+    width: 100%;
+    gap: 20px;
+  }
 `;
 
 const PlansDetailsTitle = styled.h2`
@@ -94,6 +113,14 @@ const PlansDetailsTitle = styled.h2`
   line-height: 100%;
   letter-spacing: -1.44px;
   margin: 0;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+    letter-spacing: -1.08px;
+  }
+  @media (max-width: 768px) {
+    font-size: 32px;
+    letter-spacing: -0.96px;
+  }
 `;
 
 const PlansDetailsTitleLight = styled.span`
@@ -116,6 +143,12 @@ const PlansDetailsDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  @media (max-width: 960px) {
+    width: 100%;
+    font-size: 14px;
+    max-width: 552px;
+    letter-spacing: none;
+  }
 `;
 
 const PlansDetailsDescriptionSeparator = styled.div`

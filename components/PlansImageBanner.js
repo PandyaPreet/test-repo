@@ -11,11 +11,12 @@ const PlansImageBanner = ({ banners }) => {
       {banners.map((banner, index) => (
         <PlansBannerImagesBackground bg={banner.bgcolor} key={index}>
           <PlansBannerImageWrapper>
-            <Image
+            <StyledImage
               src={banner.bgImage}
               width={509}
+              unoptimized
               height={760}
-              style={{ height: "100%" }}
+              // style={{ height: "100%" }}
               alt="plans banner image"
             />
           </PlansBannerImageWrapper>
@@ -28,7 +29,10 @@ const PlansImageBanner = ({ banners }) => {
 export default PlansImageBanner;
 
 const PlansBannerContainer = styled(Flex)`
-  flex: 1 0 0;
+  flex: 1;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
 `;
 
 const PlansBannerImageWrapper = styled.div`
@@ -45,5 +49,23 @@ const PlansBannerImagesBackground = styled.div`
     ${PlansBannerImageWrapper} {
       display: block;
     }
+  }
+  @media (max-width: 960px) {
+    width: 100%;
+    height: 450px;
+  }
+
+  @media (max-width: 768px) {
+    height: 309px;
+  }
+`;
+
+const StyledImage = styled(Image)`
+  height: 100%;
+  width: 509px;
+
+  @media (max-width: 1194px) {
+    width: 289px;
+    object-fit: cover;
   }
 `;

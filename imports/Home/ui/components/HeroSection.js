@@ -93,6 +93,10 @@ const HeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+  @media (max-width: 1194px) {
+    gap: 8px;
+    padding: 40px 16px;
+  }
 `;
 
 const HeroTitle = styled.div`
@@ -104,6 +108,22 @@ const HeroTitle = styled.div`
   text-transform: uppercase;
   color: #fff;
   text-indent: 9%;
+
+  @media (max-width: 980px) {
+    font-size: 64px;
+    letter-spacing: -2.56px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 40px;
+    letter-spacing: -1.6px;
+    text-indent: 0%;
+  }
+  @media (max-width: 364px) {
+    font-size: 38px;
+    letter-spacing: -1.6px;
+    text-indent: 0%;
+  }
 `;
 
 const HeroSubtitle = styled.div`
@@ -146,6 +166,9 @@ const DescriptionIcon = styled.span`
 const DescriptionWrapper = styled(Flex)`
   padding: 40px 16px 0px 16px;
   width: 316px;
+  @media (max-width: 1194px) {
+    padding: 24px 16px;
+  }
 `;
 
 const DescriptionSecondWrapper = styled(DescriptionWrapper)`
@@ -154,6 +177,9 @@ const DescriptionSecondWrapper = styled(DescriptionWrapper)`
 
 const DescriptionChildWrapper = styled(Flex)`
   padding: 8px 0 48px;
+  @media (max-width: 1194px) {
+    padding: 8px 40px 8px 0;
+  }
 `;
 
 const DescriptionsText = styled.span`
@@ -178,8 +204,14 @@ const DescriptionBorderWrapper = styled(Flex)`
   align-items: flex-end;
   padding: 40px 16px 0 16px;
   border-right: 0.5px solid #fff;
+  @media (max-width: 1194px) {
+    margin-right: 240px;
+  }
 `;
 
 const DescriptionThirdPartWrapper = styled(DescriptionBorderWrapper)`
   width: 196px;
+  @media (max-width: 1194px) {
+    display: none;
+  }
 `;

@@ -1,12 +1,15 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowRight from "./svg/ArrowRight";
 import MenuIcon from "./svg/MenuIcon";
+import CloseIcon from "./svg/CloseIcon";
 import HeaderBrandLogo from "./svg/HeaderBrandLogo";
 import Link from "next/link";
+import MenuLine from "./svg/MenuLine";
+import { usePathname } from "next/navigation";
 
 const MENU_ITEMS = [
   {
@@ -21,15 +24,18 @@ const MENU_ITEMS = [
     ],
     href: "/solutions",
   },
-  {
-    name: "Partners",
-    href: "/partners",
-  },
+  { name: "Partners", href: "/partners" },
   { name: "About us", href: "/about" },
   { name: "Connect", href: "/connect" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  console.log("pathname", pathname);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleLinkClick = () => setIsOpen(false);
+
   return (
     <Main
       flex-direction="column"
@@ -41,6 +47,7 @@ export default function Navbar() {
           <Link href={"/"}>
             <HeaderBrandLogo />
           </Link>
+
           <MenuContainer>
             {MENU_ITEMS?.map((item, index) => (
               <MenuItemWrapper key={index} tabIndex={0}>
@@ -75,6 +82,7 @@ export default function Navbar() {
             ))}
           </MenuContainer>
         </SubContainer>
+
         <ActionButtons $justifycontent="space-between" $alignitems="center">
           <LoginButton>LOGIN</LoginButton>
           <StartButton>
@@ -84,7 +92,83 @@ export default function Navbar() {
             </ArrowWrapper>
           </StartButton>
         </ActionButtons>
+
+        <MobileMenuButton onClick={() => setIsOpen(true)}>
+          <MenuLine />
+        </MobileMenuButton>
       </Container>
+
+      <Sidebar
+        $isopen={isOpen}
+        $direction="column"
+        $justifycontent="space-between"
+        $fullwidth
+      >
+        <SubSideBlock $direction="column">
+          <SidebarHeader $justifycontent="space-between" $alignitems="center">
+            <HeaderBrandLogo />
+            <CloseButton onClick={() => setIsOpen(false)}>
+              <CloseIcon />
+            </CloseButton>
+          </SidebarHeader>
+
+          <SidebarLinks>
+            {MENU_ITEMS.map((item, i) => {
+              const isactive =
+                pathname === item.href ||
+                item.submenu?.some((sub) => pathname === sub.href);
+              return (
+                <SidebarItem key={i}>
+                  <SidebarItemLink
+                    href={item.href || "#"}
+                    passHref
+                    onClick={handleLinkClick}
+                  >
+                    <SidebarItemLabel $alignitems="center" $isactive={isactive}>
+                      {item.name}
+                      {item.submenu && (
+                        <SidebarItemIcon $alignitems="center">
+                          <MenuIcon />
+                        </SidebarItemIcon>
+                      )}
+                    </SidebarItemLabel>
+                  </SidebarItemLink>
+
+                  {item.submenu && (
+                    <SidebarSubmenu>
+                      {item.submenu.map((sub) => {
+                        const isSubActive = pathname === sub.href;
+                        return (
+                          <SidebarSubItem
+                            key={sub.href}
+                            $isactive={isSubActive}
+                          >
+                            <Link href={sub.href} onClick={handleLinkClick}>
+                              {sub.name}
+                            </Link>
+                          </SidebarSubItem>
+                        );
+                      })}
+                    </SidebarSubmenu>
+                  )}
+                </SidebarItem>
+              );
+            })}
+          </SidebarLinks>
+        </SubSideBlock>
+
+        <SidebarButtons>
+          <LoginButton>LOGIN</LoginButton>
+          <StartButton>
+            GET STARTED
+            <ArrowWrapper>
+              <ArrowRight />
+            </ArrowWrapper>
+          </StartButton>
+        </SidebarButtons>
+      </Sidebar>
+
+      {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
     </Main>
   );
 }
@@ -111,6 +195,9 @@ const SubContainer = styled(Flex)`
 
 const MenuContainer = styled(Flex)`
   gap: 32px;
+  @media (max-width: 960px) {
+    display: none;
+  }
 `;
 
 const MenuItem = styled(Flex)`
@@ -119,17 +206,17 @@ const MenuItem = styled(Flex)`
   font-style: normal;
   font-weight: 400;
   cursor: pointer;
-  /* &:hover {
-    font-weight: 600;
-  } */
 `;
 
 const ActionButtons = styled(Flex)`
   gap: 8px;
+  @media (max-width: 960px) {
+    display: none;
+  }
 `;
 
 const MenuWrapper = styled(Flex)`
-  align-items: "center";
+  align-items: center;
 `;
 
 const LoginButton = styled.button`
@@ -145,6 +232,7 @@ const StartButton = styled.button`
   padding: 12px 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   font-weight: 400;
   cursor: pointer;
@@ -158,7 +246,6 @@ const ArrowWrapper = styled.span`
 const MenuItemWrapper = styled(Flex)`
   position: relative;
   flex-direction: column;
-
   --hide-delay: 300ms;
 
   &:hover {
@@ -178,12 +265,10 @@ const Submenu = styled(Flex)`
   left: 0;
   padding: 8px 8px 8px 0;
   background-color: #fff;
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(4px);
-
   transition: opacity 150ms ease, transform 150ms ease,
     visibility 0s linear var(--hide-delay);
 
@@ -198,7 +283,6 @@ const Submenu = styled(Flex)`
 
 const SubmenuFrame = styled(Flex)`
   width: 362px;
-  /* background: #b09999ff; */
   align-items: stretch;
 `;
 
@@ -222,22 +306,128 @@ const SubmenuItemWrapper = styled.div`
   width: 100%;
   padding: 10px 0;
   cursor: pointer;
-  border-bottom: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-
+  border-bottom: 0.5px dashed rgba(26, 25, 25, 0.4);
   &:last-child {
     border-bottom: none;
   }
-
-  /* &:hover {
-    background: #f7f7f7;
-  } */
 `;
 
 const SubMenuItem = styled.div`
   width: 100%;
-  color: var(--500, #1a1919);
+  color: #1a1919;
   font-family: Arial;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
+`;
+
+const MobileMenuButton = styled.button`
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  @media (max-width: 960px) {
+    display: block;
+  }
+`;
+
+const Sidebar = styled(Flex)`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 375px;
+  height: 100vh;
+  background: #fff;
+  z-index: 2000;
+  padding: 16px;
+  flex-direction: column;
+
+  transform: ${({ $isopen }) =>
+    $isopen ? "translateX(0)" : "translateX(100%)"};
+  visibility: ${({ $isopen }) => ($isopen ? "visible" : "hidden")};
+  transition: transform 0.35s ease-in-out, opacity 0.3s ease,
+    visibility 0.3s ease;
+`;
+
+const SubSideBlock = styled(Flex)`
+  gap: 24px;
+  width: 100%;
+`;
+
+const SidebarHeader = styled(Flex)`
+  width: 100%;
+  padding: 0px 8px;
+`;
+
+const CloseButton = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+const SidebarLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const SidebarItem = styled.div`
+  border-bottom: 1px dashed rgba(26, 25, 25, 0.4);
+`;
+
+const SidebarItemLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const SidebarItemLabel = styled(Flex)`
+  padding: 16px 16px;
+  color: #1a1919;
+  font-size: 16px;
+  font-weight: ${({ $isactive }) => ($isactive ? 700 : 400)};
+
+  cursor: pointer;
+`;
+
+const SidebarItemIcon = styled(Flex)``;
+
+const SidebarSubmenu = styled.ul`
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  background: rgba(26, 25, 25, 0.03);
+  border-top: 1px dashed rgba(26, 25, 25, 0.4);
+  padding: 0;
+`;
+
+const SidebarSubItem = styled.li`
+  width: 100%;
+  padding: 12px 24px;
+  border-bottom: 1px dashed rgba(26, 25, 25, 0.4);
+  background: ${({ $isactive }) =>
+    $isactive ? "rgba(26, 25, 25, 0.06)" : "transparent"};
+  &:last-child {
+    border-bottom: none;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: #1a1919;
+    font-size: 14px;
+    font-weight: ${({ $isactive }) => ($isactive ? 700 : 400)};
+  }
+`;
+
+const SidebarButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1500;
 `;
