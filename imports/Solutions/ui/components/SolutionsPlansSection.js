@@ -12,7 +12,6 @@ const SOLUTIONS_PLANS = [
     description:
       "Add white-labeled coverage at checkout, online or in-store / Offer repair, replacement, or maintenance plans across SKUs / Ideal for laptops, smartphones, power tools, appliances, and firearms",
     icon: "/assets/solutions-icon-1.svg",
-    bgcolor: "var(--100, #FFF)",
   },
   {
     id: "2/4",
@@ -20,7 +19,6 @@ const SOLUTIONS_PLANS = [
     description:
       "Bundle electronics service protection directly with the product / Configure plan length, pricing tiers, and coverage triggers / Support nationwide SKUs with regional regulatory compliance",
     icon: "/assets/solutions-icon-2.svg",
-    bgcolor: "var(--200, #f2f2f2)",
   },
   {
     id: "3/4",
@@ -28,7 +26,6 @@ const SOLUTIONS_PLANS = [
     description:
       "Manage extended warranty and service plans for large-scale deployments / Ideal for schools, SMBs, healthcare, and government technology / Add SLAs, fleet-level coverage, and centralized claim visibility",
     icon: "/assets/solutions-icon-3.svg",
-    bgcolor: "var(--100, #FFF)",
   },
   {
     id: "4/4",
@@ -36,7 +33,6 @@ const SOLUTIONS_PLANS = [
     description:
       "Offer protection for connected devices and infrastructure / Embed activation in onboarding flows or user portals / Cover all your hand held and desk top devices, plus, routers, home security",
     icon: "/assets/solutions-icon-4.svg",
-    bgcolor: "var(--200, #f2f2f2)",
   },
 ];
 
@@ -83,6 +79,14 @@ export default SolutionsPlansSection;
 
 const SolutionsPlansWrapper = styled(Flex)`
   gap: 0px;
+
+  & > :nth-child(odd) {
+    background-color: var(--100, #fff);
+  }
+
+  & > :nth-child(even) {
+    background-color: var(--200, #f2f2f2);
+  }
 `;
 
 const SolutionsPlansContainer = styled(Flex)`
