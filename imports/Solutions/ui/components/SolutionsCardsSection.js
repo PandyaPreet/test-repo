@@ -26,7 +26,7 @@ const SOLUTION_CARDS = [
 const SolutionsCardsSection = () => {
   return (
     <CardsSectionContainer $justifycontent="center" $alignitems="center">
-      <CardsSectionBG></CardsSectionBG>
+      <CardsSectionBG />
       <CardsWrapper>
         {SOLUTION_CARDS.map((card, index) => (
           <Cards $direction="column" key={index}>
@@ -52,6 +52,9 @@ const CardsSectionContainer = styled(Flex)`
   flex-shrink: 0;
   background: var(--100, #fff);
   position: relative;
+  @media (max-width: 1194px) {
+    height: auto;
+  }
 `;
 
 const CardsSectionBG = styled.div`
@@ -62,6 +65,9 @@ const CardsSectionBG = styled.div`
     url("/assets/grid-line-verticle.svg");
   background-repeat: repeat;
   background-size: 200px 200px;
+  @media (max-width: 1194px) {
+    background-image: none;
+  }
 `;
 
 const CardsWrapper = styled(Flex)`
@@ -70,6 +76,30 @@ const CardsWrapper = styled(Flex)`
   width: 100%;
   padding: 0px 16px;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    width: 100%;
+
+    position: relative;
+    padding: 40px 16px;
+    background: linear-gradient(
+        0deg,
+        var(--5, rgba(26, 25, 25, 0.05)) 0%,
+        var(--5, rgba(26, 25, 25, 0.05)) 100%
+      ),
+      var(--100, #fff);
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    background: #fff;
+    padding: 24px 16px;
+  }
 `;
 
 const CardsInnerWrapper = styled(Flex)`
@@ -87,6 +117,9 @@ const CardsTitle = styled.div`
   letter-spacing: -0.96px;
   width: 100%;
   max-width: 220px;
+  @media (max-width: 1194px) {
+    font-size: 24px;
+  }
 `;
 
 const CardsDescription = styled.div`
@@ -96,6 +129,9 @@ const CardsDescription = styled.div`
   font-weight: 400;
   line-height: 120%; /* 16.8px */
   letter-spacing: -0.42px;
+  @media (max-width: 980px) {
+    color: var(--500, #1a1919);
+  }
 `;
 
 const Cards = styled(Flex)`
@@ -111,11 +147,29 @@ const Cards = styled(Flex)`
     border-color: transparent;
     ${CardsTitle} {
       color: var(--100, #fff);
-      font-size: 32px;
-      font-style: normal;
       font-weight: 700;
-      line-height: 100%; /* 32px */
-      letter-spacing: -0.96px;
     }
+    @media (max-width: 980px) {
+      min-width: 267px;
+      border: 1px dashed rgba(26, 25, 25, 0.4);
+      background: #fff;
+
+      &:hover {
+        background: #fff;
+        border-color: rgba(26, 25, 25, 0.4);
+
+        ${CardsTitle} {
+          color: var(--500, #1a1919);
+          font-weight: 400;
+        }
+
+        ${CardsDescription} {
+          color: var(--500, #1a1919);
+        }
+      }
+    }
+  }
+  @media (max-width: 980px) {
+    min-width: 267px;
   }
 `;

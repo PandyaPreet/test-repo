@@ -156,6 +156,9 @@ const ServicesHeader = styled(Flex)`
   padding: 180px 16px 80px 16px;
   gap: 299px;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    gap: 220px;
+  }
   @media (max-width: 980px) {
     padding: 40px 16px;
     flex-direction: column;
@@ -211,6 +214,9 @@ const ServicesInnerWrapper = styled(Flex)`
   padding-right: 115px;
   gap: 299px;
   align-self: stretch;
+  @media (max-width: 1194px) {
+    gap: 220px;
+  }
   @media (max-width: 980px) {
     flex-direction: column;
     gap: 20px;
