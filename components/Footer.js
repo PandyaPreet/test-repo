@@ -5,9 +5,9 @@ import FooterDesktop from "./FooterDesktop";
 import FooterMobile from "./FooterMobile";
 
 export default function ResponsiveFooter() {
-  const isSmallDevice = useMediaQuery("only screen and (max-width: 899px)");
+  const isSmallDevice = useMediaQuery("only screen and (max-width: 979px)");
   const isMediumDevice = useMediaQuery(
-    "only screen and (min-width: 900px) and (max-width: 1199px)"
+    "only screen and (min-width: 980px) and (max-width: 1199px)"
   );
   const isLargeDevice = useMediaQuery("only screen and (min-width: 1200px)");
 

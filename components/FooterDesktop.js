@@ -15,7 +15,7 @@ const SUB_ROUTES = [
 const FooterDesktop = () => {
   return (
     <Container $fullwidth>
-      <LeftSection $direction="column">
+      <LeftSection $direction="column" $fullwidth>
         <RoutesContainer $alignitems="flex-end">
           {ROUTES.map((route, index) => (
             <RoutesName key={index}>{route}</RoutesName>
@@ -38,7 +38,7 @@ const FooterDesktop = () => {
           </Flex>
         </LogoContainer>
       </LeftSection>
-      <RightSection $alignitems="center">
+      <RightSection $alignitems="center" $fullwidth>
         <RightSectionInnerContainer bg="var(--400, #212020)">
           <ContactInfoBlock $direction="column">
             <ContactInfoTitle>Come visit us</ContactInfoTitle>
@@ -71,14 +71,12 @@ const Container = styled(Flex)`
   flex-shrink: 0;
 `;
 const LeftSection = styled(Flex)`
-  width: 648px;
+  /* width: 648px; */
   gap: 16px;
-  flex-shrink: 0;
   align-self: stretch;
   background: var(--500, #1a1919);
 `;
 const RightSection = styled(Flex)`
-  flex: 1;
   align-self: stretch;
   background-color: beige;
 `;
