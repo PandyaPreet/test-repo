@@ -78,7 +78,7 @@ const LeftSection = styled(Flex)`
   background: var(--500, #1a1919);
 `;
 const RightSection = styled(Flex)`
-  flex: 1 0 0;
+  flex: 1;
   align-self: stretch;
   background-color: beige;
 `;
@@ -123,7 +123,7 @@ const CreditsText = styled.div`
 const RightSectionInnerContainer = styled(Flex)`
   padding: 16px;
   gap: 32px;
-  flex: 1 0 0;
+  flex: 1;
   align-self: stretch;
   background: ${(props) => props.bg};
   &:hover {

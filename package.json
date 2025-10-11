@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@uidotdev/usehooks": "^2.4.1",
     "aos": "^2.3.4",
     "framer-motion": "^12.23.22",
     "gsap": "^3.13.0",
