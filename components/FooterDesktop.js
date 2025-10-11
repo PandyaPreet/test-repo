@@ -3,7 +3,13 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 import FooterBrandLogo from "./svg/FooterBrandLogo";
-const ROUTES = ["Solutions", "Partners", "About us", "Contact"];
+const ROUTES = [
+  "Solutions",
+  "Partners",
+  "About us",
+  "Contact",
+  "Privacy Policy",
+];
 const SUB_ROUTES = [
   "Retail",
   "Enterprise",
@@ -75,15 +81,23 @@ const LeftSection = styled(Flex)`
   gap: 16px;
   align-self: stretch;
   background: var(--500, #1a1919);
+  @media (max-width: 1194px) {
+    width: 70%;
+  }
 `;
 const RightSection = styled(Flex)`
   align-self: stretch;
   background-color: beige;
+
+  @media (max-width: 1194px) {
+    flex-direction: column;
+    width: 30%;
+  }
 `;
 const RoutesContainer = styled(Flex)`
   height: 138px;
   padding: 0 16px;
-  gap: 64px;
+  gap: 48px;
   align-self: stretch;
 `;
 const DashedSeparator = styled.span`

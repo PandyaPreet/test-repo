@@ -28,6 +28,7 @@ const FooterMobile = () => {
             <Routes>Partners</Routes>
             <Routes>About us</Routes>
             <Routes>Connect</Routes>
+            <Routes>Privacy Policy</Routes>
           </RoutesBlock>
         </RoutesInfoContainer>
         <HowToReachContainer $direction="column">
