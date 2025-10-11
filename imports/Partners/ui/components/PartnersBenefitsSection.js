@@ -88,7 +88,7 @@ const PartnersPlansInnerWrapper = styled(Flex)`
   }
   @media (max-width: 980px) {
     flex-direction: column-reverse;
-    gap: 16px;
+    gap: 24px;
   }
 `;
 

@@ -88,7 +88,7 @@ const PartnersSolutionInnerWrapper = styled(Flex)`
 
   @media (max-width: 980px) {
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
   }
 `;
 

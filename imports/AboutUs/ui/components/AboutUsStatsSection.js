@@ -60,6 +60,15 @@ const StatsBlock = styled(Flex)`
   gap: 16px;
   padding: 160px 0 80px 0;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    padding: 120px 16px 40px 16px;
+  }
+  @media (max-width: 980px) {
+    padding: 40px 16px 0 16px;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+  }
 `;
 
 const StatsTitleWrapper = styled(Flex)`
@@ -67,6 +76,9 @@ const StatsTitleWrapper = styled(Flex)`
   flex: 1 0 0;
   width: 100%;
   min-width: 330px;
+  @media (max-width: 1194px) {
+    display: none;
+  }
 `;
 
 const StatsTitle = styled.div`
@@ -82,6 +94,12 @@ const AboutStatsMetricsWrapper = styled(Flex)`
   flex-direction: column;
   justify-content: center;
   gap: 64px;
+  @media (max-width: 1194px) {
+    width: 100%;
+  }
+  @media (max-width: 980px) {
+    gap: 24px;
+  }
 `;
 
 const StatsMetricsTitleWrapper = styled(Flex)`
@@ -108,11 +126,34 @@ const StatsMetricsDescription = styled.div`
   line-height: 120%;
   letter-spacing: -0.42px;
   padding-right: 40px;
+  min-height: 39px;
+
+  @media (max-width: 1194px) {
+    font-size: 14px;
+  }
+  @media (max-width: 980px) {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const StatsMetricsWrapper = styled(Flex)`
   gap: 16px;
   flex-shrink: 0;
+  @media (max-width: 1194px) {
+    max-width: 932px;
+    align-self: end;
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const StatsMetricsBlock = styled(Flex)`
@@ -121,6 +162,27 @@ const StatsMetricsBlock = styled(Flex)`
   border-right: 1px solid var(--10, rgba(26, 25, 25, 0.1));
   &:last-child {
     border-right: none;
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 8px 0px;
+    border-right: none;
+    border-bottom: 1px solid var(--10, rgba(26, 25, 25, 0.1));
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 0px;
+    padding: 12px 0px;
   }
 `;
 
@@ -131,4 +193,10 @@ const StatsMetricsValue = styled.div`
   font-weight: 400;
   line-height: normal;
   letter-spacing: -2.88px;
+  @media (max-width: 1194px) {
+    font-size: 64px;
+  }
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
 `;

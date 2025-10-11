@@ -76,7 +76,7 @@ const PlansInnerWrapper = styled(Flex)`
   flex: 1 0 0;
   @media (max-width: 980px) {
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
     padding: 64px 0px;
   }
 `;

@@ -42,6 +42,7 @@ export default AboutUsCTASection;
 
 const AboutUsCTASectionBlock = styled(Flex)`
   height: 550px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -57,10 +58,22 @@ const AboutUsCTASectionBlock = styled(Flex)`
 
 const AboutUsCTASectionInnerWrapper = styled(Flex)`
   height: 550px;
-  padding: 149px 422px;
+  /* padding: 149px 422px; */
   gap: 40px;
   width: 100%;
   flex-shrink: 0;
+  @media (max-width: 1194px) {
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+    gap: 16px;
+    br {
+      display: none;
+    }
+  }
 `;
 
 const AboutUsCTASectionButton = styled(Flex)`
@@ -69,6 +82,13 @@ const AboutUsCTASectionButton = styled(Flex)`
   padding: 12px 80px;
   gap: 12px;
   background: var(--100, #fff);
+  @media (max-width: 768px) {
+    padding: 12px 18px;
+  }
+  @media (max-width: 449px) {
+    width: 100%;
+    min-width: auto;
+  }
 `;
 
 const AboutUsCTASectionButtonText = styled.div`
@@ -98,7 +118,9 @@ const AboutUsCTASectionTitle = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.2px;
-  white-space: nowrap;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const AboutUsCTASectionDescription = styled.div`

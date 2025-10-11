@@ -18,7 +18,7 @@ function AboutUsCardsSection() {
 
         <ContentBlock>
           <ContentWrapper $alignitems="center" $justifycontent="center">
-            <ContentSection $direction="column" $alignitems="center">
+            <ContentSection $direction="column">
               <HeaderSection>
                 <HeaderSectionTitleDark>Designed to</HeaderSectionTitleDark>
                 <HeaderSectionTitleLight>Be Invisible</HeaderSectionTitleLight>
@@ -54,12 +54,21 @@ const CardsContainer = styled(Flex)`
   padding: 80px 0px;
   gap: 10px;
   align-self: stretch;
+  @media (max-width: 1194px) {
+    padding: 0px;
+  }
 `;
 
 const CardsWrapper = styled(Flex)`
   height: 600px;
   position: relative;
   width: 100%;
+  @media (max-width: 980px) {
+    height: 366px;
+  }
+  @media (max-width: 768px) {
+    height: 340px;
+  }
 `;
 
 const HorizontalLineTop = styled.div`
@@ -83,19 +92,27 @@ const HorizontalLineBottom = styled.div`
 const DashedBlocks = styled(Flex)`
   gap: 16px;
   height: 100%;
+  &:last-of-type div:last-child {
+    border-right: none;
+  }
 `;
 
 const FirstBlock = styled.div`
-  width: 104px;
+  /* width: 104px; */
+  width: clamp(40px, 8vw, 104px);
   height: 100%;
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
   border-left: 1px dashed rgba(26, 25, 25, 0.5);
   background: #fff;
+  @media (max-width: 1194px) {
+    display: none;
+  }
 `;
 
 const SecondBlock = styled.div`
   height: 100%;
-  width: 195px;
+  /* width: 195px; */
+  width: clamp(20px, 15vw, 195px);
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
   border-left: 1px dashed rgba(26, 25, 25, 0.5);
   background: #fff;
@@ -112,10 +129,19 @@ const ContentWrapper = styled(Flex)`
   background: var(--5, rgba(26, 25, 25, 0.05));
   height: 100%;
   z-index: 1;
+  @media (max-width: 1194px) {
+    padding: 0px 120px;
+  }
+  @media (max-width: 980px) {
+    padding: 40px;
+  }
 `;
 
 const ContentSection = styled(Flex)`
   gap: 40px;
+  @media (max-width: 980px) {
+    gap: 16px;
+  }
 `;
 
 const HeaderSection = styled.span`
@@ -123,6 +149,12 @@ const HeaderSection = styled.span`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const HeaderSectionTitleDark = styled.span`
@@ -139,4 +171,7 @@ const SubHeaderSection = styled.span`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
