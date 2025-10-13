@@ -3,6 +3,7 @@
 import React, { Fragment } from "react";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
+import Flex from "@/lib/atoms/Flex";
 
 const EnterpriseHeroSection = dynamic(
   () =>
