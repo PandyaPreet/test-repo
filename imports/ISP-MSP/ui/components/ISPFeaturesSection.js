@@ -75,6 +75,12 @@ export default ISPFeaturesSection;
 const ISPFeaturesContainer = styled(Flex)`
   align-self: stretch;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    gap: 32px;
+  }
+  @media (max-width: 768px) {
+    gap: 24px;
+  }
 `;
 
 const ISPFeaturesTitleContainer = styled(Flex)`
@@ -82,6 +88,10 @@ const ISPFeaturesTitleContainer = styled(Flex)`
   gap: 299px;
   align-self: stretch;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    padding: 0px 16px;
+    gap: 0px;
+  }
 `;
 
 const ISPFeaturesTitleLight = styled.div`
@@ -91,6 +101,9 @@ const ISPFeaturesTitleLight = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const ISPFeaturesTitleDark = styled.div`
@@ -100,6 +113,9 @@ const ISPFeaturesTitleDark = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const ISPFeaturesGridContainer = styled(Flex)`
@@ -112,6 +128,12 @@ const ISPFeaturesGridWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+  @media (max-width: 1194px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 `;
 
 const ISPFeaturesCard = styled(Flex)`
@@ -134,6 +156,22 @@ const ISPFeaturesCard = styled(Flex)`
     }
     justify-content: space-between;
   }
+  @media (max-width: 1194px) {
+    justify-content: space-between;
+    height: auto;
+    gap: 32px;
+    padding: 32px 16px;
+    background: #fff;
+    border-bottom: none;
+    border-right: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+    img {
+      display: block;
+    }
+  }
+  @media (max-width: 768px) {
+    border-right: none;
+    border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+  }
 `;
 
 const ISPFeaturesDescription = styled.div`
@@ -143,4 +181,7 @@ const ISPFeaturesDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 130%;
+  @media (max-width: 1194px) {
+    max-width: unset;
+  }
 `;

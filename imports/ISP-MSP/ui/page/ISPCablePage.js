@@ -6,8 +6,7 @@ import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
 
 const ISPHomeSection = dynamic(
-  () =>
-    import("../components/ISPHomeSection").then((mod) => mod.ISPHomeSection),
+  () => import("../components/ISPHomeSection").then((mod) => mod.default),
   { ssr: false }
 );
 const ISPCardSection = dynamic(() => import("../components/ISPCardSection"), {
@@ -31,7 +30,7 @@ const ISPCTASection = dynamic(() => import("../components/ISPCTASection"), {
 
 const ISPCablePage = () => {
   return (
-    <PageWrapper>
+    <PageWrapper $fullwidth $direction="column">
       <ISPHomeSection />
       <ISPCardSection />
       <ISPOverviewSection />
@@ -45,7 +44,6 @@ const ISPCablePage = () => {
 export default ISPCablePage;
 
 const PageWrapper = styled(Flex)`
-  flex-direction: column;
   @media (max-width: 1194px) {
     gap: 64px;
   }

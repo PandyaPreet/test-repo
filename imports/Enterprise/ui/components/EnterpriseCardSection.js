@@ -76,7 +76,7 @@ const CardsContainer = styled(Flex)`
   gap: 10px;
   align-self: stretch;
   @media (max-width: 1194px) {
-    padding: 0px;
+    padding: unset;
   }
 `;
 

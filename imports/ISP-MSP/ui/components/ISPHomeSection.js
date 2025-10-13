@@ -4,7 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 
-export function ISPHomeSection() {
+export default function ISPHomeSection() {
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
@@ -51,6 +51,12 @@ const HeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+  @media (max-width: 1194px) {
+    padding: 40px;
+  }
+  @media (max-width: 768px) {
+    padding: 40px 16px;
+  }
 `;
 
 const HeroTitle = styled.div`
@@ -62,6 +68,12 @@ const HeroTitle = styled.div`
   text-transform: uppercase;
   color: #fff;
   text-indent: 9%;
+  @media (max-width: 1194px) {
+    font-size: 64px;
+  }
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
 `;
 
 const HeroSubtitle = styled.div`
