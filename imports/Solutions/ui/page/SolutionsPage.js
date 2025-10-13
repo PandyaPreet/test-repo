@@ -6,10 +6,7 @@ import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
 
 const SolutionsHeroSection = dynamic(
-  () =>
-    import("../components/SolutionsHeroSection").then(
-      (mod) => mod.SolutionsHeroSection
-    ),
+  () => import("../components/SolutionsHeroSection"),
   { ssr: false }
 );
 const SolutionsPlansSection = dynamic(
