@@ -4,10 +4,7 @@ import React, { Fragment } from "react";
 import dynamic from "next/dynamic";
 
 const RetailHeroSection = dynamic(
-  () =>
-    import("../components/RetailHeroSection").then(
-      (mod) => mod.RetailHeroSection
-    ),
+  () => import("../components/RetailHeroSection").then((mod) => mod.default),
   { ssr: false }
 );
 const RetailOverviewSection = dynamic(
