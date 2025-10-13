@@ -11,6 +11,7 @@ function PartnersCTASection() {
       $direction="column"
       $justifycontent="center"
       $alignitems="center"
+      $fullwidth
     >
       <PartnersCTAInnerWrapper
         $direction="column"
@@ -39,7 +40,6 @@ export default PartnersCTASection;
 
 const PartnersCTABlock = styled(Flex)`
   height: 550px;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;

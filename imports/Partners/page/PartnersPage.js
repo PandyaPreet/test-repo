@@ -28,7 +28,7 @@ const PartnersCTASection = dynamic(
 
 const PartnersPage = () => {
   return (
-    <PageWrapper>
+    <PageWrapper $fullwidth $direction="column">
       <PartnersHeroSection />
       <PartnersBenefitsSection />
       <PartnersCategoriesSection />
@@ -41,7 +41,6 @@ const PartnersPage = () => {
 export default PartnersPage;
 
 const PageWrapper = styled(Flex)`
-  flex-direction: column;
   @media (max-width: 1194px) {
     gap: 64px;
   }

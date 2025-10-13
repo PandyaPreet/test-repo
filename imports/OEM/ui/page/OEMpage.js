@@ -1,7 +1,9 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
+import styled from "styled-components";
+import Flex from "@/lib/atoms/Flex";
 
 const OEMHeroSection = dynamic(() => import("../components/OEMHeroSection"), {
   ssr: false,
@@ -23,14 +25,20 @@ const OEMCtaSection = dynamic(() => import("../components/OEMCtaSection"), {
 
 function OEMpage() {
   return (
-    <Fragment>
+    <PageWrapper $fullwidth $direction="column">
       <OEMHeroSection />
       <OEMCardSection />
       <OEMBenefitsRightSection />
       <OEMBenefitsLeftSection />
       <OEMCtaSection />
-    </Fragment>
+    </PageWrapper>
   );
 }
 
 export default OEMpage;
+
+const PageWrapper = styled(Flex)`
+  @media (max-width: 1194px) {
+    gap: 64px;
+  }
+`;

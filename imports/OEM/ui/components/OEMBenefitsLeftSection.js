@@ -78,8 +78,6 @@ function OEMBenefitsLeftSection() {
 
 export default OEMBenefitsLeftSection;
 
-/* ---------- Styled Components ---------- */
-
 const OEMBenefitsLeftSectionContainer = styled(Flex)`
   gap: 10px;
   background: var(--100, #fff);
@@ -87,17 +85,38 @@ const OEMBenefitsLeftSectionContainer = styled(Flex)`
 
 const OEMBenefitsLeftSectionInnerWrapper = styled(Flex)`
   flex: 1 0 0;
+  @media (max-width: 1194px) {
+    /* padding: 64px 0px; */
+  }
+  @media (max-width: 980px) {
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
 `;
 
 const OEMBenefitsLeftSectionDetails = styled(Flex)`
   width: 580px;
   padding: 0 72px 80px 16px;
   align-self: stretch;
+  @media (max-width: 980px) {
+    width: 100%;
+    padding: 24px 16px;
+  }
 `;
 
 const OEMBenefitsLeftSectionDetailsContainer = styled(Flex)`
   max-width: 455px;
   gap: 40px;
+  @media (max-width: 980px) {
+    max-width: none;
+    width: 100%;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    max-width: none;
+    width: 100%;
+    gap: 20px;
+  }
 `;
 
 const OEMBenefitsLeftSectionHeader = styled(Flex)`
@@ -111,6 +130,14 @@ const OEMBenefitsLeftSectionTitle = styled.h2`
   line-height: 100%;
   letter-spacing: -1.44px;
   margin: 0;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+    letter-spacing: -1.08px;
+  }
+  @media (max-width: 768px) {
+    font-size: 32px;
+    letter-spacing: -0.96px;
+  }
 `;
 
 const OEMBenefitsLeftSectionSubTitle = styled.span``;
@@ -136,6 +163,12 @@ const OEMBenefitsLeftSectionDescription = styled.div`
   line-height: 120%;
   letter-spacing: -0.42px;
   ${({ $uppercase }) => $uppercase && `text-transform: uppercase;`}
+  @media (max-width: 980px) {
+    width: 100%;
+    font-size: 14px;
+    max-width: 552px;
+    letter-spacing: none;
+  }
 `;
 
 const OEMBenefitsLeftSectionDescriptionSeparator = styled.div`
