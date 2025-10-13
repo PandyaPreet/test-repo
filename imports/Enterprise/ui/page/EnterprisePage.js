@@ -29,7 +29,7 @@ const EnterpriseCTASection = dynamic(
 
 const EnterprisePage = () => {
   return (
-    <PageWrapper>
+    <PageWrapper $fullwidth $direction="column">
       <EnterpriseHeroSection />
       <EnterpriseOverviewSection />
       <EnterpriseDetailSection />
@@ -42,7 +42,6 @@ const EnterprisePage = () => {
 export default EnterprisePage;
 
 const PageWrapper = styled(Flex)`
-  flex-direction: column;
   @media (max-width: 1194px) {
     gap: 64px;
   }
