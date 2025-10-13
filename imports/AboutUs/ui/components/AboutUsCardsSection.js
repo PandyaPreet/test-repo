@@ -128,6 +128,7 @@ const ContentWrapper = styled(Flex)`
   padding: 0px 80px;
   background: var(--5, rgba(26, 25, 25, 0.05));
   height: 100%;
+  width: 100%;
   z-index: 1;
   @media (max-width: 1194px) {
     padding: 0px 120px;

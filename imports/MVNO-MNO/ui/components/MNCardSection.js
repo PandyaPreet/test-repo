@@ -1,24 +1,43 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 function MNCardSection() {
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(600);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (contentRef.current) {
+        const height = contentRef.current.offsetHeight;
+        setContentHeight(height + 120);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
   return (
     <CardsContainer $direction={"column"}>
       <CardsWrapper $justifycontent={"space-between"} $alignitems={"center"}>
         <HorizontalLineTop />
         <HorizontalLineBottom />
 
-        <DashedBlocks>
+        <DashedBlocks style={{ height: `${contentHeight}px` }}>
           <FirstBlock />
-          <SecondBlock />
+          <SecondBlock $isLeft />
         </DashedBlocks>
 
         <ContentBlock>
-          <ContentWrapper $alignitems="center" $justifycontent="center">
-            <ContentSection $direction="column" $alignitems="center">
+          <ContentWrapper
+            ref={contentRef}
+            $alignitems="center"
+            $justifycontent="center"
+          >
+            <ContentSection $direction="column">
               <HeaderSection>
                 <HeaderSectionTitleDark>Smart Devices</HeaderSectionTitleDark>
                 <br />
@@ -30,16 +49,18 @@ function MNCardSection() {
               <SubHeaderSection>
                 As the world connects everything from thermostats to industrial
                 sensors, the need for device-level support and repair coverage
-                has grown dramatically. We offer embedded coverage that
-                activates in real time—during setup, in the app, or at the
-                dashboard level—so your customers are protected.
+                has grown dramatically.
+                <br />
+                We offer embedded coverage that activates in real time—during
+                setup, in the app, or at the dashboard level—so your customers
+                are protected.
               </SubHeaderSection>
             </ContentSection>
           </ContentWrapper>
         </ContentBlock>
 
-        <DashedBlocks>
-          <SecondBlock />
+        <DashedBlocks style={{ height: `${contentHeight}px` }}>
+          <SecondBlock $isRight />
           <FirstBlock />
         </DashedBlocks>
       </CardsWrapper>
@@ -54,11 +75,21 @@ const CardsContainer = styled(Flex)`
   padding: 80px 0px;
   gap: 10px;
   align-self: stretch;
+  @media (max-width: 1194px) {
+    padding: 0px;
+  }
 `;
 
 const CardsWrapper = styled(Flex)`
   height: 600px;
   position: relative;
+  width: 100%;
+  @media (max-width: 980px) {
+    height: auto;
+  }
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 const HorizontalLineTop = styled.div`
@@ -82,38 +113,77 @@ const HorizontalLineBottom = styled.div`
 const DashedBlocks = styled(Flex)`
   gap: 16px;
   height: 100%;
+  &:last-of-type div:last-child {
+    border-right: none;
+  }
 `;
 
 const FirstBlock = styled.div`
-  width: 104px;
+  width: clamp(40px, 8vw, 104px);
   height: 100%;
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
   border-left: 1px dashed rgba(26, 25, 25, 0.5);
   background: #fff;
+  @media (max-width: 1194px) {
+    display: none;
+  }
 `;
 
 const SecondBlock = styled.div`
+  width: clamp(40px, 8vw, 195px);
   height: 100%;
-  width: 195px;
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
   border-left: 1px dashed rgba(26, 25, 25, 0.5);
   background: #fff;
+  ${({ $isLeft }) =>
+    $isLeft &&
+    `
+    @media (max-width: 1194px) {
+      border-left: none !important;
+    }
+  `}
+
+  ${({ $isRight }) =>
+    $isRight &&
+    `
+    @media (max-width: 1194px) {
+      border-right: none !important;
+    }
+  `}
+
+  @media (max-width: 468px) {
+    width: clamp(20px, 8vw, 195px);
+  }
+  @media (max-width: 340px) {
+    width: clamp(20px, 6vw, 195px);
+  }
 `;
 
 const ContentBlock = styled(Flex)`
   padding: 60px 0px;
   height: 100%;
+  width: 100%;
 `;
 
 const ContentWrapper = styled(Flex)`
   padding: 0px 80px;
   background: var(--5, rgba(26, 25, 25, 0.05));
   height: 100%;
+  width: 100%;
   z-index: 1;
+  @media (max-width: 1194px) {
+    padding: 0px 120px;
+  }
+  @media (max-width: 980px) {
+    padding: 40px;
+  }
 `;
 
 const ContentSection = styled(Flex)`
   gap: 40px;
+  @media (max-width: 980px) {
+    gap: 16px;
+  }
 `;
 
 const HeaderSection = styled.span`
@@ -121,6 +191,12 @@ const HeaderSection = styled.span`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const HeaderSectionTitleDark = styled.span`
@@ -137,4 +213,7 @@ const SubHeaderSection = styled.span`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;

@@ -29,15 +29,22 @@ const ISPCTASection = dynamic(() => import("../components/ISPCTASection"), {
 
 const ISPCablePage = () => {
   return (
-    <Fragment>
+    <PageWrapper>
       <ISPHomeSection />
       <ISPCardSection />
       <ISPOverviewSection />
       <ISPFeaturesSection />
       <ISPOutcomesSection />
       <ISPCTASection />
-    </Fragment>
+    </PageWrapper>
   );
 };
 
 export default ISPCablePage;
+
+const PageWrapper = styled(Flex)`
+  flex-direction: column;
+  @media (max-width: 1194px) {
+    gap: 64px;
+  }
+`;

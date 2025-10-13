@@ -67,6 +67,12 @@ export default MNServicesSection;
 const ServicesContainer = styled(Flex)`
   align-self: stretch;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    gap: 32px;
+  }
+  @media (max-width: 768px) {
+    gap: 24px;
+  }
 `;
 
 const TitleCardContainer = styled(Flex)`
@@ -74,6 +80,10 @@ const TitleCardContainer = styled(Flex)`
   gap: 299px;
   align-self: stretch;
   background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    padding: 0px 16px;
+    gap: 0px;
+  }
 `;
 
 const TitleLight = styled.div`
@@ -83,6 +93,9 @@ const TitleLight = styled.div`
   font-weight: 400;
   line-height: 100%; /* 48px */
   letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const TitleDark = styled.div`
@@ -92,6 +105,9 @@ const TitleDark = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const ServicesCardContainer = styled(Flex)`
@@ -104,6 +120,12 @@ const ServicesCardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+  @media (max-width: 1194px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 `;
 
 const ServicesCard = styled(Flex)`
@@ -126,6 +148,22 @@ const ServicesCard = styled(Flex)`
     }
     justify-content: space-between;
   }
+  @media (max-width: 1194px) {
+    justify-content: space-between;
+    height: auto;
+    gap: 32px;
+    padding: 32px 16px;
+    background: #fff;
+    border-bottom: none;
+    border-right: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+    img {
+      display: block;
+    }
+  }
+  @media (max-width: 768px) {
+    border-right: none;
+    border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+  }
 `;
 
 const ServiceCardDescription = styled.div`
@@ -135,4 +173,7 @@ const ServiceCardDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 130%;
+  @media (max-width: 1194px) {
+    max-width: unset;
+  }
 `;

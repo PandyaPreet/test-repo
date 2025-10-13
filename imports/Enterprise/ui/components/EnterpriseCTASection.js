@@ -58,7 +58,7 @@ const CTAInnerWrapper = styled(Flex)`
   gap: 40px;
   flex-shrink: 0;
   @media (max-width: 1194px) {
-    padding: 0px;
+    padding: unset;
     align-items: center;
     justify-content: center;
   }

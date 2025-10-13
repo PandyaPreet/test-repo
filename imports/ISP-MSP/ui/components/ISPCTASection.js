@@ -38,6 +38,7 @@ export default ISPCTASection;
 
 const CTABlock = styled(Flex)`
   height: 550px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -56,6 +57,18 @@ const CTAInnerWrapper = styled(Flex)`
   padding: 149px 422px;
   gap: 40px;
   flex-shrink: 0;
+  @media (max-width: 1194px) {
+    padding: unset;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+    gap: 16px;
+    br {
+      display: none;
+    }
+  }
 `;
 
 const CTAButton = styled(Flex)`
@@ -64,6 +77,13 @@ const CTAButton = styled(Flex)`
   padding: 12px 80px;
   gap: 12px;
   background: var(--100, #fff);
+  @media (max-width: 768px) {
+    padding: 12px 18px;
+  }
+  @media (max-width: 449px) {
+    width: 100%;
+    min-width: auto;
+  }
 `;
 
 const ButtonText = styled.div`
@@ -93,6 +113,9 @@ const CTATitle = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.2px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
 `;
 
 const CTADescription = styled.div`
