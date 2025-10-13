@@ -5,9 +5,7 @@ import dynamic from "next/dynamic";
 
 const ConsultingHeroSection = dynamic(
   () =>
-    import("../components/ConsultingHeroSection").then(
-      (mod) => mod.ConsultingHeroSection
-    ),
+    import("../components/ConsultingHeroSection").then((mod) => mod.default),
   { ssr: false }
 );
 const ConsultingWorkTogetherSection = dynamic(

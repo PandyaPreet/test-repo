@@ -7,9 +7,7 @@ import Flex from "@/lib/atoms/Flex";
 
 const EnterpriseHeroSection = dynamic(
   () =>
-    import("../components/EnterpriseHeroSection").then(
-      (mod) => mod.EnterpriseHeroSection
-    ),
+    import("../components/EnterpriseHeroSection").then((mod) => mod.default),
   { ssr: false }
 );
 const EnterpriseOverviewSection = dynamic(

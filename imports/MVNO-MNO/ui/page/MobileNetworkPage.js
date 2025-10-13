@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
 
 const MNHeroSection = dynamic(
-  () => import("../components/MNHeroSection").then((mod) => mod.MNHeroSection),
+  () => import("../components/MNHeroSection").then((mod) => mod.default),
   { ssr: false }
 );
 const MNCardSection = dynamic(() => import("../components/MNCardSection"), {
