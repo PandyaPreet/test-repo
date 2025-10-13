@@ -169,6 +169,7 @@ const ContentBlock = styled(Flex)`
 
 const ContentWrapper = styled(Flex)`
   padding: 0px 80px;
+  width: 100%;
   background: var(--5, rgba(26, 25, 25, 0.05));
   height: 100%;
   z-index: 1;

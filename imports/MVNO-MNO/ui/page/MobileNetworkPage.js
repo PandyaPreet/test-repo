@@ -23,14 +23,21 @@ const MNCTASection = dynamic(() => import("../components/MNCTASection"), {
 
 const MobileNetworkPage = () => {
   return (
-    <Fragment>
+    <PageWrapper>
       <MNHeroSection />
       <MNCardSection />
       <MNServicesSection />
       <MNOverview />
       <MNCTASection />
-    </Fragment>
+    </PageWrapper>
   );
 };
 
 export default MobileNetworkPage;
+
+const PageWrapper = styled(Flex)`
+  flex-direction: column;
+  @media (max-width: 1194px) {
+    gap: 64px;
+  }
+`;
