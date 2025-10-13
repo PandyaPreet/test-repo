@@ -1,7 +1,8 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import dynamic from "next/dynamic";
+import ClientFooter from "@/components/ClientFooter";
 
 export const metadata = {
   title: "Create Next App",
@@ -16,7 +17,7 @@ export default function RootLayout({ children }) {
           <ProviderLayout>
             <Navbar />
             {children}
-            <Footer />
+            <ClientFooter />
           </ProviderLayout>
         </StyledComponentsRegistry>
       </body>
