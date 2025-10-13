@@ -1,111 +1,220 @@
 "use client";
 
-import React from "react";
-import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
-const EnterpriseCardSection = () => {
+function EnterpriseCardSection() {
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(600);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (contentRef.current) {
+        const height = contentRef.current.offsetHeight;
+        setContentHeight(height + 120);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
   return (
-    <EnterpriseCardSectionContainer $direction="column">
-      <EnterpriseCardContainer
-        $direction="column"
-        $justifycontent="center"
-        $alignitems="center"
-      >
-        <EnterpriseCardWrapper
-          $direction="column"
-          $justifycontent="center"
-          $alignitems="center"
-          $bgcolor="var(--5, rgba(26, 25, 25, 0.05))"
-          $variant="light"
-        >
-          <EnterpriseCardContent $direction="column">
-            <Flex $direction="column">
-              <Flex style={{ gap: "10px" }}>
-                <EnterpriseCardTitleEyebrow>
-                  Simplify
-                </EnterpriseCardTitleEyebrow>
-                <EnterpriseCardTitle>Support</EnterpriseCardTitle>
-                <EnterpriseCardTitleEyebrow>Across</EnterpriseCardTitleEyebrow>
-              </Flex>
-              <EnterpriseCardTitle>
-                Departments <br /> and Regions
-              </EnterpriseCardTitle>
-            </Flex>
+    <CardsContainer $direction={"column"}>
+      <CardsWrapper $justifycontent={"space-between"} $alignitems={"center"}>
+        <HorizontalLineTop />
+        <HorizontalLineBottom />
 
-            <EnterpriseCardDescriptionContainer $direction="column">
-              <EnterpriseCardDescriptionText>
+        <DashedBlocks style={{ height: `${contentHeight}px` }}>
+          <FirstBlock />
+          <SecondBlock $isLeft />
+        </DashedBlocks>
+
+        <ContentBlock>
+          <ContentWrapper
+            ref={contentRef}
+            $alignitems="center"
+            $justifycontent="center"
+          >
+            <ContentSection $direction="column">
+              <HeaderSection>
+                <HeaderSectionTitleLight>Simplify </HeaderSectionTitleLight>
+                <HeaderSectionTitleDark>Support </HeaderSectionTitleDark>
+                <HeaderSectionTitleLight>Across </HeaderSectionTitleLight>
+                <br />
+                <HeaderSectionTitleDark>
+                  Departments <br /> and Regions
+                </HeaderSectionTitleDark>
+              </HeaderSection>
+              <SubHeaderSection>
                 Whether your team operates regionally or nationwide, our
                 platform offers centralized control with localized support.
                 Device replacements, on-site, depot and mail-in repairs, and
                 logistics are managed through trusted vendors—backed by
                 real-time performance data
-              </EnterpriseCardDescriptionText>
-            </EnterpriseCardDescriptionContainer>
-          </EnterpriseCardContent>
-        </EnterpriseCardWrapper>
-      </EnterpriseCardContainer>
-    </EnterpriseCardSectionContainer>
+              </SubHeaderSection>
+            </ContentSection>
+          </ContentWrapper>
+        </ContentBlock>
+
+        <DashedBlocks style={{ height: `${contentHeight}px` }}>
+          <SecondBlock $isRight />
+          <FirstBlock />
+        </DashedBlocks>
+      </CardsWrapper>
+    </CardsContainer>
   );
-};
+}
 
 export default EnterpriseCardSection;
 
-const EnterpriseCardSectionContainer = styled(Flex)`
-  align-self: stretch;
-`;
-
-const EnterpriseCardContainer = styled(Flex)`
-  height: auto;
-  padding: 80px 0;
+const CardsContainer = styled(Flex)`
+  width: 100%;
+  padding: 80px 0px;
   gap: 10px;
   align-self: stretch;
-  background: var(--100, #fff);
+  @media (max-width: 1194px) {
+    padding: 0px;
+  }
 `;
 
-const EnterpriseCardWrapper = styled(Flex)`
-  min-height: 480px;
-  width: 650px;
-  padding: 0 80px;
-  flex: 1 0 0;
-  border: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
-  background: ${({ $bgcolor }) => $bgcolor};
+const CardsWrapper = styled(Flex)`
+  height: 600px;
+  position: relative;
+  width: 100%;
+  @media (max-width: 980px) {
+    height: auto;
+  }
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
-const EnterpriseCardContent = styled(Flex)`
+const HorizontalLineTop = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  border-top: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+  z-index: 0;
+`;
+
+const HorizontalLineBottom = styled.div`
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  width: 100%;
+  border-top: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+  z-index: 0;
+`;
+
+const FirstBlock = styled.div`
+  width: clamp(40px, 8vw, 104px);
+  height: 100%;
+  border-right: 1px dashed rgba(26, 25, 25, 0.5);
+  border-left: 1px dashed rgba(26, 25, 25, 0.5);
+  background: #fff;
+  @media (max-width: 1194px) {
+    display: none;
+  }
+`;
+
+const SecondBlock = styled.div`
+  height: 100%;
+  width: clamp(20px, 15vw, 195px);
+  border-right: 1px dashed rgba(26, 25, 25, 0.5);
+  border-left: 1px dashed rgba(26, 25, 25, 0.5);
+  background: #fff;
+
+  ${({ $isLeft }) =>
+    $isLeft &&
+    `
+    @media (max-width: 1194px) {
+      border-left: none !important;
+    }
+  `}
+
+  ${({ $isRight }) =>
+    $isRight &&
+    `
+    @media (max-width: 1194px) {
+      border-right: none !important;
+    }
+  `}
+
+  @media (max-width: 468px) {
+    width: clamp(20px, 8vw, 195px);
+  }
+  @media (max-width: 340px) {
+    width: clamp(20px, 6vw, 195px);
+  }
+`;
+
+const DashedBlocks = styled(Flex)`
+  gap: 16px;
+  height: 100%;
+
+  &:last-of-type div:last-child {
+    border-right: none;
+  }
+`;
+
+const ContentBlock = styled(Flex)`
+  padding: 60px 0px;
+  height: 100%;
+  width: 100%;
+`;
+
+const ContentWrapper = styled(Flex)`
+  padding: 0px 80px;
+  background: var(--5, rgba(26, 25, 25, 0.05));
+  height: 100%;
+  z-index: 1;
+  @media (max-width: 1194px) {
+    padding: 0px 120px;
+  }
+  @media (max-width: 980px) {
+    padding: 40px;
+  }
+`;
+
+const ContentSection = styled(Flex)`
   gap: 40px;
-  align-self: stretch;
+  @media (max-width: 980px) {
+    gap: 16px;
+  }
 `;
 
-const EnterpriseCardTitleEyebrow = styled.h2`
-  margin: 0;
+const HeaderSection = styled.span`
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -1.44px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`;
+
+const HeaderSectionTitleDark = styled.span`
+  color: var(--500, #1a1919);
+`;
+
+const HeaderSectionTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 100%;
-  letter-spacing: -1.44px;
 `;
 
-const EnterpriseCardTitle = styled.h3`
-  margin: 0;
-  color: var(--500, #1a1919);
-  font-family: Arial, sans-serif;
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 100%;
-  letter-spacing: -1.44px;
-`;
-
-const EnterpriseCardDescriptionContainer = styled(Flex)`
-  gap: 12px;
-  align-self: stretch;
-`;
-
-const EnterpriseCardDescriptionText = styled.p`
-  margin: 0;
-  color: var(--500, #1a1919);
+const SubHeaderSection = styled.span`
+  color: var(--80, rgba(26, 25, 25, 0.8));
   font-size: 14px;
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
