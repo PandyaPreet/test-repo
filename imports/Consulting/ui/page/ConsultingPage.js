@@ -2,6 +2,8 @@
 
 import React, { Fragment } from "react";
 import dynamic from "next/dynamic";
+import styled from "styled-components";
+import Flex from "@/lib/atoms/Flex";
 
 const ConsultingHeroSection = dynamic(
   () =>
@@ -27,14 +29,20 @@ const ConsultingCTASection = dynamic(
 
 const ConsultingPage = () => {
   return (
-    <Fragment>
+    <PageWrapper $fullwidth $direction="column">
       <ConsultingHeroSection />
       <ConsultingWorkTogetherSection />
       <ConsultingCardSection />
       <ConsultingPartnerSection />
       <ConsultingCTASection />
-    </Fragment>
+    </PageWrapper>
   );
 };
 
 export default ConsultingPage;
+
+const PageWrapper = styled(Flex)`
+  @media (max-width: 1194px) {
+    gap: 64px;
+  }
+`;
