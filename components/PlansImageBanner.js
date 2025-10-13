@@ -14,7 +14,6 @@ const PlansImageBanner = ({ banners }) => {
             <StyledImage
               src={banner.bgImage}
               width={509}
-              unoptimized
               height={760}
               // style={{ height: "100%" }}
               alt="plans banner image"
