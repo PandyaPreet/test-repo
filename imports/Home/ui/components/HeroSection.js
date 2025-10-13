@@ -2,7 +2,7 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export function HeroSection() {
+export default function HeroSection() {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {

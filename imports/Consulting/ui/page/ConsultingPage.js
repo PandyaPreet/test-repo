@@ -1,9 +1,31 @@
+"use client";
+
 import React, { Fragment } from "react";
-import { ConsultingHeroSection } from "../components/ConsultingHeroSection";
-import ConsultingWorkTogetherSection from "../components/ConsultingWorkTogetherSection";
-import ConsultingCardSection from "../components/ConsultingCardSection";
-import ConsultingPartnerSection from "../components/ConsultingPartnerSection";
-import ConsultingCTASection from "../components/ConsultingCTASection";
+import dynamic from "next/dynamic";
+
+const ConsultingHeroSection = dynamic(
+  () =>
+    import("../components/ConsultingHeroSection").then(
+      (mod) => mod.ConsultingHeroSection
+    ),
+  { ssr: false }
+);
+const ConsultingWorkTogetherSection = dynamic(
+  () => import("../components/ConsultingWorkTogetherSection"),
+  { ssr: false }
+);
+const ConsultingCardSection = dynamic(
+  () => import("../components/ConsultingCardSection"),
+  { ssr: false }
+);
+const ConsultingPartnerSection = dynamic(
+  () => import("../components/ConsultingPartnerSection"),
+  { ssr: false }
+);
+const ConsultingCTASection = dynamic(
+  () => import("../components/ConsultingCTASection"),
+  { ssr: false }
+);
 
 const ConsultingPage = () => {
   return (

@@ -1,7 +1,20 @@
+"use client";
+
 import React, { Fragment } from "react";
-import ConnectHeroSection from "../components/ConnectHeroSection";
-import ConnectFormSection from "../components/ConnectFormSection";
-import ConnectCTASection from "../components/ConnectCTASection";
+import dynamic from "next/dynamic";
+
+const ConnectHeroSection = dynamic(
+  () => import("../components/ConnectHeroSection"),
+  { ssr: false }
+);
+const ConnectFormSection = dynamic(
+  () => import("../components/ConnectFormSection"),
+  { ssr: false }
+);
+const ConnectCTASection = dynamic(
+  () => import("../components/ConnectCTASection"),
+  { ssr: false }
+);
 
 function ConnectPage() {
   return (

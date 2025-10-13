@@ -1,9 +1,25 @@
+"use client";
+
 import React, { Fragment } from "react";
-import OEMHeroSection from "../components/OEMHeroSection";
-import OEMCardSection from "../components/OEMCardSection";
-import OEMBenefitsRightSection from "../components/OEMBenefitsRightSection";
-import OEMBenefitsLeftSection from "../components/OEMBenefitsLeftSection";
-import OEMCtaSection from "../components/OEMCtaSection";
+import dynamic from "next/dynamic";
+
+const OEMHeroSection = dynamic(() => import("../components/OEMHeroSection"), {
+  ssr: false,
+});
+const OEMCardSection = dynamic(() => import("../components/OEMCardSection"), {
+  ssr: false,
+});
+const OEMBenefitsRightSection = dynamic(
+  () => import("../components/OEMBenefitsRightSection"),
+  { ssr: false }
+);
+const OEMBenefitsLeftSection = dynamic(
+  () => import("../components/OEMBenefitsLeftSection"),
+  { ssr: false }
+);
+const OEMCtaSection = dynamic(() => import("../components/OEMCtaSection"), {
+  ssr: false,
+});
 
 function OEMpage() {
   return (

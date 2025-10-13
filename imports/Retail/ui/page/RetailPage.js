@@ -1,9 +1,31 @@
+"use client";
+
 import React, { Fragment } from "react";
-import { RetailHeroSection } from "../components/RetailHeroSection";
-import RetailOverviewSection from "../components/RetailOverviewSection";
-import RetailServicesSection from "../components/RetailServicesSection";
-import RetailCTASection from "../components/RetailCTASection";
-import RetailResultSection from "../components/RetailResultSection";
+import dynamic from "next/dynamic";
+
+const RetailHeroSection = dynamic(
+  () =>
+    import("../components/RetailHeroSection").then(
+      (mod) => mod.RetailHeroSection
+    ),
+  { ssr: false }
+);
+const RetailOverviewSection = dynamic(
+  () => import("../components/RetailOverviewSection"),
+  { ssr: false }
+);
+const RetailServicesSection = dynamic(
+  () => import("../components/RetailServicesSection"),
+  { ssr: false }
+);
+const RetailResultSection = dynamic(
+  () => import("../components/RetailResultSection"),
+  { ssr: false }
+);
+const RetailCTASection = dynamic(
+  () => import("../components/RetailCTASection"),
+  { ssr: false }
+);
 
 const RetailPage = () => {
   return (

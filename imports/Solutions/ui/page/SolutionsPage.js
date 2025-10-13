@@ -1,12 +1,33 @@
 "use client";
-import React, { Fragment } from "react";
-import { SolutionsHeroSection } from "../components/SolutionsHeroSection";
-import SolutionsPlansSection from "../components/SolutionsPlansSection";
-import SolutionsCardsSection from "../components/SolutionsCardsSection";
-import SolutionsFeaturesSection from "../components/SolutionsFeaturesSection";
-import SolutionsCTASection from "../components/SolutionsCTASection";
+
+import React from "react";
+import dynamic from "next/dynamic";
 import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
+
+const SolutionsHeroSection = dynamic(
+  () =>
+    import("../components/SolutionsHeroSection").then(
+      (mod) => mod.SolutionsHeroSection
+    ),
+  { ssr: false }
+);
+const SolutionsPlansSection = dynamic(
+  () => import("../components/SolutionsPlansSection"),
+  { ssr: false }
+);
+const SolutionsCardsSection = dynamic(
+  () => import("../components/SolutionsCardsSection"),
+  { ssr: false }
+);
+const SolutionsFeaturesSection = dynamic(
+  () => import("../components/SolutionsFeaturesSection"),
+  { ssr: false }
+);
+const SolutionsCTASection = dynamic(
+  () => import("../components/SolutionsCTASection"),
+  { ssr: false }
+);
 
 const SolutionsPage = () => {
   return (
@@ -21,6 +42,7 @@ const SolutionsPage = () => {
 };
 
 export default SolutionsPage;
+
 const PageWrapper = styled(Flex)`
   flex-direction: column;
   @media (max-width: 1194px) {

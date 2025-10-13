@@ -1,12 +1,31 @@
 "use client";
+
 import React, { Fragment } from "react";
-import { EnterpriseHeroSection } from "../components/EnterpriseHeroSection";
-import EnterpriseOverviewSection from "../components/EnterpriseOverviewSection";
-import EnterpriseDetailSection from "../components/EnterpriseDetailSection";
-import EnterpriseCardSection from "../components/EnterpriseCardSection";
-import EnterpriseCTASection from "../components/EnterpriseCTASection";
-import styled from "styled-components";
-import Flex from "@/lib/atoms/Flex";
+import dynamic from "next/dynamic";
+
+const EnterpriseHeroSection = dynamic(
+  () =>
+    import("../components/EnterpriseHeroSection").then(
+      (mod) => mod.EnterpriseHeroSection
+    ),
+  { ssr: false }
+);
+const EnterpriseOverviewSection = dynamic(
+  () => import("../components/EnterpriseOverviewSection"),
+  { ssr: false }
+);
+const EnterpriseDetailSection = dynamic(
+  () => import("../components/EnterpriseDetailSection"),
+  { ssr: false }
+);
+const EnterpriseCardSection = dynamic(
+  () => import("../components/EnterpriseCardSection"),
+  { ssr: false }
+);
+const EnterpriseCTASection = dynamic(
+  () => import("../components/EnterpriseCTASection"),
+  { ssr: false }
+);
 
 const EnterprisePage = () => {
   return (

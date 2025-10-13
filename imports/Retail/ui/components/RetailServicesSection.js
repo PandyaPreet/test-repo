@@ -66,7 +66,7 @@ const RetailServicesSection = () => {
             <ServicesCard
               $direction="column"
               bgcolor={card.bgcolor}
-              key="index"
+              key={index}
             >
               <Image height={72} width={72} src={card.icon} alt="some icon" />
               <ServiceCardDescription>{card.text}</ServiceCardDescription>

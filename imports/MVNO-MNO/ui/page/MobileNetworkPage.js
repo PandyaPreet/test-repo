@@ -1,9 +1,25 @@
+"use client";
+
 import React, { Fragment } from "react";
-import { MNHeroSection } from "../components/MNHeroSection";
-import MNCardSection from "../components/MNCardSection";
-import MNServicesSection from "../components/MNServicesSection";
-import MNOverview from "../components/MNOverview";
-import MNCTASection from "../components/MNCTASection";
+import dynamic from "next/dynamic";
+
+const MNHeroSection = dynamic(
+  () => import("../components/MNHeroSection").then((mod) => mod.MNHeroSection),
+  { ssr: false }
+);
+const MNCardSection = dynamic(() => import("../components/MNCardSection"), {
+  ssr: false,
+});
+const MNServicesSection = dynamic(
+  () => import("../components/MNServicesSection"),
+  { ssr: false }
+);
+const MNOverview = dynamic(() => import("../components/MNOverview"), {
+  ssr: false,
+});
+const MNCTASection = dynamic(() => import("../components/MNCTASection"), {
+  ssr: false,
+});
 
 const MobileNetworkPage = () => {
   return (
