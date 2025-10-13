@@ -4,7 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 
-export function RetailHeroSection() {
+export default function RetailHeroSection() {
   return (
     <HeroWrapper $direction="column">
       <HeroInner>

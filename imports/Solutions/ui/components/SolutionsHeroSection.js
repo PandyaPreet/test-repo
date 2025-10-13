@@ -4,7 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export function SolutionsHeroSection() {
+export default function SolutionsHeroSection() {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {
