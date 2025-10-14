@@ -10,6 +10,8 @@ import HeaderBrandLogo from "./svg/HeaderBrandLogo";
 import Link from "next/link";
 import MenuLine from "./svg/MenuLine";
 import { usePathname } from "next/navigation";
+import { Button } from "@/lib/atoms/Button";
+import ButtonIcon from "@/lib/atoms/ButtonIcon";
 
 const MENU_ITEMS = [
   {
@@ -96,13 +98,10 @@ export default function Navbar() {
           </SubContainer>
 
           <ActionButtons $justifycontent="space-between" $alignitems="center">
-            <LoginButton>LOGIN</LoginButton>
-            <StartButton>
-              GET STARTED
-              <ArrowWrapper>
-                <ArrowRight />
-              </ArrowWrapper>
-            </StartButton>
+            <Button variant="outline">Login</Button>
+            <Button>
+              Get Started <ButtonIcon />
+            </Button>
           </ActionButtons>
 
           <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
@@ -166,13 +165,10 @@ export default function Navbar() {
           </SubSideBlock>
 
           <SidebarButtons>
-            <LoginButton>LOGIN</LoginButton>
-            <StartButton>
-              GET STARTED
-              <ArrowWrapper>
-                <ArrowRight />
-              </ArrowWrapper>
-            </StartButton>
+            <Button variant="outline">login</Button>
+            <Button>
+              Get Started <ButtonIcon />
+            </Button>
           </SidebarButtons>
         </Sidebar>
 
