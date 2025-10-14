@@ -9,13 +9,14 @@ const PlansImageBanner = ({ banners }) => {
   return (
     <PlansBannerContainer $alignitems="center">
       {banners.map((banner, index) => (
-        <PlansBannerImagesBackground bg={banner.bgcolor} key={index}>
+        <PlansBannerImagesBackground key={index}>
           <PlansBannerImageWrapper>
             <StyledImage
               src={banner.bgImage}
               width={509}
               height={760}
               // style={{ height: "100%" }}
+              quality={50}
               alt="plans banner image"
             />
           </PlansBannerImageWrapper>
@@ -32,6 +33,22 @@ const PlansBannerContainer = styled(Flex)`
   @media (max-width: 980px) {
     width: 100%;
   }
+
+  & > :nth-child(1) {
+    background: var(--3, rgba(85, 86, 89, 0.03));
+  }
+
+  & > :nth-child(2) {
+    background: var(--8, rgba(85, 86, 89, 0.08));
+  }
+
+  & > :nth-child(3) {
+    background: var(--12, rgba(85, 86, 89, 0.12));
+  }
+
+  & > :nth-child(4) {
+    background: var(--15, rgba(85, 86, 89, 0.15));
+  }
 `;
 
 const PlansBannerImageWrapper = styled.div`
@@ -41,7 +58,7 @@ const PlansBannerImageWrapper = styled.div`
 
 const PlansBannerImagesBackground = styled.div`
   height: 760px;
-  background: ${({ bg }) => bg};
+
   flex: 1;
 
   &:hover {
