@@ -8,20 +8,16 @@ import PlansImageBanner from "@/components/PlansImageBanner";
 function AboutUsFeatureSection() {
   const BANNER_IMAGES = [
     {
-      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
-      bgImage: "/assets/About/about-feature-1.png",
+      bgImage: "/assets/About/about-feature-1.webp",
     },
     {
-      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
-      bgImage: "/assets/About/about-feature-2.png",
+      bgImage: "/assets/About/about-feature-2.webp",
     },
     {
-      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
-      bgImage: "/assets/About/about-feature-3.png",
+      bgImage: "/assets/About/about-feature-3.webp",
     },
     {
-      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
-      bgImage: "/assets/About/about-feature-4.png",
+      bgImage: "/assets/About/about-feature-4.webp",
     },
   ];
   return (
