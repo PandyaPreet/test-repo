@@ -35,7 +35,13 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
   }, [isOpen]);
 
   const handleLinkClick = () => setIsOpen(false);
@@ -359,10 +365,6 @@ const Sidebar = styled(Flex)`
 
   transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out,
     transform 0.4s ease-in-out, visibility 0.4s ease-in-out;
-
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: ${({ $isopen }) =>
-    $isopen ? "0 4px 12px rgba(0, 0, 0, 0.08)" : "none"};
 `;
 
 const SubSideBlock = styled(Flex)`
