@@ -1,6 +1,19 @@
 import Flex from "@/lib/atoms/Flex";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+
+const descriptions = [
+  {
+    icon: "/",
+    text: "Ensure Protect delivers partner-first service plans and programs designed for today's multi-channel economy.",
+    indent: "27%",
+  },
+  {
+    icon: "//",
+    text: "We help brands unlock scalable aftermarket revenue and increase customer satisfaction with service contracts featuring repair, replacement, and maintenance programs.",
+    indent: "35%",
+  },
+];
 
 export default function HeroSection() {
   const [descHeight, setDescHeight] = useState();
@@ -35,29 +48,22 @@ export default function HeroSection() {
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          <DescriptionWrapper>
-            <DescriptionChildWrapper>
-              <DescriptionIcon>/</DescriptionIcon>
-              <DescriptionsText>
-                Ensure Protect delivers partner-first service plans and programs
-                designed for today’s multi-channel economy.
-              </DescriptionsText>
-            </DescriptionChildWrapper>
-          </DescriptionWrapper>
+          {descriptions.map((item, index) => (
+            <Fragment key={index}>
+              <DescriptionWrapper>
+                <DescriptionChildWrapper>
+                  <DescriptionIcon>{item.icon}</DescriptionIcon>
+                  <DescriptionsText $indent={item.indent}>
+                    {item.text}
+                  </DescriptionsText>
+                </DescriptionChildWrapper>
+              </DescriptionWrapper>
 
-          <DescriptionBorderWrapper />
-
-          <DescriptionSecondWrapper>
-            <DescriptionChildWrapper>
-              <DescriptionIcon>//</DescriptionIcon>
-              <BrandsanotherText>
-                We help brands unlock scalable aftermarket revenue and increase
-                customer satisfaction with service contracts featuring repair,
-                replacement, and maintenance programs.
-              </BrandsanotherText>
-            </DescriptionChildWrapper>
-          </DescriptionSecondWrapper>
-
+              {index !== descriptions.length - 1 && (
+                <DescriptionBorderWrapper />
+              )}
+            </Fragment>
+          ))}
           <DescriptionThirdPartWrapper />
         </DescriptionContainer>
       </HeroInner>
@@ -78,7 +84,7 @@ const HeroInner = styled(Flex)`
 const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 780px;
+  height: 100vh;
   background: url("/assets/Hero.webp") no-repeat center center;
   background-size: cover;
   display: flex;
@@ -93,6 +99,7 @@ const HeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+
   @media (max-width: 1194px) {
     gap: 8px;
     padding: 40px 16px;
@@ -111,17 +118,10 @@ const HeroTitle = styled.div`
 
   @media (max-width: 980px) {
     font-size: 64px;
-    letter-spacing: -2.56px;
   }
 
   @media (max-width: 600px) {
     font-size: 40px;
-    letter-spacing: -1.6px;
-    text-indent: 0%;
-  }
-  @media (max-width: 364px) {
-    font-size: 38px;
-    letter-spacing: -1.6px;
     text-indent: 0%;
   }
 `;
@@ -139,10 +139,10 @@ const DescriptionContainer = styled(Flex)`
   width: 100%;
   background: rgb(40, 119, 176);
   z-index: 2;
-  display: flex;
   align-items: flex-end;
   justify-content: flex-start;
   box-sizing: border-box;
+  flex-wrap: wrap;
 
   ${({ $height }) =>
     $height
@@ -154,6 +154,26 @@ const DescriptionContainer = styled(Flex)`
     margin-top: 0;
     height: auto;
   `}
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    padding: 24px 16px;
+    gap: 16px;
+
+    ${({ $height }) =>
+      $height
+        ? `
+      margin-top: -${Math.min($height - 180, 300)}px;
+      height: auto; 
+      padding-top: ${Math.min($height - 180, 300)}px; 
+    `
+        : `
+      margin-top: 0;
+      height: auto;
+      padding-top: 0;
+    `}
+  }
 `;
 
 const DescriptionIcon = styled.span`
@@ -165,20 +185,31 @@ const DescriptionIcon = styled.span`
 
 const DescriptionWrapper = styled(Flex)`
   padding: 40px 16px 0px 16px;
-  width: 316px;
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 180px;
+
   @media (max-width: 1194px) {
     padding: 24px 16px;
   }
-`;
-
-const DescriptionSecondWrapper = styled(DescriptionWrapper)`
-  width: 420px;
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: unset;
+    /* padding: 24px 16px; */
+    flex: unset;
+  }
 `;
 
 const DescriptionChildWrapper = styled(Flex)`
   padding: 8px 0 48px;
   @media (max-width: 1194px) {
     padding: 8px 40px 8px 0;
+  }
+  @media (max-width: 768px) {
+    border-bottom: 0.5px solid #fff;
   }
 `;
 
@@ -190,22 +221,30 @@ const DescriptionsText = styled.span`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: 27%;
-`;
-
-const BrandsanotherText = styled(DescriptionsText)`
-  text-indent: 35%;
+  text-indent: ${({ $indent }) => $indent || "27%"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`
-  width: 121px;
-  height: 180px;
+  height: 100%;
+  max-height: 180px;
   justify-content: space-between;
   align-items: flex-end;
   padding: 40px 16px 0 16px;
   border-right: 0.5px solid #fff;
+
   @media (max-width: 1194px) {
     margin-right: 240px;
+  }
+  @media (max-width: 980px) {
+    margin-right: 91px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+    /* border-right: none;
+    border-bottom: 0.5px solid #fff;
+    margin-right: 0;
+    width: 100%;
+    max-height: unset; */
   }
 `;
 

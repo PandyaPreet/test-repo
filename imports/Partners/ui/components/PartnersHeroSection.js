@@ -101,7 +101,6 @@ const PartnersDescriptionContainer = styled(Flex)`
   width: 100%;
   background: rgb(40, 119, 176);
   z-index: 2;
-  display: flex;
   align-items: flex-end;
   justify-content: flex-start;
   box-sizing: border-box;
