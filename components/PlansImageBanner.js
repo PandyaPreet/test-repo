@@ -18,6 +18,7 @@ const PlansImageBanner = ({ banners }) => {
               // style={{ height: "100%" }}
               quality={50}
               alt="plans banner image"
+              priority
             />
           </PlansBannerImageWrapper>
         </PlansBannerImagesBackground>

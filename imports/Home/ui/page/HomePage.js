@@ -22,15 +22,15 @@ const CTASection = dynamic(() => import("../components/CTASection"), {
   ssr: false,
 });
 
-const HomePage = () => {
+const HomePage = ({ data }) => {
   return (
     <Fragment>
-      <HeroSection />
-      <PlansSection />
-      <ServicesSection />
-      <PartnersSection />
-      <StatsSection />
-      <CTASection />
+      <HeroSection heroData={data?.heroSection} />
+      <PlansSection plansData={data?.featureSection} />
+      <ServicesSection serviceData={data?.solutionsSection} />
+      <PartnersSection partnersData={data?.whatWeDoSection} />
+      <StatsSection statsData={data?.statsSection} />
+      <CTASection ctaData={data?.ctaSection} />
     </Fragment>
   );
 };

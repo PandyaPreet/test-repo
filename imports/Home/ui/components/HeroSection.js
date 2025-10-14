@@ -79,7 +79,7 @@ const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 780px;
-  background: url("/assets/Hero.png") no-repeat center center;
+  background: url("/assets/Hero.webp") no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: flex-end;

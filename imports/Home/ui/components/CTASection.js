@@ -48,7 +48,7 @@ const CTABlock = styled(Flex)`
       var(--30, rgba(26, 25, 25, 0.3)) 0%,
       var(--30, rgba(26, 25, 25, 0.3)) 100%
     ),
-    url("/assets/cta-banner-image.png") lightgray 50% / cover no-repeat;
+    url("/assets/cta-banner-image.webp") lightgray 50% / cover no-repeat;
 `;
 
 const CTAInnerWrapper = styled(Flex)`
