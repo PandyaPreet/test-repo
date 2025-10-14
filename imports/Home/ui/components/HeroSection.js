@@ -95,9 +95,11 @@ const HeroContent = styled(Flex)`
   position: absolute;
   width: 100%;
   gap: 24px;
+  height: 100vh;
+  justify-content: end;
   padding: 56px 16px;
   bottom: 0;
-  justify-content: center;
+  /* justify-content: center; */
   z-index: 3;
 
   @media (max-width: 1194px) {
