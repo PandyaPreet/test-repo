@@ -1,145 +1,274 @@
 "use client";
 
-import React, { Fragment } from "react";
-import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
-
-const CARDS_DATA = [
-  {
-    id: "retail-reality",
-    variant: "light",
-    eyebrow: "The",
-    title: "Retail Reality",
-    paragraphs: [
-      "Margins are tight. Loyalty is hard-won. And service is the battleground where most retail brands win or lose long-term trust.",
-      "Whether you're selling electronics, power tools & appliances, or connected home goods, your customers expect reliable coverage—and a seamless experience when things go wrong.",
-      "We help you deliver both.",
-    ],
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05));",
-  },
-  {
-    id: "why-ensure-protect",
-    variant: "brand",
-    eyebrow: "Why",
-    title: "Ensure Protect?",
-    paragraphs: [
-      "Ensure Protect helps retail and ecommerce brands add high-performing extended service plans and protection programs to their point-of-sale experience.",
-      "Our programs are either fully white-labeled, or co-branded, designed for multi-channel selling, and built to maximize attachment rate and lifetime value—without adding operational overhead.",
-    ],
-    // bgcolor: "var(--500, #2877B0);",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05));",
-  },
-];
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
 const RetailOverviewSection = () => {
-  return (
-    <RetailOverviewSectionContainer $direction="column">
-      <RetailOverviewCardsContainer
-        $direction="column"
-        $justifycontent="center"
-        $alignitems="center"
-      >
-        {CARDS_DATA.map(
-          ({ id, variant, eyebrow, title, paragraphs, bgcolor }) => (
-            <RetailOverviewCardWrapper
-              key={id}
-              $direction="column"
-              $justifycontent="center"
-              $alignitems="center"
-              $bgcolor={bgcolor}
-              $variant={variant}
-            >
-              <RetailOverviewCardContent $direction="column">
-                <Flex $direction="column">
-                  <RetailOverviewTitleEyebrow>
-                    {eyebrow}
-                  </RetailOverviewTitleEyebrow>
-                  <RetailOverviewTitle>{title}</RetailOverviewTitle>
-                </Flex>
+  const contentRefs = useRef([]);
+  const [heights, setHeights] = useState([600, 600]);
 
-                <RetailOverviewDescriptionContainer $direction="column">
-                  {paragraphs.map((text, idx) => (
-                    <React.Fragment key={`${id}-p-${idx}`}>
-                      <RetailOverviewDescriptionText>
-                        {text}
-                      </RetailOverviewDescriptionText>
-                      {idx !== paragraphs.length - 1 && (
-                        <RetailOverviewDescriptionSeparator />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </RetailOverviewDescriptionContainer>
-              </RetailOverviewCardContent>
-            </RetailOverviewCardWrapper>
-          )
-        )}
-      </RetailOverviewCardsContainer>
-    </RetailOverviewSectionContainer>
+  useEffect(() => {
+    const updateHeights = () => {
+      const newHeights = contentRefs.current.map((el) =>
+        el ? el.offsetHeight + 120 : 600
+      );
+      setHeights(newHeights);
+    };
+
+    updateHeights();
+    window.addEventListener("resize", updateHeights);
+    return () => window.removeEventListener("resize", updateHeights);
+  }, []);
+
+  const CARDS_DATA = [
+    {
+      id: "retail-reality",
+      variant: "light",
+      title: (
+        <>
+          <HeaderSectionTitleDark>The </HeaderSectionTitleDark>
+          <HeaderSectionTitleLight>Retail </HeaderSectionTitleLight>
+          <HeaderSectionTitleDark>Reality</HeaderSectionTitleDark>
+        </>
+      ),
+      description: (
+        <>
+          <p>
+            Margins are tight. Loyalty is hard-won. And service is the
+            battleground where most retail brands win or lose long-term trust.
+          </p>
+          <p>
+            Whether you're selling electronics, power tools & appliances, or
+            connected home goods, your customers expect reliable coverage—and a
+            seamless experience when things go wrong.
+          </p>
+          <p>We help you deliver both.</p>
+        </>
+      ),
+      bg: "var(--5, rgba(26, 25, 25, 0.05))",
+      textColor: "dark",
+    },
+    {
+      id: "why-ensure-protect",
+      variant: "brand",
+      title: (
+        <>
+          <HeaderSectionTitleLight>Why </HeaderSectionTitleLight>
+          <HeaderSectionTitleDark>Ensure </HeaderSectionTitleDark>
+          <HeaderSectionTitleLight>Protect?</HeaderSectionTitleLight>
+        </>
+      ),
+      description: (
+        <>
+          <p>
+            Ensure Protect helps retail and ecommerce brands add high-performing
+            extended service plans and protection programs to their
+            point-of-sale experience.
+          </p>
+          <p>
+            Our programs are either fully white-labeled, or co-branded, designed
+            for multi-channel selling, and built to maximize attachment rate and
+            lifetime value—without adding operational overhead.
+          </p>
+        </>
+      ),
+      bg: "var(--500, #2877b0)",
+      textColor: "light",
+    },
+  ];
+
+  return (
+    <CardsContainer $direction="column">
+      {CARDS_DATA.map((card, index) => (
+        <CardsWrapper
+          key={card.id}
+          $justifycontent="space-between"
+          $alignitems="center"
+        >
+          <HorizontalLineTop />
+          <HorizontalLineBottom />
+
+          <DashedBlocks style={{ height: `${heights[index] || 600}px` }}>
+            <FirstBlock />
+            <SecondBlock $isLeft />
+          </DashedBlocks>
+
+          <ContentBlock>
+            <ContentWrapper
+              ref={(el) => (contentRefs.current[index] = el)}
+              $bg={card.bg}
+              $alignitems="center"
+              $justifycontent="center"
+            >
+              <ContentSection $direction="column">
+                <HeaderSection>{card.title}</HeaderSection>
+                <SubHeaderSection $light={card.textColor === "light"}>
+                  {card.description}
+                </SubHeaderSection>
+              </ContentSection>
+            </ContentWrapper>
+          </ContentBlock>
+
+          <DashedBlocks style={{ height: `${heights[index] || 600}px` }}>
+            <SecondBlock $isRight />
+            <FirstBlock />
+          </DashedBlocks>
+        </CardsWrapper>
+      ))}
+    </CardsContainer>
   );
 };
 
 export default RetailOverviewSection;
 
-const RetailOverviewSectionContainer = styled(Flex)`
+const CardsContainer = styled(Flex)`
+  width: 100%;
+  padding: 80px 0px;
   align-self: stretch;
+  @media (max-width: 1194px) {
+    padding: unset;
+  }
 `;
 
-const RetailOverviewCardsContainer = styled(Flex)`
-  height: auto;
-  padding: 80px 0;
-  gap: 10px;
-  align-self: stretch;
-  background: var(--100, #fff);
-`;
-const RetailOverviewCardWrapper = styled(Flex)`
-  min-height: 480px;
-  width: 650px;
-  padding: 0 80px;
-  flex: 1 0 0;
-  border: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
-  background: ${({ $bgcolor }) => $bgcolor};
+const CardsWrapper = styled(Flex)`
+  height: 600px;
+  position: relative;
+  width: 100%;
+  @media (max-width: 980px) {
+    height: auto;
+  }
 `;
 
-const RetailOverviewCardContent = styled(Flex)`
+const HorizontalLineTop = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  border-top: 1px dashed rgba(26, 25, 25, 0.5);
+  z-index: 0;
+`;
+
+const HorizontalLineBottom = styled.div`
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  width: 100%;
+  border-top: 1px dashed rgba(26, 25, 25, 0.5);
+  z-index: 0;
+`;
+
+const DashedBlocks = styled(Flex)`
+  gap: 16px;
+  height: 100%;
+  &:last-of-type div:last-child {
+    border-right: none;
+  }
+`;
+
+const FirstBlock = styled.div`
+  width: clamp(40px, 8vw, 104px);
+  height: 100%;
+  border-right: 1px dashed rgba(26, 25, 25, 0.5);
+  border-left: 1px dashed rgba(26, 25, 25, 0.5);
+  background: #fff;
+  @media (max-width: 1194px) {
+    display: none;
+  }
+`;
+
+const SecondBlock = styled.div`
+  height: 100%;
+  width: clamp(20px, 15vw, 195px);
+  border-right: 1px dashed rgba(26, 25, 25, 0.5);
+  border-left: 1px dashed rgba(26, 25, 25, 0.5);
+  background: #fff;
+
+  ${({ $isLeft }) =>
+    $isLeft &&
+    `
+    @media (max-width: 1194px) {
+      border-left: none !important;
+    }
+  `}
+  ${({ $isRight }) =>
+    $isRight &&
+    `
+    @media (max-width: 1194px) {
+      border-right: none !important;
+    }
+  `}
+    @media (max-width: 468px) {
+    width: clamp(20px, 8vw, 195px);
+  }
+  @media (max-width: 340px) {
+    width: clamp(20px, 6vw, 195px);
+  }
+`;
+
+const ContentBlock = styled(Flex)`
+  padding: 60px 0px;
+  height: 100%;
+  width: 100%;
+`;
+
+const ContentWrapper = styled(Flex)`
+  padding: 0px 80px;
+  background: ${(p) => p.$bg};
+  height: 100%;
+  z-index: 1;
+  width: 100%;
+  @media (max-width: 1194px) {
+    padding: 0px 120px;
+  }
+  @media (max-width: 980px) {
+    padding: 40px;
+  }
+`;
+
+const ContentSection = styled(Flex)`
   gap: 40px;
-  align-self: stretch;
+  @media (max-width: 980px) {
+    gap: 16px;
+  }
 `;
 
-const RetailOverviewTitleEyebrow = styled.h2`
-  margin: 0;
+const HeaderSection = styled.span`
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -1.44px;
+  max-width: 380px;
+  @media (max-width: 1194px) {
+    font-size: 36px;
+  }
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`;
+
+const HeaderSectionTitleDark = styled.span`
+  color: var(--500, #1a1919);
+`;
+
+const HeaderSectionTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 100%;
-  letter-spacing: -1.44px;
 `;
 
-const RetailOverviewTitle = styled.h3`
-  margin: 0;
-  color: var(--500, #1a1919);
-  font-family: Arial, sans-serif;
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 100%;
-  letter-spacing: -1.44px;
-`;
-
-const RetailOverviewDescriptionContainer = styled(Flex)`
-  gap: 12px;
-  align-self: stretch;
-`;
-
-const RetailOverviewDescriptionText = styled.p`
-  margin: 0;
-  color: var(--500, #1a1919);
+const SubHeaderSection = styled.span`
   font-size: 14px;
   font-weight: 400;
   line-height: 120%;
-  letter-spacing: -0.42px;
-`;
-
-const RetailOverviewDescriptionSeparator = styled.div`
-  height: 1px;
-  align-self: stretch;
-  border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
+  max-width: 480px;
+  color: ${({ $light }) =>
+    $light ? "var(--300, #e5e5e5)" : "var(--80, rgba(26, 25, 25, 0.8))"};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  p {
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;

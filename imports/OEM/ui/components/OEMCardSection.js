@@ -115,9 +115,6 @@ const CardsWrapper = styled(Flex)`
   @media (max-width: 980px) {
     height: auto;
   }
-  @media (max-width: 768px) {
-    height: auto;
-  }
 `;
 
 const HorizontalLineTop = styled.div`

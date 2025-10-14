@@ -1,7 +1,9 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
+import styled from "styled-components";
+import Flex from "@/lib/atoms/Flex";
 
 const RetailHeroSection = dynamic(
   () => import("../components/RetailHeroSection").then((mod) => mod.default),
@@ -26,14 +28,20 @@ const RetailCTASection = dynamic(
 
 const RetailPage = () => {
   return (
-    <Fragment>
+    <PageWrapper $fullwidth $direction="column">
       <RetailHeroSection />
       <RetailOverviewSection />
       <RetailServicesSection />
       <RetailResultSection />
       <RetailCTASection />
-    </Fragment>
+    </PageWrapper>
   );
 };
 
 export default RetailPage;
+
+const PageWrapper = styled(Flex)`
+  @media (max-width: 1194px) {
+    gap: 64px;
+  }
+`;

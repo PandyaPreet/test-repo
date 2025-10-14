@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 
-// Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -19,17 +18,15 @@ const RetailResultSection = () => {
   const animationRef = useRef(null);
   const titleRef = useRef(null);
 
-  // Card height configurations for different milestones
   const cardHeights = {
     0: [164, 107, 44, 86],
     25: [264, 207, 144, 186],
     50: [360, 296, 227, 273],
-    75: [480, 440, 360, 420], // Smoother progression
+    75: [480, 440, 360, 420],
     90: [640, 640, 640, 640],
     100: [640, 640, 640, 640],
   };
 
-  // Initialize card refs
   useEffect(() => {
     cardRefs.current = cardRefs.current.slice(0, 4);
   }, []);
@@ -39,11 +36,9 @@ const RetailResultSection = () => {
       animationRef.current.kill();
     }
 
-    // Calculate interpolated heights for smoother transitions
     const getInterpolatedHeights = (currentProgress) => {
       const milestones = [0, 25, 50, 75, 100];
 
-      // Find current milestone range
       let startMilestone = 0;
       let endMilestone = 25;
 
@@ -71,11 +66,9 @@ const RetailResultSection = () => {
     const targetHeights = getInterpolatedHeights(progress);
     const isFinalStage = progress >= 90;
 
-    // Create animation timeline for better performance
     const tl = gsap.timeline();
     animationRef.current = tl;
 
-    // Animate cards
     cardRefs.current.forEach((card, index) => {
       if (card) {
         tl.to(
@@ -90,7 +83,6 @@ const RetailResultSection = () => {
       }
     });
 
-    // Animate container and wrapper
     if (cardContainerRef.current) {
       tl.to(
         cardContainerRef.current,
@@ -139,7 +131,7 @@ const RetailResultSection = () => {
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5, // Smoother scrubbing
+        scrub: 0.5,
         onUpdate: (self) => {
           const currentProgress = Math.round(self.progress * 100);
           handleMilestoneChange(currentProgress);
@@ -159,7 +151,6 @@ const RetailResultSection = () => {
       });
     };
 
-    // Small delay to ensure DOM is ready
     const timeoutId = setTimeout(initScrollAnimation, 100);
 
     return () => {
