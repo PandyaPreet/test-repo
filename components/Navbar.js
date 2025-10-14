@@ -1,7 +1,7 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ArrowRight from "./svg/ArrowRight";
 import MenuIcon from "./svg/MenuIcon";
@@ -31,9 +31,13 @@ const MENU_ITEMS = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  console.log("pathname", pathname);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  }, [isOpen]);
+
   const handleLinkClick = () => setIsOpen(false);
 
   return (
@@ -41,145 +45,151 @@ export default function Navbar() {
       flex-direction="column"
       $justifycontent="space-between"
       $alignitems="center"
+      $isopen={isOpen}
     >
-      <Container $justifycontent="space-between" $alignitems="center">
-        <SubContainer $alignitems="center">
-          <Link href={"/"}>
-            <HeaderBrandLogo />
-          </Link>
+      <Wrapper>
+        <Container $justifycontent="space-between" $alignitems="center">
+          <SubContainer $alignitems="center">
+            <Link href={"/"}>
+              <HeaderBrandLogo />
+            </Link>
 
-          <MenuContainer>
-            {MENU_ITEMS?.map((item, index) => (
-              <MenuItemWrapper key={index} tabIndex={0}>
-                <Link href={item.href} passHref>
-                  <MenuItem $alignitems="center">
-                    {item.name}
-                    {item.submenu && (
-                      <MenuWrapper>
-                        <MenuIcon />
-                      </MenuWrapper>
-                    )}
-                  </MenuItem>
-                </Link>
-
-                {item.submenu && (
-                  <Submenu $direction="column">
-                    <SubmenuFrame>
-                      <MenuFrame>
-                        {item.submenu.map((sub) => (
-                          <SubmenuItemWrapper key={sub.href}>
-                            <Link href={sub.href} passHref>
-                              <SubMenuItem>{sub.name}</SubMenuItem>
-                            </Link>
-                          </SubmenuItemWrapper>
-                        ))}
-                      </MenuFrame>
-                      <IconmenuFrame></IconmenuFrame>
-                    </SubmenuFrame>
-                  </Submenu>
-                )}
-              </MenuItemWrapper>
-            ))}
-          </MenuContainer>
-        </SubContainer>
-
-        <ActionButtons $justifycontent="space-between" $alignitems="center">
-          <LoginButton>LOGIN</LoginButton>
-          <StartButton>
-            GET STARTED
-            <ArrowWrapper>
-              <ArrowRight />
-            </ArrowWrapper>
-          </StartButton>
-        </ActionButtons>
-
-        <MobileMenuButton onClick={() => setIsOpen(true)}>
-          <MenuLine />
-        </MobileMenuButton>
-      </Container>
-
-      <Sidebar
-        $isopen={isOpen}
-        $direction="column"
-        $justifycontent="space-between"
-        $fullwidth
-      >
-        <SubSideBlock $direction="column">
-          <SidebarHeader $justifycontent="space-between" $alignitems="center">
-            <HeaderBrandLogo />
-            <CloseButton onClick={() => setIsOpen(false)}>
-              <CloseIcon />
-            </CloseButton>
-          </SidebarHeader>
-
-          <SidebarLinks>
-            {MENU_ITEMS.map((item, i) => {
-              const isactive =
-                pathname === item.href ||
-                item.submenu?.some((sub) => pathname === sub.href);
-              return (
-                <SidebarItem key={i}>
-                  <SidebarItemLink
-                    href={item.href || "#"}
-                    passHref
-                    onClick={handleLinkClick}
-                  >
-                    <SidebarItemLabel $alignitems="center" $isactive={isactive}>
+            <MenuContainer>
+              {MENU_ITEMS?.map((item, index) => (
+                <MenuItemWrapper key={index} tabIndex={0}>
+                  <Link href={item.href} passHref>
+                    <MenuItem $alignitems="center">
                       {item.name}
                       {item.submenu && (
-                        <SidebarItemIcon $alignitems="center">
+                        <MenuWrapper>
                           <MenuIcon />
-                        </SidebarItemIcon>
+                        </MenuWrapper>
                       )}
-                    </SidebarItemLabel>
-                  </SidebarItemLink>
+                    </MenuItem>
+                  </Link>
 
                   {item.submenu && (
-                    <SidebarSubmenu>
-                      {item.submenu.map((sub) => {
-                        const isSubActive = pathname === sub.href;
-                        return (
-                          <SidebarSubItem
-                            key={sub.href}
-                            $isactive={isSubActive}
-                          >
-                            <Link href={sub.href} onClick={handleLinkClick}>
-                              {sub.name}
-                            </Link>
-                          </SidebarSubItem>
-                        );
-                      })}
-                    </SidebarSubmenu>
+                    <Submenu $direction="column">
+                      <SubmenuFrame>
+                        <MenuFrame>
+                          {item.submenu.map((sub) => (
+                            <SubmenuItemWrapper key={sub.href}>
+                              <Link href={sub.href} passHref>
+                                <SubMenuItem>{sub.name}</SubMenuItem>
+                              </Link>
+                            </SubmenuItemWrapper>
+                          ))}
+                        </MenuFrame>
+                        <IconmenuFrame></IconmenuFrame>
+                      </SubmenuFrame>
+                    </Submenu>
                   )}
-                </SidebarItem>
-              );
-            })}
-          </SidebarLinks>
-        </SubSideBlock>
+                </MenuItemWrapper>
+              ))}
+            </MenuContainer>
+          </SubContainer>
 
-        <SidebarButtons>
-          <LoginButton>LOGIN</LoginButton>
-          <StartButton>
-            GET STARTED
-            <ArrowWrapper>
-              <ArrowRight />
-            </ArrowWrapper>
-          </StartButton>
-        </SidebarButtons>
-      </Sidebar>
+          <ActionButtons $justifycontent="space-between" $alignitems="center">
+            <LoginButton>LOGIN</LoginButton>
+            <StartButton>
+              GET STARTED
+              <ArrowWrapper>
+                <ArrowRight />
+              </ArrowWrapper>
+            </StartButton>
+          </ActionButtons>
 
-      {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
+          <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <CloseIcon /> : <MenuLine />}
+          </MobileMenuButton>
+        </Container>
+
+        <Sidebar
+          $isopen={isOpen}
+          $direction="column"
+          $justifycontent="space-between"
+          $fullwidth
+        >
+          <SubSideBlock $direction="column">
+            <SidebarLinks>
+              {MENU_ITEMS.map((item, i) => {
+                const isactive =
+                  pathname === item.href ||
+                  item.submenu?.some((sub) => pathname === sub.href);
+                return (
+                  <SidebarItem key={i}>
+                    <SidebarItemLink
+                      href={item.href || "#"}
+                      passHref
+                      onClick={handleLinkClick}
+                    >
+                      <SidebarItemLabel
+                        $alignitems="center"
+                        $isactive={isactive}
+                      >
+                        {item.name}
+                        {item.submenu && (
+                          <SidebarItemIcon $alignitems="center">
+                            <MenuIcon />
+                          </SidebarItemIcon>
+                        )}
+                      </SidebarItemLabel>
+                    </SidebarItemLink>
+
+                    {item.submenu && (
+                      <SidebarSubmenu>
+                        {item.submenu.map((sub) => {
+                          const isSubActive = pathname === sub.href;
+                          return (
+                            <SidebarSubItem
+                              key={sub.href}
+                              $isactive={isSubActive}
+                            >
+                              <Link href={sub.href} onClick={handleLinkClick}>
+                                {sub.name}
+                              </Link>
+                            </SidebarSubItem>
+                          );
+                        })}
+                      </SidebarSubmenu>
+                    )}
+                  </SidebarItem>
+                );
+              })}
+            </SidebarLinks>
+          </SubSideBlock>
+
+          <SidebarButtons>
+            <LoginButton>LOGIN</LoginButton>
+            <StartButton>
+              GET STARTED
+              <ArrowWrapper>
+                <ArrowRight />
+              </ArrowWrapper>
+            </StartButton>
+          </SidebarButtons>
+        </Sidebar>
+
+        {isOpen && <Overlay onClick={() => setIsOpen(false)} />}
+      </Wrapper>
     </Main>
   );
 }
 
 const Main = styled(Flex)`
-  padding: 8.5px;
+  padding: ${({ $isopen }) => ($isopen ? "0" : "8px")};
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
   background: transparent;
+  transition: padding 0.4s ease-in-out, background-color 0.4s ease-in-out;
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const Container = styled(Flex)`
@@ -331,22 +341,28 @@ const MobileMenuButton = styled.button`
 `;
 
 const Sidebar = styled(Flex)`
-  position: fixed;
-  top: 0;
-  right: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
   width: 100%;
-  max-width: 375px;
-  height: 100vh;
+
   background: #fff;
-  z-index: 2000;
-  padding: 16px;
+  z-index: 1200;
+  overflow: hidden;
   flex-direction: column;
 
+  max-height: ${({ $isopen }) => ($isopen ? "100vh" : "0")};
+  opacity: ${({ $isopen }) => ($isopen ? "1" : "0")};
   transform: ${({ $isopen }) =>
-    $isopen ? "translateX(0)" : "translateX(100%)"};
+    $isopen ? "translateY(0)" : "translateY(-10px)"};
   visibility: ${({ $isopen }) => ($isopen ? "visible" : "hidden")};
-  transition: transform 0.35s ease-in-out, opacity 0.3s ease,
-    visibility 0.3s ease;
+
+  transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out,
+    transform 0.4s ease-in-out, visibility 0.4s ease-in-out;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ $isopen }) =>
+    $isopen ? "0 4px 12px rgba(0, 0, 0, 0.08)" : "none"};
 `;
 
 const SubSideBlock = styled(Flex)`
@@ -423,6 +439,7 @@ const SidebarButtons = styled.div`
   flex-direction: column;
   gap: 12px;
   width: 100%;
+  padding: 16px;
 `;
 
 const Overlay = styled.div`
@@ -430,4 +447,7 @@ const Overlay = styled.div`
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1500;
+  opacity: ${({ $isopen }) => ($isopen ? 1 : 0)};
+  visibility: ${({ $isopen }) => ($isopen ? "visible" : "hidden")};
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 `;
