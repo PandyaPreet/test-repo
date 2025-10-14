@@ -84,7 +84,7 @@ const HeroInner = styled(Flex)`
 const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100dvh;
+  height: 100svh;
   background: url("/assets/Hero.webp") no-repeat center center;
   background-size: cover;
   display: flex;
