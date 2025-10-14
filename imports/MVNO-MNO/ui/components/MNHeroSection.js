@@ -91,7 +91,7 @@ const HeroImageWrapper = styled.div`
       var(--40, rgba(26, 25, 25, 0.4)) 0%,
       var(--40, rgba(26, 25, 25, 0.4)) 100%
     ),
-    url("/assets/MVNO-MNO/mn-hero-bg.jpg") lightgray 50% / cover no-repeat;
+    url("/assets/MVNO-MNO/mn-hero-bg.webp") lightgray 50% / cover no-repeat;
 `;
 
 const HeroContent = styled(Flex)`
