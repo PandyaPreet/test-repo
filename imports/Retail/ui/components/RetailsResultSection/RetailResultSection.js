@@ -39,6 +39,7 @@ const RetailResultSection = () => {
     const getInterpolatedHeights = (currentProgress) => {
       const milestones = [0, 25, 50, 75, 100];
 
+      // Find current milestone range
       let startMilestone = 0;
       let endMilestone = 25;
 
@@ -119,7 +120,7 @@ const RetailResultSection = () => {
         "sync"
       );
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -131,7 +132,7 @@ const RetailResultSection = () => {
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: 0.5, // Smoother scrubbing
         onUpdate: (self) => {
           const currentProgress = Math.round(self.progress * 100);
           handleMilestoneChange(currentProgress);
@@ -331,8 +332,8 @@ const FeatureCard = styled.div`
   align-items: flex-start;
   padding: 16px;
   height: 0px;
-  will-change: height; /* Performance optimization */
-  transform: translateZ(0); /* Hardware acceleration */
+  will-change: height;
+  transform: translateZ(0);
 `;
 
 const CardText = styled.div`

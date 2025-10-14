@@ -17,23 +17,26 @@ const RetailServicesSection = dynamic(
   () => import("../components/RetailServicesSection"),
   { ssr: false }
 );
-const RetailResultSection = dynamic(
-  () => import("../components/RetailResultSection"),
-  { ssr: false }
-);
+
 const RetailCTASection = dynamic(
   () => import("../components/RetailCTASection"),
   { ssr: false }
 );
 
+const RetailResultWrapper = dynamic(
+  () => import("../components/RetailResultWrapper.js"),
+  { ssr: false }
+);
 const RetailPage = () => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <RetailHeroSection />
       <RetailOverviewSection />
       <RetailServicesSection />
-      <RetailResultSection />
-      <RetailCTASection />
+      <div>
+        <RetailResultWrapper />
+        <RetailCTASection />
+      </div>
     </PageWrapper>
   );
 };
