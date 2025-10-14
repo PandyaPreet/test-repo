@@ -1,23 +1,42 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 function AboutUsCardsSection() {
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(600);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (contentRef.current) {
+        const height = contentRef.current.offsetHeight;
+        setContentHeight(height + 120);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
   return (
     <CardsContainer $direction={"column"}>
       <CardsWrapper $justifycontent={"space-between"} $alignitems={"center"}>
         <HorizontalLineTop />
         <HorizontalLineBottom />
 
-        <DashedBlocks>
+        <DashedBlocks style={{ height: `${contentHeight}px` }}>
           <FirstBlock />
-          <SecondBlock />
+          <SecondBlock $isLeft />
         </DashedBlocks>
 
         <ContentBlock>
-          <ContentWrapper $alignitems="center" $justifycontent="center">
+          <ContentWrapper
+            ref={contentRef}
+            $alignitems="center"
+            $justifycontent="center"
+          >
             <ContentSection $direction="column">
               <HeaderSection>
                 <HeaderSectionTitleDark>Designed to</HeaderSectionTitleDark>
@@ -38,8 +57,8 @@ function AboutUsCardsSection() {
           </ContentWrapper>
         </ContentBlock>
 
-        <DashedBlocks>
-          <SecondBlock />
+        <DashedBlocks style={{ height: `${contentHeight}px` }}>
+          <SecondBlock $isRight />
           <FirstBlock />
         </DashedBlocks>
       </CardsWrapper>
@@ -55,7 +74,7 @@ const CardsContainer = styled(Flex)`
   gap: 10px;
   align-self: stretch;
   @media (max-width: 1194px) {
-    padding: 0px;
+    padding: unset;
   }
 `;
 
@@ -64,10 +83,10 @@ const CardsWrapper = styled(Flex)`
   position: relative;
   width: 100%;
   @media (max-width: 980px) {
-    height: 366px;
+    height: auto;
   }
   @media (max-width: 768px) {
-    height: 340px;
+    height: auto;
   }
 `;
 
@@ -98,7 +117,6 @@ const DashedBlocks = styled(Flex)`
 `;
 
 const FirstBlock = styled.div`
-  /* width: 104px; */
   width: clamp(40px, 8vw, 104px);
   height: 100%;
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
@@ -111,11 +129,33 @@ const FirstBlock = styled.div`
 
 const SecondBlock = styled.div`
   height: 100%;
-  /* width: 195px; */
   width: clamp(20px, 15vw, 195px);
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
   border-left: 1px dashed rgba(26, 25, 25, 0.5);
   background: #fff;
+
+  ${({ $isLeft }) =>
+    $isLeft &&
+    `
+    @media (max-width: 1194px) {
+      border-left: none !important;
+    }
+  `}
+
+  ${({ $isRight }) =>
+    $isRight &&
+    `
+    @media (max-width: 1194px) {
+      border-right: none !important;
+    }
+  `}
+
+  @media (max-width: 468px) {
+    width: clamp(20px, 8vw, 195px);
+  }
+  @media (max-width: 340px) {
+    width: clamp(20px, 6vw, 195px);
+  }
 `;
 
 const ContentBlock = styled(Flex)`
