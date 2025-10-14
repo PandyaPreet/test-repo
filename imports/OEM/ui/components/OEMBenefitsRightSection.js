@@ -7,20 +7,16 @@ import styled from "styled-components";
 function OEMBenefitsRightSection() {
   const BENEFITS_BANNER_IMAGES = [
     {
-      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
-      bgImage: "/assets/OEM/benefits-banner-1.png",
+      bgImage: "/assets/OEM/benefits-banner-1.webp",
     },
     {
-      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
-      bgImage: "/assets/OEM/benefits-banner-2.png",
+      bgImage: "/assets/OEM/benefits-banner-2.webp",
     },
     {
-      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
-      bgImage: "/assets/OEM/benefits-banner-3.png",
+      bgImage: "/assets/OEM/benefits-banner-3.webp",
     },
     {
-      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
-      bgImage: "/assets/OEM/benefits-banner-4.png",
+      bgImage: "/assets/OEM/benefits-banner-4.webp",
     },
   ];
   return (
