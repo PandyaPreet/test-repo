@@ -40,7 +40,7 @@ const HeroImageWrapper = styled.div`
       var(--40, rgba(26, 25, 25, 0.4)) 0%,
       var(--40, rgba(26, 25, 25, 0.4)) 100%
     ),
-    url("/assets/ISP-MSP/isp-hero-bg.jpg") lightgray 50% / cover no-repeat;
+    url("/assets/ISP-MSP/isp-hero-bg.webp") lightgray 50% / cover no-repeat;
 `;
 
 const HeroContent = styled(Flex)`

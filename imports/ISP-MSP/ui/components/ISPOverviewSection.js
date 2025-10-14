@@ -8,20 +8,13 @@ import styled from "styled-components";
 const ISPOverviewSection = () => {
   const BANNER_IMAGES = [
     {
-      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
-      bgImage: "/assets/plan-banner-1.jpg",
+      bgImage: "/assets/ISP-MSP/isp-banner-1.webp",
     },
     {
-      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
-      bgImage: "/assets/plan-banner-2.jpg",
+      bgImage: "/assets/ISP-MSP/isp-banner-2.webp",
     },
     {
-      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
-      bgImage: "/assets/plan-banner-3.jpg",
-    },
-    {
-      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
-      bgImage: "/assets/plan-banner-4.jpg",
+      bgImage: "/assets/ISP-MSP/isp-banner-3.webp",
     },
   ];
 
