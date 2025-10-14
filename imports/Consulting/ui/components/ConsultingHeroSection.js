@@ -93,7 +93,7 @@ const HeroImageWrapper = styled.div`
       var(--40, rgba(26, 25, 25, 0.4)) 0%,
       var(--40, rgba(26, 25, 25, 0.4)) 100%
     ),
-    url("/assets/Consulting/consulting-hero-bg.jpg") lightgray 50% / cover
+    url("/assets/Consulting/consulting-hero-bg.webp") lightgray 50% / cover
       no-repeat;
 `;
 
