@@ -16,6 +16,9 @@ const EnterpriseOverviewSection = () => {
     {
       bgImage: "/assets/Enterprise/tailored-banner-3.webp",
     },
+    {
+      bgImage: "/assets/Enterprise/tailored-banner-4.webp",
+    },
   ];
 
   return (
