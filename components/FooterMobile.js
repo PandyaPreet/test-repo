@@ -70,15 +70,26 @@ const FooterMobile = () => {
           <HowToReachWrapper $direction="column">
             <HowToReachTitle>Come visit us</HowToReachTitle>
             <HowToReachDesc>
-              303 Potrero Street #53, Santa Cruz, CA 95060
+              <Link
+                href="https://maps.app.goo.gl/BixZx5dU6cEpzSTy6"
+                target="_blank"
+              >
+                303 Potrero Street #53, Santa Cruz, CA 95060
+              </Link>
             </HowToReachDesc>
           </HowToReachWrapper>
 
           <HowToReachWrapper $direction="column">
             <HowToReachTitle>Talk with us</HowToReachTitle>
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-              <HowToReachDesc>info@ensureprotect.com</HowToReachDesc>
-              <HowToReachDesc>+1 (844) 927-7689</HowToReachDesc>
+              <HowToReachDesc>
+                <Link href="mailto:info@ensureprotect.com">
+                  info@ensureprotect.com
+                </Link>
+              </HowToReachDesc>
+              <HowToReachDesc>
+                <Link href="tel:+18449277689">+1 (844) 927-7689</Link>
+              </HowToReachDesc>
             </div>
           </HowToReachWrapper>
         </HowToReachContainer>

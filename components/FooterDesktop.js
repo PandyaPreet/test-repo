@@ -65,7 +65,12 @@ const FooterDesktop = () => {
           <ContactInfoBlock $direction="column">
             <ContactInfoTitle>Come visit us</ContactInfoTitle>
             <ContactInfoDetails>
-              303 Potrero Street # 53 <br /> Santa Cruz, CA 95060
+              <Link
+                href="https://maps.app.goo.gl/BixZx5dU6cEpzSTy6"
+                target="_blank"
+              >
+                303 Potrero Street #53 <br /> Santa Cruz, CA 95060
+              </Link>
             </ContactInfoDetails>
           </ContactInfoBlock>
         </RightSectionInnerContainer>
@@ -74,7 +79,11 @@ const FooterDesktop = () => {
           <ContactInfoBlock $direction="column">
             <ContactInfoTitle>Talk with us</ContactInfoTitle>
             <ContactInfoDetails>
-              info@ensureprotect.com <br /> +1 (844) 927-7689
+              <Link href="mailto:info@ensureprotect.com">
+                info@ensureprotect.com
+              </Link>
+              <br />
+              <Link href="tel:+18449277689">+1 (844) 927-7689</Link>
             </ContactInfoDetails>
           </ContactInfoBlock>
         </RightSectionInnerContainer>
