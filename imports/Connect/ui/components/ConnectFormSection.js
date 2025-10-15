@@ -129,7 +129,7 @@ export default ConnectFormSection;
 const ConnectFormSectionWrapper = styled(Flex)`
   width: 100%;
   flex-direction: row;
-  height: 780px;
+  height: 100vh;
 `;
 
 const ConnectLeftSection = styled(Flex)`
