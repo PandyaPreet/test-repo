@@ -12,7 +12,7 @@ export default function RetailHeroSection() {
           <HeroContent $direction="column">
             <HeroTitle> Sell More Than Products. Sell Peace of Mind.</HeroTitle>
             <HeroSubtitle>
-              Give your customers the confidence to buy—and come back— <br /> by
+              Give your customers the confidence to buy—and come back— by
               offering protection plans they understand, value, and use.
             </HeroSubtitle>
           </HeroContent>

@@ -42,8 +42,8 @@ export default function EnterpriseHeroSection() {
           <HeroContent $direction="column">
             <HeroTitle>Minimize Downtime.Maximize Productivity.</HeroTitle>
             <HeroSubtitle>
-              Protect your infrastructure, field devices, and distributed <br />
-              hardware with service plans that deliver fast resolution, <br />
+              Protect your infrastructure, field devices, and distributed
+              hardware with service plans that deliver fast resolution,
               SLA-level support, and full lifecycle visibility.
             </HeroSubtitle>
           </HeroContent>
