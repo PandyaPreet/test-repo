@@ -7,7 +7,7 @@ import styled from "styled-components";
 export default function RetailHeroSection() {
   return (
     <HeroWrapper $direction="column">
-      <HeroInner>
+      <HeroInner $fullwidth>
         <HeroImageWrapper>
           <HeroContent $direction="column">
             <HeroTitle> Sell More Than Products. Sell Peace of Mind.</HeroTitle>
@@ -28,7 +28,6 @@ const HeroWrapper = styled(Flex)`
 `;
 
 const HeroInner = styled(Flex)`
-  width: 100%;
   flex-direction: column;
 `;
 
