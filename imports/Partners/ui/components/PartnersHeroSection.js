@@ -4,13 +4,12 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function PartnersHeroSection() {
+export default function PartnersHeroSection() {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-
       if (scrollY > 0) {
         const newHeight = 180 + scrollY;
         setDescHeight(newHeight);
@@ -29,8 +28,7 @@ function PartnersHeroSection() {
         <PartnersHeroImageWrapper>
           <PartnersHeroContent $direction="column">
             <PartnersHeroTitle>
-              Turn Coverage into <br /> Customer Loyalty — and <br /> New
-              Revenue
+              Turn Coverage into Customer Loyalty — and New Revenue
             </PartnersHeroTitle>
           </PartnersHeroContent>
         </PartnersHeroImageWrapper>
@@ -47,13 +45,13 @@ function PartnersHeroSection() {
               </PartnersDescriptionsText>
             </PartnersDescriptionChildWrapper>
           </PartnersDescriptionWrapper>
+
+          <PartnersDescriptionBorderWrapper />
         </PartnersDescriptionContainer>
       </PartnersHeroInner>
     </PartnersHeroWrapper>
   );
 }
-
-export default PartnersHeroSection;
 
 const PartnersHeroWrapper = styled(Flex)`
   background: rgb(40, 119, 176);
@@ -68,7 +66,9 @@ const PartnersHeroInner = styled(Flex)`
 const PartnersHeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 780px;
+  height: 100svh;
+  height: 100dvh;
+  height: 100vh;
   background: url("/assets/Partners/partners-hero-bg.webp") no-repeat center
     center;
   background-size: cover;
@@ -84,10 +84,17 @@ const PartnersHeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+
+  @media (max-width: 1194px) {
+    gap: 8px;
+    padding: 40px 16px;
+  }
 `;
 
 const PartnersHeroTitle = styled.div`
   font-family: Arial;
+  width: 100%;
+  max-width: 1162px;
   font-size: 88px;
   font-weight: 400;
   line-height: 85%;
@@ -95,6 +102,15 @@ const PartnersHeroTitle = styled.div`
   text-transform: uppercase;
   color: #fff;
   text-indent: 9%;
+
+  @media (max-width: 1194px) {
+    font-size: 64px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+    text-indent: 0%;
+  }
 `;
 
 const PartnersDescriptionContainer = styled(Flex)`
@@ -105,17 +121,39 @@ const PartnersDescriptionContainer = styled(Flex)`
   align-items: flex-end;
   justify-content: flex-start;
   box-sizing: border-box;
+  flex-wrap: wrap;
 
   ${({ $height }) =>
     $height
       ? `
-    margin-top: -${$height - 180}px;
-    height: ${$height}px;
-  `
+        margin-top: -${$height - 180}px;
+        height: ${$height}px;
+      `
       : `
-    margin-top: 0;
-    height: auto;
-  `}
+        margin-top: 0;
+        height: auto;
+      `}
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    padding: 24px 16px;
+    gap: 16px;
+
+    ${({ $height }) =>
+      $height
+        ? `
+        margin-top: -${Math.min($height - 180, 300)}px;
+        height: auto; 
+        padding-top: ${Math.min($height - 180, 300)}px; 
+      `
+        : `
+        margin-top: 0;
+        height: auto;
+        padding-top: 0;
+      `}
+  }
 `;
 
 const PartnersDescriptionIcon = styled.span`
@@ -127,15 +165,31 @@ const PartnersDescriptionIcon = styled.span`
 
 const PartnersDescriptionWrapper = styled(Flex)`
   padding: 40px 16px 0px 16px;
-  width: 527px;
-`;
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 180px;
 
-const PartnersDescriptionSecondWrapper = styled(PartnersDescriptionWrapper)`
-  width: 420px;
+  @media (max-width: 1194px) {
+    padding: 24px 16px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: unset;
+    flex: unset;
+  }
 `;
 
 const PartnersDescriptionChildWrapper = styled(Flex)`
   padding: 8px 0 48px;
+  @media (max-width: 1194px) {
+    padding: 8px 40px 8px 0;
+  }
+  @media (max-width: 768px) {
+    border-bottom: 0.5px solid #fff;
+  }
 `;
 
 const PartnersDescriptionsText = styled.span`
@@ -149,21 +203,30 @@ const PartnersDescriptionsText = styled.span`
   text-indent: 27%;
 `;
 
-const PartnersBrandsanotherText = styled(PartnersDescriptionsText)`
-  text-indent: 35%;
-`;
-
 const PartnersDescriptionBorderWrapper = styled(Flex)`
-  width: 121px;
-  height: 180px;
+  height: 100%;
+  max-height: 180px;
   justify-content: space-between;
   align-items: flex-end;
   padding: 40px 16px 0 16px;
   border-right: 0.5px solid #fff;
+
+  @media (max-width: 1194px) {
+    margin-right: 240px;
+  }
+  @media (max-width: 980px) {
+    margin-right: 91px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const PartnersDescriptionThirdPartWrapper = styled(
   PartnersDescriptionBorderWrapper
 )`
   width: 196px;
+  @media (max-width: 1194px) {
+    display: none;
+  }
 `;

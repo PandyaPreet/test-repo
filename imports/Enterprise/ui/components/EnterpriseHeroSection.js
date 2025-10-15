@@ -1,8 +1,21 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+
+const descriptions = [
+  {
+    icon: "/",
+    text: "Enterprise-Scale Problems Need Enterprise-Ready Coverage",
+    indent: "27%",
+  },
+  {
+    icon: "//",
+    text: "Whether you manage 50 laptops or 50,000 smart endpoints, unexpected failures cost time, money, and credibility. Our group service plans and repair coverage help you reduce unplanned outages, eliminate administrative chaos, and deliver consistent protection across your entire fleet.",
+    indent: "35%",
+  },
+];
 
 export default function EnterpriseHeroSection() {
   const [descHeight, setDescHeight] = useState();
@@ -10,7 +23,6 @@ export default function EnterpriseHeroSection() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-
       if (scrollY > 0) {
         const newHeight = 180 + scrollY;
         setDescHeight(newHeight);
@@ -28,41 +40,32 @@ export default function EnterpriseHeroSection() {
       <HeroInner>
         <HeroImageWrapper>
           <HeroContent $direction="column">
-            <HeroTitle>
-              Minimize Downtime. <br /> Maximize Productivity.
-            </HeroTitle>
+            <HeroTitle>Minimize Downtime.Maximize Productivity.</HeroTitle>
             <HeroSubtitle>
               Protect your infrastructure, field devices, and distributed <br />
               hardware with service plans that deliver fast resolution, <br />
-              SLA-level support, and full lifecycle visibility
+              SLA-level support, and full lifecycle visibility.
             </HeroSubtitle>
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          <DescriptionWrapper>
-            <DescriptionChildWrapper>
-              <DescriptionIcon>/</DescriptionIcon>
-              <DescriptionsText>
-                Enterprise-Scale Problems Need Enterprise-Ready Coverage
-              </DescriptionsText>
-            </DescriptionChildWrapper>
-          </DescriptionWrapper>
+          {descriptions.map((item, index) => (
+            <Fragment key={index}>
+              <DescriptionWrapper>
+                <DescriptionChildWrapper>
+                  <DescriptionIcon>{item.icon}</DescriptionIcon>
+                  <DescriptionsText $indent={item.indent}>
+                    {item.text}
+                  </DescriptionsText>
+                </DescriptionChildWrapper>
+              </DescriptionWrapper>
 
-          <DescriptionBorderWrapper />
-
-          <DescriptionSecondWrapper>
-            <DescriptionChildWrapper>
-              <DescriptionIcon>//</DescriptionIcon>
-              <BrandsanotherText>
-                Whether you manage 50 laptops or 50,000 smart endpoints,
-                unexpected failures cost time, money, and credibility. Our group
-                service plans and repair coverage help you reduce unplanned
-                outages, eliminate administrative chaos, and deliver consistent
-                protection across your entire fleet.
-              </BrandsanotherText>
-            </DescriptionChildWrapper>
-          </DescriptionSecondWrapper>
+              {index !== descriptions.length - 1 && (
+                <DescriptionBorderWrapper />
+              )}
+            </Fragment>
+          ))}
 
           <DescriptionThirdPartWrapper />
         </DescriptionContainer>
@@ -84,19 +87,16 @@ const HeroInner = styled(Flex)`
 const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 780px;
-  /* height: 100vh; */
-  /* padding-top: 66.66666666666667%; */
+  height: 100svh;
+  background: linear-gradient(
+      0deg,
+      rgba(26, 25, 25, 0.4) 0%,
+      rgba(26, 25, 25, 0.4) 100%
+    ),
+    url("/assets/Enterprise/enterprise-hero-bg.webp") no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: flex-end;
-  background: linear-gradient(
-      0deg,
-      var(--40, rgba(26, 25, 25, 0.4)) 0%,
-      var(--40, rgba(26, 25, 25, 0.4)) 100%
-    ),
-    url("/assets/Enterprise/enterprise-hero-bg.webp") lightgray 50% / cover
-      no-repeat;
 `;
 
 const HeroContent = styled(Flex)`
@@ -107,10 +107,17 @@ const HeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+
+  @media (max-width: 1194px) {
+    gap: 8px;
+    padding: 40px 16px;
+  }
 `;
 
 const HeroTitle = styled.div`
   font-family: Arial;
+  width: 100%;
+  max-width: 1248px;
   font-size: 88px;
   font-weight: 400;
   line-height: 85%;
@@ -118,6 +125,15 @@ const HeroTitle = styled.div`
   text-transform: uppercase;
   color: #fff;
   text-indent: 9%;
+
+  @media (max-width: 1194px) {
+    font-size: 64px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+    text-indent: 0%;
+  }
 `;
 
 const HeroSubtitle = styled.div`
@@ -126,6 +142,11 @@ const HeroSubtitle = styled.div`
   font-size: 20px;
   font-style: italic;
   font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    line-height: 120%;
+  }
 `;
 
 const DescriptionContainer = styled(Flex)`
@@ -133,21 +154,42 @@ const DescriptionContainer = styled(Flex)`
   width: 100%;
   background: rgb(40, 119, 176);
   z-index: 2;
-  display: flex;
   align-items: flex-end;
   justify-content: flex-start;
   box-sizing: border-box;
+  flex-wrap: wrap;
 
   ${({ $height }) =>
     $height
       ? `
-    margin-top: -${$height - 180}px;
-    height: ${$height}px;
-  `
+        margin-top: -${$height - 180}px;
+        height: ${$height}px;
+      `
       : `
-    margin-top: 0;
-    height: auto;
-  `}
+        margin-top: 0;
+        height: auto;
+      `}
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    padding: 24px 16px;
+    gap: 16px;
+
+    ${({ $height }) =>
+      $height
+        ? `
+        margin-top: -${Math.min($height - 180, 300)}px;
+        height: auto; 
+        padding-top: ${Math.min($height - 180, 300)}px; 
+      `
+        : `
+        margin-top: 0;
+        height: auto;
+        padding-top: 0;
+      `}
+  }
 `;
 
 const DescriptionIcon = styled.span`
@@ -159,16 +201,32 @@ const DescriptionIcon = styled.span`
 
 const DescriptionWrapper = styled(Flex)`
   padding: 40px 16px 0px 16px;
-  width: 316px;
-  height: 180px;
-`;
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 180px;
 
-const DescriptionSecondWrapper = styled(DescriptionWrapper)`
-  width: 420px;
+  @media (max-width: 1194px) {
+    padding: 24px 16px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: unset;
+    flex: unset;
+  }
 `;
 
 const DescriptionChildWrapper = styled(Flex)`
   padding: 8px 0 48px;
+  @media (max-width: 1194px) {
+    padding: 8px 40px 8px 0;
+  }
+  @media (max-width: 768px) {
+    border-bottom: 0.5px solid #fff;
+    width: 100%;
+  }
 `;
 
 const DescriptionsText = styled.span`
@@ -179,22 +237,31 @@ const DescriptionsText = styled.span`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: 27%;
-`;
-
-const BrandsanotherText = styled(DescriptionsText)`
-  text-indent: 35%;
+  text-indent: ${({ $indent }) => $indent || "27%"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`
-  width: 121px;
-  height: 180px;
+  height: 100%;
+  max-height: 180px;
   justify-content: space-between;
   align-items: flex-end;
   padding: 40px 16px 0 16px;
   border-right: 0.5px solid #fff;
+
+  @media (max-width: 1194px) {
+    margin-right: 240px;
+  }
+  @media (max-width: 980px) {
+    margin-right: 91px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const DescriptionThirdPartWrapper = styled(DescriptionBorderWrapper)`
   width: 196px;
+  @media (max-width: 1194px) {
+    display: none;
+  }
 `;

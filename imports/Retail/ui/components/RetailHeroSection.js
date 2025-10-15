@@ -10,10 +10,7 @@ export default function RetailHeroSection() {
       <HeroInner>
         <HeroImageWrapper>
           <HeroContent $direction="column">
-            <HeroTitle>
-              {" "}
-              Sell More Than <br /> Products. <br /> Sell Peace of Mind.
-            </HeroTitle>
+            <HeroTitle> Sell More Than Products. Sell Peace of Mind.</HeroTitle>
             <HeroSubtitle>
               Give your customers the confidence to buy—and come back— <br /> by
               offering protection plans they understand, value, and use.
@@ -69,6 +66,8 @@ const HeroTitle = styled.div`
   font-size: 88px;
   font-weight: 400;
   line-height: 85%;
+  width: 100%;
+  max-width: 1162px;
   letter-spacing: -3.52px;
   text-transform: uppercase;
   color: #fff;
@@ -83,6 +82,7 @@ const HeroTitle = styled.div`
 
 const HeroSubtitle = styled.div`
   color: #fff;
+
   font-family: Arial;
   font-size: 20px;
   font-style: italic;

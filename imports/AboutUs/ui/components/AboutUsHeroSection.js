@@ -3,13 +3,12 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function AboutUsHeroSection() {
+export default function AboutUsHeroSection() {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-
       if (scrollY > 0) {
         const newHeight = 180 + scrollY;
         setDescHeight(newHeight);
@@ -28,12 +27,11 @@ function AboutUsHeroSection() {
         <AboutUsHeroImageWrapper>
           <AboutUsHeroContent $direction="column">
             <AboutUsHeroTitle>
-              Protection Plans, <br /> Reimagined for today's
-              <br /> brands
+              Protection Plans, Reimagined for today's brands
             </AboutUsHeroTitle>
             <AboutUsHeroSubtitle>
-              That's why we build everything around your brand,
-              <br /> your product, and your customer experience.”
+              “That's why we build everything around your brand, your product,
+              and your customer experience.”
             </AboutUsHeroSubtitle>
           </AboutUsHeroContent>
         </AboutUsHeroImageWrapper>
@@ -50,13 +48,13 @@ function AboutUsHeroSection() {
               </AboutUsDescriptionsText>
             </AboutUsDescriptionChildWrapper>
           </AboutUsDescriptionWrapper>
+
+          <AboutUsDescriptionBorderWrapper />
         </AboutUsDescriptionContainer>
       </AboutUsHeroInner>
     </AboutUsHeroWrapper>
   );
 }
-
-export default AboutUsHeroSection;
 
 const AboutUsHeroWrapper = styled(Flex)`
   background: rgb(40, 119, 176);
@@ -71,7 +69,9 @@ const AboutUsHeroInner = styled(Flex)`
 const AboutUsHeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 780px;
+  height: 100svh;
+  height: 100dvh;
+  height: 100vh;
   background: url("/assets/About/AboutUsHeroImage.webp") no-repeat center center;
   background-size: cover;
   display: flex;
@@ -86,10 +86,17 @@ const AboutUsHeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+
+  @media (max-width: 1194px) {
+    gap: 8px;
+    padding: 40px 16px;
+  }
 `;
 
 const AboutUsHeroTitle = styled.div`
   font-family: Arial;
+  width: 100%;
+  max-width: 1162px;
   font-size: 88px;
   font-weight: 400;
   line-height: 85%;
@@ -97,10 +104,21 @@ const AboutUsHeroTitle = styled.div`
   text-transform: uppercase;
   color: #fff;
   text-indent: 9%;
+
+  @media (max-width: 1194px) {
+    font-size: 64px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+    text-indent: 0%;
+  }
 `;
 
 const AboutUsHeroSubtitle = styled.div`
   color: #fff;
+  width: 100%;
+  max-width: 552px;
   font-family: Arial;
   font-size: 20px;
   font-style: italic;
@@ -112,21 +130,42 @@ const AboutUsDescriptionContainer = styled(Flex)`
   width: 100%;
   background: rgb(40, 119, 176);
   z-index: 2;
-  display: flex;
   align-items: flex-end;
   justify-content: flex-start;
   box-sizing: border-box;
+  flex-wrap: wrap;
 
   ${({ $height }) =>
     $height
       ? `
-    margin-top: -${$height - 180}px;
-    height: ${$height}px;
-  `
+        margin-top: -${$height - 180}px;
+        height: ${$height}px;
+      `
       : `
-    margin-top: 0;
-    height: auto;
-  `}
+        margin-top: 0;
+        height: auto;
+      `}
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    padding: 24px 16px;
+    gap: 16px;
+
+    ${({ $height }) =>
+      $height
+        ? `
+        margin-top: -${Math.min($height - 180, 300)}px;
+        height: auto; 
+        padding-top: ${Math.min($height - 180, 300)}px; 
+      `
+        : `
+        margin-top: 0;
+        height: auto;
+        padding-top: 0;
+      `}
+  }
 `;
 
 const AboutUsDescriptionIcon = styled.span`
@@ -138,15 +177,31 @@ const AboutUsDescriptionIcon = styled.span`
 
 const AboutUsDescriptionWrapper = styled(Flex)`
   padding: 40px 16px 0px 16px;
-  width: 527px;
-`;
+  flex: 1 1 300px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 180px;
 
-const AboutUsDescriptionSecondWrapper = styled(AboutUsDescriptionWrapper)`
-  width: 420px;
+  @media (max-width: 1194px) {
+    padding: 24px 16px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: unset;
+    flex: unset;
+  }
 `;
 
 const AboutUsDescriptionChildWrapper = styled(Flex)`
   padding: 8px 0 48px;
+  @media (max-width: 1194px) {
+    padding: 8px 40px 8px 0;
+  }
+  @media (max-width: 768px) {
+    border-bottom: 0.5px solid #fff;
+  }
 `;
 
 const AboutUsDescriptionsText = styled.span`
@@ -160,21 +215,21 @@ const AboutUsDescriptionsText = styled.span`
   text-indent: 27%;
 `;
 
-const AboutUsBrandsanotherText = styled(AboutUsDescriptionsText)`
-  text-indent: 35%;
-`;
-
 const AboutUsDescriptionBorderWrapper = styled(Flex)`
-  width: 121px;
-  height: 180px;
+  height: 100%;
+  max-height: 180px;
   justify-content: space-between;
   align-items: flex-end;
   padding: 40px 16px 0 16px;
   border-right: 0.5px solid #fff;
-`;
 
-const AboutUsDescriptionThirdPartWrapper = styled(
-  AboutUsDescriptionBorderWrapper
-)`
-  width: 196px;
+  @media (max-width: 1194px) {
+    margin-right: 240px;
+  }
+  @media (max-width: 980px) {
+    margin-right: 91px;
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;

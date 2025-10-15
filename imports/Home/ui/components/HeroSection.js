@@ -118,11 +118,11 @@ const HeroTitle = styled.div`
   color: #fff;
   text-indent: 9%;
 
-  @media (max-width: 980px) {
+  @media (max-width: 1194px) {
     font-size: 64px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     font-size: 40px;
     text-indent: 0%;
   }
