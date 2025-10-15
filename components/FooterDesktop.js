@@ -12,14 +12,14 @@ const ROUTES = [
     subRoutes: [
       { name: "Retail", href: "/solutions/retail" },
       { name: "Enterprise", href: "/solutions/enterprise" },
-      { name: "IoT", href: "/solutions/iot" },
-      { name: "ISP Cable", href: "/solutions/isp-cable" },
+      { name: "MVNO/MNO", href: "/solutions/mvno-mno" },
+      { name: "ISP Cable", href: "/solutions/isp-msp" },
       { name: "OEM", href: "/solutions/oem" },
       { name: "Consulting", href: "/solutions/consulting" },
     ],
   },
   { name: "Partners", href: "/partners" },
-  { name: "About us", href: "/about-us" },
+  { name: "About us", href: "/about" },
   { name: "Connect", href: "/connect" },
   // { name: "Privacy Policy", href: "/privacy-policy" },
 ];
