@@ -8,20 +8,16 @@ import styled from "styled-components";
 const SolutionsFeaturesSection = () => {
   const BANNER_IMAGES = [
     {
-      bgcolor: "var(--3, rgba(85, 86, 89, 0.03))",
-      bgImage: "/assets/plan-banner-1.jpg",
+      bgImage: "/assets/Solutions/solutions-banner-1.jpg",
     },
     {
-      bgcolor: "var(--8, rgba(85, 86, 89, 0.08))",
-      bgImage: "/assets/plan-banner-2.jpg",
+      bgImage: "/assets/Solutions/solutions-banner-2.jpg",
     },
     {
-      bgcolor: "var(--12, rgba(85, 86, 89, 0.12))",
-      bgImage: "/assets/plan-banner-3.jpg",
+      bgImage: "/assets/Solutions/solutions-banner-3.jpg",
     },
     {
-      bgcolor: "var(--15, rgba(85, 86, 89, 0.15))",
-      bgImage: "/assets/plan-banner-4.jpg",
+      bgImage: "/assets/Solutions/solutions-banner-4.jpg",
     },
   ];
 
