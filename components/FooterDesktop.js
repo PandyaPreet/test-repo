@@ -4,6 +4,8 @@ import React from "react";
 import styled from "styled-components";
 import FooterBrandLogo from "./svg/FooterBrandLogo";
 import Link from "next/link";
+import { Button } from "@/lib/atoms/Button";
+import MenuIcon from "@/lib/atoms/MenuIcon";
 
 const ROUTES = [
   {
@@ -42,9 +44,17 @@ const FooterDesktop = () => {
 
         <SubroutesContainer $direction="column">
           {solutions?.subRoutes?.map((sub) => (
-            <Link href={sub.href} key={sub.name} aria-label={sub.name}>
-              <RoutesName>{sub.name}</RoutesName>
-            </Link>
+            <Button
+              variant="menu"
+              as="a"
+              href={sub.href}
+              key={sub.name}
+              aria-label={sub.name}
+            >
+              <RoutesName>
+                {sub.name} <MenuIcon />
+              </RoutesName>
+            </Button>
           ))}
         </SubroutesContainer>
 
@@ -155,6 +165,16 @@ const RoutesName = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 130%;
+
+  svg {
+    fill: transparent;
+  }
+
+  &:hover {
+    svg {
+      fill: #fff;
+    }
+  }
 `;
 const CreditsText = styled.div`
   color: var(--300, #e5e5e5);
