@@ -21,7 +21,7 @@ const ROUTES = [
   { name: "Partners", href: "/partners" },
   { name: "About us", href: "/about-us" },
   { name: "Connect", href: "/connect" },
-  { name: "Privacy Policy", href: "/privacy-policy" },
+  // { name: "Privacy Policy", href: "/privacy-policy" },
 ];
 
 const FooterDesktop = () => {
