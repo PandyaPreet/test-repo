@@ -28,7 +28,7 @@ const SolutionsCTASection = dynamic(
 
 const SolutionsPage = () => {
   return (
-    <PageWrapper>
+    <PageWrapper $fullwidth $direction="column">
       <SolutionsHeroSection />
       <SolutionsPlansSection />
       <SolutionsCardsSection />
@@ -41,7 +41,6 @@ const SolutionsPage = () => {
 export default SolutionsPage;
 
 const PageWrapper = styled(Flex)`
-  flex-direction: column;
   @media (max-width: 1194px) {
     gap: 64px;
   }

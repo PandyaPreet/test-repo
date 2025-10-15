@@ -50,7 +50,7 @@ const SolutionsPlansSection = () => {
           $justifycontent="center"
         >
           <SolutionsPlansInnerWrapper>
-            <SolutionsPlansPagination>{plan.id}</SolutionsPlansPagination>
+            <SolutionsPlansPagination />
             <SolutionsPlansDetailsContainer
               $justifycontent="space-between"
               $alignitems="center"
@@ -173,6 +173,9 @@ const SolutionsPlansPagination = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
+  @media (max-width: 980px) {
+    display: none;
+  }
 `;
 
 const SolutionsServicesImage = styled(Image)`

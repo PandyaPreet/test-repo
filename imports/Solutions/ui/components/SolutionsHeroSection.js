@@ -37,7 +37,7 @@ export default function SolutionsHeroSection() {
 
   return (
     <HeroWrapper $direction="column">
-      <HeroInner>
+      <HeroInner $fullwidth>
         <HeroImageWrapper>
           <HeroContent $direction="column">
             <HeroTitle>
@@ -80,7 +80,6 @@ const HeroWrapper = styled(Flex)`
 `;
 
 const HeroInner = styled(Flex)`
-  width: 100%;
   flex-direction: column;
 `;
 
