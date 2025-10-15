@@ -3,6 +3,7 @@
 import CTAButtonArrow from "@/components/svg/CTAButtonArrow";
 import Flex from "@/lib/atoms/Flex";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -54,7 +55,9 @@ function ConnectFormSection() {
                   height={24}
                   priority
                 />
-                <ConnectContactText>info@ensureprotect.com</ConnectContactText>
+                <ConnectContactText href="mailto:info@ensureprotect.com">
+                  info@ensureprotect.com
+                </ConnectContactText>
               </ConnectContactInfo>
             </ConnectContactContent>
           </ConnectContactCard>
@@ -70,7 +73,9 @@ function ConnectFormSection() {
                   height={24}
                   priority
                 />
-                <ConnectContactText>+1 (844) 927-7689</ConnectContactText>
+                <ConnectContactText href="tel:18449277689">
+                  +1 844 927-7689
+                </ConnectContactText>
               </ConnectContactInfo>
             </ConnectContactContent>
           </ConnectContactCardSmall>
@@ -206,7 +211,7 @@ const ConnectContactInfo = styled(Flex)`
   gap: 12px;
 `;
 
-const ConnectContactText = styled.span`
+const ConnectContactText = styled(Link)`
   font-size: 14px;
   font-weight: 400;
   line-height: 120%;
