@@ -50,8 +50,12 @@ const MNServicesSection = () => {
       </TitleCardContainer>
       <ServicesCardContainer $direction="column">
         <ServicesCardWrapper $alignitems="center">
-          {RETAILER_SERVICES.map((card) => (
-            <ServicesCard $direction="column" bgColor={card.bgcolor}>
+          {RETAILER_SERVICES.map((card, index) => (
+            <ServicesCard
+              $direction="column"
+              bgcolor={card.bgcolor}
+              key={index}
+            >
               <Image height={72} width={72} src={card.icon} alt="some icon" />
               <ServiceCardDescription>{card.text}</ServiceCardDescription>
             </ServicesCard>
