@@ -138,6 +138,8 @@ const HeroTitle = styled.div`
 
 const HeroSubtitle = styled.div`
   color: #fff;
+  width: 100%;
+  max-width: 535px;
   font-family: Arial;
   font-size: 20px;
   font-style: italic;

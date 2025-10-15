@@ -9,7 +9,7 @@ const ServicesSection = () => {
   return (
     <Fragment>
       <ServicesHeader>
-        <ServicesPagination>0/4</ServicesPagination>
+        <ServicesPagination />
         <ServicesHeaderTitle>
           A Smarter{" "}
           <ServicesHeaderTitleDark>
@@ -27,7 +27,7 @@ const ServicesSection = () => {
           className="services-cards"
         >
           <ServicesInnerWrapper>
-            <ServicesPagination>1/4</ServicesPagination>
+            <ServicesPagination />
             <ServicesDetailsContainer
               $justifycontent="space-between"
               $alignitems="center"
@@ -59,7 +59,7 @@ const ServicesSection = () => {
           className="services-cards"
         >
           <ServicesInnerWrapper>
-            <ServicesPagination>2/4</ServicesPagination>
+            <ServicesPagination />
             <ServicesDetailsContainer
               $justifycontent="space-between"
               $alignitems="center"
@@ -90,7 +90,7 @@ const ServicesSection = () => {
           className="services-cards"
         >
           <ServicesInnerWrapper>
-            <ServicesPagination>3/4</ServicesPagination>
+            <ServicesPagination />
             <ServicesDetailsContainer
               $justifycontent="space-between"
               $alignitems="center"
@@ -123,7 +123,7 @@ const ServicesSection = () => {
           className="services-cards"
         >
           <ServicesInnerWrapper>
-            <ServicesPagination>4/4</ServicesPagination>
+            <ServicesPagination />
             <ServicesDetailsContainer
               $justifycontent="space-between"
               $alignitems="center"
@@ -172,6 +172,9 @@ const ServicesPagination = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
+  @media (max-width: 980px) {
+    display: none;
+  }
 `;
 
 const ServicesHeaderTitle = styled.div`

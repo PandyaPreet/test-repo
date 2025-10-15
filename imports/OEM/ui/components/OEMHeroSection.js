@@ -227,6 +227,7 @@ const DescriptionChildWrapper = styled(Flex)`
   }
   @media (max-width: 768px) {
     border-bottom: 0.5px solid #fff;
+    width: 100%;
   }
 `;
 

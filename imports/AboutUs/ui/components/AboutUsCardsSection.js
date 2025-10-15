@@ -41,7 +41,6 @@ function AboutUsCardsSection() {
               <HeaderSection>
                 <HeaderSectionTitleDark>Designed to</HeaderSectionTitleDark>
                 <HeaderSectionTitleLight>Be Invisible</HeaderSectionTitleLight>
-                <br />
                 <HeaderSectionTitleDark>
                   — But Indispensable
                 </HeaderSectionTitleDark>
@@ -188,6 +187,8 @@ const ContentSection = styled(Flex)`
 const HeaderSection = styled.span`
   font-size: 48px;
   font-weight: 400;
+  width: 100%;
+  max-width: 400px;
   line-height: 100%;
   letter-spacing: -1.44px;
   @media (max-width: 1194px) {
@@ -210,6 +211,8 @@ const SubHeaderSection = styled.span`
   color: var(--80, rgba(26, 25, 25, 0.8));
   font-size: 14px;
   font-weight: 400;
+  max-width: 480px;
+  width: 100%;
   line-height: 120%;
   letter-spacing: -0.42px;
   @media (max-width: 768px) {
