@@ -132,7 +132,6 @@ const ConnectLeftSection = styled(Flex)`
 `;
 
 const ConnectRightSection = styled(Flex)`
-  padding: 51px 83px;
   background: #1a1919;
   height: 100%;
   box-sizing: border-box;

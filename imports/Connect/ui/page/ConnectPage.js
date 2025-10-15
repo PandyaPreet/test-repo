@@ -7,8 +7,9 @@ const ConnectHeroSection = dynamic(
   () => import("../components/ConnectHeroSection"),
   { ssr: false }
 );
-const ConnectFormSection = dynamic(
-  () => import("../components/ConnectFormSection"),
+
+const ConnectClientForm = dynamic(
+  () => import("../components/ConnectClientForm"),
   { ssr: false }
 );
 const ConnectCTASection = dynamic(
@@ -20,7 +21,7 @@ function ConnectPage() {
   return (
     <Fragment>
       <ConnectHeroSection />
-      <ConnectFormSection />
+      <ConnectClientForm />
       <ConnectCTASection />
     </Fragment>
   );
