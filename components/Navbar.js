@@ -18,6 +18,7 @@ import MNOIcon from "./svg/MNOIcon";
 import ISPIcon from "./svg/ISPIcon";
 import OEMIcon from "./svg/OEMIcon";
 import ConsultingIcon from "./svg/ConsultingIcon";
+import RedirectIcon from "./svg/RedirectIcon";
 
 const MENU_ITEMS = [
   {
@@ -135,6 +136,7 @@ export default function Navbar() {
                                     <Link href={sub.href} passHref>
                                       <SubMenuItem $isactive={isSubActive}>
                                         {sub.name}
+                                        <RedirectIcon />
                                       </SubMenuItem>
                                     </Link>
                                   </SubmenuItemWrapper>
@@ -372,6 +374,17 @@ const SubmenuItemWrapper = styled.div`
   &:last-child {
     border-bottom: none;
   }
+  &:last-child:hover {
+    border-bottom: none;
+  }
+  &:hover {
+    border-bottom: 0.5px solid var(--500, #1a1919);
+  }
+  &:hover {
+    svg path {
+      stroke: #1a1919;
+    }
+  }
 `;
 
 const SubMenuItem = styled.div`
@@ -380,6 +393,9 @@ const SubMenuItem = styled.div`
   font-family: Arial;
   font-size: 14px;
   font-weight: ${({ $isactive }) => ($isactive ? 700 : 400)};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const MobileMenuButton = styled.button`
