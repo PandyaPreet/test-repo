@@ -85,75 +85,84 @@ export default function Navbar() {
                   item.submenu?.some((sub) => pathname === sub.href);
 
                 return (
-                  <MenuItemWrapper key={index} tabIndex={0}>
-                    {item.name === "Solutions" ? (
-                      <Link href={item.href} passHref>
-                        <Button as="a" variant="menu" isActive={isTopActive}>
-                          {item.name}
-                          {item.submenu && (
-                            <MenuWrapper>
-                              <MenuIcon />
-                            </MenuWrapper>
-                          )}
-                        </Button>
-                      </Link>
-                    ) : (
-                      <Link href={item.href} passHref>
-                        <MenuItem $alignitems="center" $isactive={isTopActive}>
-                          {item.name}
-                          {item.submenu && (
-                            <MenuWrapper>
-                              <MenuIcon />
-                            </MenuWrapper>
-                          )}
-                        </MenuItem>
-                      </Link>
-                    )}
+                  <>
+                    <MenuItemWrapper key={index} tabIndex={0}>
+                      {item.name === "Solutions" ? (
+                        <Link href={item.href} passHref>
+                          <Button variant="menu" isActive={isTopActive}>
+                            {item.name}
+                            {item.submenu && (
+                              <MenuWrapper>
+                                <MenuIcon />
+                              </MenuWrapper>
+                            )}
+                          </Button>
+                        </Link>
+                      ) : (
+                        <Link href={item.href} passHref>
+                          <MenuItem
+                            $alignitems="center"
+                            $isactive={isTopActive}
+                          >
+                            {item.name}
+                            {item.submenu && (
+                              <MenuWrapper>
+                                <MenuIcon />
+                              </MenuWrapper>
+                            )}
+                          </MenuItem>
+                        </Link>
+                      )}
 
-                    {/* Submenu Section */}
-                    {item.submenu && (
-                      <Submenu $direction="column">
-                        <SubmenuFrame>
-                          <MenuFrame>
-                            {item.submenu.map((sub) => {
-                              const isSubActive = pathname === sub.href;
-                              return (
-                                <SubmenuItemWrapper
-                                  key={sub.href}
-                                  onMouseEnter={() => setHoveredSub(sub.href)}
-                                  onMouseLeave={() => setHoveredSub(null)}
-                                  onFocus={() => setHoveredSub(sub.href)}
-                                  onBlur={() => setHoveredSub(null)}
-                                >
-                                  <Link href={sub.href} passHref>
-                                    <SubMenuItem $isactive={isSubActive}>
-                                      {sub.name}
-                                    </SubMenuItem>
-                                  </Link>
-                                </SubmenuItemWrapper>
-                              );
-                            })}
-                          </MenuFrame>
+                      {/* Submenu Section */}
+                      {item.submenu && (
+                        <Submenu $direction="column">
+                          <div
+                            style={{ height: "25px", background: "black" }}
+                          />
+                          <SubmenuFrame>
+                            <MenuFrame>
+                              {item.submenu.map((sub) => {
+                                const isSubActive = pathname === sub.href;
+                                return (
+                                  <SubmenuItemWrapper
+                                    key={sub.href}
+                                    onMouseEnter={() => setHoveredSub(sub.href)}
+                                    onMouseLeave={() => setHoveredSub(null)}
+                                    onFocus={() => setHoveredSub(sub.href)}
+                                    onBlur={() => setHoveredSub(null)}
+                                  >
+                                    <Link href={sub.href} passHref>
+                                      <SubMenuItem $isactive={isSubActive}>
+                                        {sub.name}
+                                      </SubMenuItem>
+                                    </Link>
+                                  </SubmenuItemWrapper>
+                                );
+                              })}
+                            </MenuFrame>
 
-                          {/* Icon Frame */}
-                          <IconmenuFrame>
-                            {(() => {
-                              const activeKey =
-                                hoveredSub ||
-                                (Object.keys(SOLUTIONS_ICON_MAP).includes(
-                                  pathname
-                                )
-                                  ? pathname
-                                  : null);
-                              if (!activeKey) return null;
-                              const ActiveIcon = SOLUTIONS_ICON_MAP[activeKey];
-                              return ActiveIcon ? <ActiveIcon /> : null;
-                            })()}
-                          </IconmenuFrame>
-                        </SubmenuFrame>
-                      </Submenu>
-                    )}
-                  </MenuItemWrapper>
+                            {/* Icon Frame */}
+                            <IconmenuFrame>
+                              {(() => {
+                                const activeKey =
+                                  hoveredSub ||
+                                  (Object.keys(SOLUTIONS_ICON_MAP).includes(
+                                    pathname
+                                  )
+                                    ? pathname
+                                    : null);
+                                if (!activeKey) return null;
+                                const ActiveIcon =
+                                  SOLUTIONS_ICON_MAP[activeKey];
+                                return ActiveIcon ? <ActiveIcon /> : null;
+                              })()}
+                            </IconmenuFrame>
+                          </SubmenuFrame>
+                        </Submenu>
+                      )}
+                    </MenuItemWrapper>
+                  </>
                 );
               })}
             </MenuContainer>
@@ -315,7 +324,7 @@ const Submenu = styled(Flex)`
   top: 100%;
   left: 0;
   padding: 8px 8px 8px 0;
-  background-color: #fff;
+  background-color: transparent;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -335,6 +344,8 @@ const Submenu = styled(Flex)`
 const SubmenuFrame = styled(Flex)`
   width: 362px;
   align-items: stretch;
+  background: #fff;
+  padding: 8px 8px 8px 0;
 `;
 
 const MenuFrame = styled(Flex)`

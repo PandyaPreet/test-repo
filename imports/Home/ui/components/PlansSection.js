@@ -8,16 +8,13 @@ import styled from "styled-components";
 const PlansSection = () => {
   const BANNER_IMAGES = [
     {
-      bgImage: "/assets/plan-banner-1.webp",
+      bgImage: "/assets/home-banner-1.webp",
     },
     {
-      bgImage: "/assets/plan-banner-2.webp",
+      bgImage: "/assets/home-banner-2.webp",
     },
     {
-      bgImage: "/assets/plan-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/plan-banner-4.webp",
+      bgImage: "/assets/home-banner-3.webp",
     },
   ];
   return (
