@@ -73,7 +73,7 @@ function ConnectFormSection() {
                   height={24}
                   priority
                 />
-                <ConnectContactText href="tel:18449277689">
+                <ConnectContactText href="tel:+18449277689">
                   +1 844 927-7689
                 </ConnectContactText>
               </ConnectContactInfo>

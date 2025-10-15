@@ -5,6 +5,7 @@ import PhoneIcon from "@/components/svg/PhoneIcon";
 import { Button } from "@/lib/atoms/Button";
 import ButtonIcon from "@/lib/atoms/ButtonIcon";
 import Flex from "@/lib/atoms/Flex";
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -27,14 +28,18 @@ const ConnectFormSectionMobile = () => {
               <Label>Email</Label>
               <ContentContainer $alignitems="center">
                 <MessageIcon />
-                <ConnectInfo>info@ensureprotect.com</ConnectInfo>
+                <ConnectInfo href="mailto:info@ensureprotect.com">
+                  info@ensureprotect.com
+                </ConnectInfo>
               </ContentContainer>
             </InfoContainer>
             <InfoContainer>
               <Label>Phone</Label>
               <ContentContainer $alignitems="center">
                 <PhoneIcon />
-                <ConnectInfo>+1 (844) 927-7689</ConnectInfo>
+                <ConnectInfo href="tel:+18449277689">
+                  +1 (844) 927-7689
+                </ConnectInfo>
               </ContentContainer>
             </InfoContainer>
           </ConnectInfoWrapper>
@@ -137,7 +142,7 @@ const ContentContainer = styled(Flex)`
   gap: 12px;
 `;
 
-const ConnectInfo = styled.div`
+const ConnectInfo = styled(Link)`
   color: var(--90, rgba(26, 25, 25, 0.9));
   font-size: 14px;
   font-style: normal;
