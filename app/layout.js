@@ -1,8 +1,8 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
 import Navbar from "@/components/Navbar";
-import dynamic from "next/dynamic";
 import ClientFooter from "@/components/ClientFooter";
+import Script from "next/script";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,6 +12,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-P38G9X9LF3"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P38G9X9LF3');
+          `}
+        </Script>
+      </head>
+
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <ProviderLayout>

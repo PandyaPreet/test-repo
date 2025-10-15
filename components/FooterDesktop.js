@@ -3,36 +3,51 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 import FooterBrandLogo from "./svg/FooterBrandLogo";
+import Link from "next/link";
+
 const ROUTES = [
-  "Solutions",
-  "Partners",
-  "About us",
-  "Contact",
-  "Privacy Policy",
+  {
+    name: "Solutions",
+    href: "/solutions",
+    subRoutes: [
+      { name: "Retail", href: "/solutions/retail" },
+      { name: "Enterprise", href: "/solutions/enterprise" },
+      { name: "IoT", href: "/solutions/iot" },
+      { name: "ISP Cable", href: "/solutions/isp-cable" },
+      { name: "OEM", href: "/solutions/oem" },
+      { name: "Consulting", href: "/solutions/consulting" },
+    ],
+  },
+  { name: "Partners", href: "/partners" },
+  { name: "About us", href: "/about-us" },
+  { name: "Connect", href: "/connect" },
+  { name: "Privacy Policy", href: "/privacy-policy" },
 ];
-const SUB_ROUTES = [
-  "Retail",
-  "Enterprise",
-  "IoT",
-  "ISP Cable",
-  "OEM",
-  "Consulting",
-];
+
 const FooterDesktop = () => {
+  const solutions = ROUTES.find((r) => r.name === "Solutions");
+
   return (
     <Container $fullwidth>
       <LeftSection $direction="column" $fullwidth>
         <RoutesContainer $alignitems="flex-end">
-          {ROUTES.map((route, index) => (
-            <RoutesName key={index}>{route}</RoutesName>
+          {ROUTES.map((route) => (
+            <Link href={route.href} key={route.name} aria-label={route.name}>
+              <RoutesName>{route.name}</RoutesName>
+            </Link>
           ))}
         </RoutesContainer>
+
         <DashedSeparator />
+
         <SubroutesContainer $direction="column">
-          {SUB_ROUTES.map((subroute, index) => (
-            <RoutesName key={index}>{subroute}</RoutesName>
+          {solutions?.subRoutes?.map((sub) => (
+            <Link href={sub.href} key={sub.name} aria-label={sub.name}>
+              <RoutesName>{sub.name}</RoutesName>
+            </Link>
           ))}
         </SubroutesContainer>
+
         <LogoContainer $alignitems="flex-end">
           <Flex
             $fullwidth
@@ -44,6 +59,7 @@ const FooterDesktop = () => {
           </Flex>
         </LogoContainer>
       </LeftSection>
+
       <RightSection $alignitems="center" $fullwidth>
         <RightSectionInnerContainer bg="var(--400, #212020)">
           <ContactInfoBlock $direction="column">
@@ -53,6 +69,7 @@ const FooterDesktop = () => {
             </ContactInfoDetails>
           </ContactInfoBlock>
         </RightSectionInnerContainer>
+
         <RightSectionInnerContainer bg="var(--300, #292828)">
           <ContactInfoBlock $direction="column">
             <ContactInfoTitle>Talk with us</ContactInfoTitle>
@@ -61,9 +78,15 @@ const FooterDesktop = () => {
             </ContactInfoDetails>
           </ContactInfoBlock>
         </RightSectionInnerContainer>
+
         <RightSectionInnerContainer bg="var(--200, #393737)">
           <ContactInfoBlock $direction="column">
-            <ContactInfoTitle>LinkedIn</ContactInfoTitle>
+            <Link
+              href={"https://www.linkedin.com/company/ensure-protect/"}
+              target="_blank"
+            >
+              <ContactInfoTitle>LinkedIn</ContactInfoTitle>
+            </Link>
             <ContactInfoDetails></ContactInfoDetails>
           </ContactInfoBlock>
         </RightSectionInnerContainer>
@@ -71,13 +94,14 @@ const FooterDesktop = () => {
     </Container>
   );
 };
+
 export default FooterDesktop;
+
 const Container = styled(Flex)`
   height: 780px;
   flex-shrink: 0;
 `;
 const LeftSection = styled(Flex)`
-  /* width: 648px; */
   gap: 16px;
   align-self: stretch;
   background: var(--500, #1a1919);
@@ -88,7 +112,6 @@ const LeftSection = styled(Flex)`
 const RightSection = styled(Flex)`
   align-self: stretch;
   background-color: beige;
-
   @media (max-width: 1194px) {
     flex-direction: column;
     width: 30%;

@@ -4,8 +4,31 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 import FooterBrandLogo from "./svg/FooterBrandLogo";
+import Link from "next/link";
+
+const ROUTES = [
+  {
+    name: "Solutions",
+    href: "/solutions",
+    subRoutes: [
+      { name: "Retail", href: "/solutions/retail" },
+      { name: "Enterprise", href: "/solutions/enterprise" },
+      { name: "MVNO/MNO", href: "/solutions/mvno-mno" },
+      { name: "ISP Cable", href: "/solutions/isp-cable" },
+      { name: "OEM", href: "/solutions/oem" },
+      { name: "Consulting", href: "/solutions/consulting" },
+    ],
+  },
+  { name: "Partners", href: "/partners" },
+  { name: "About us", href: "/about-us" },
+  { name: "Connect", href: "/connect" },
+  { name: "Privacy Policy", href: "/privacy-policy" },
+];
 
 const FooterMobile = () => {
+  const solutions = ROUTES.find((r) => r.name === "Solutions");
+  const otherRoutes = ROUTES.filter((r) => r.name !== "Solutions");
+
   return (
     <FooterContainer $direction="column">
       <LogoContainer>
@@ -13,43 +36,54 @@ const FooterMobile = () => {
           <FooterBrandLogo />
         </LogoWrapper>
       </LogoContainer>
+
       <RoutesContainer $direction="column">
         <RoutesInfoContainer $justifycontent="space-between">
           <RoutesBlock $direction="column">
-            <Routes>Solutions</Routes>
-            <Routes>Retail</Routes>
-            <Routes>Enterprise</Routes>
-            <Routes>MVNO/MNO</Routes>
-            <Routes>ISP Cable</Routes>
-            <Routes>OEM</Routes>
-            <Routes>Consulting</Routes>
+            <Link href={solutions.href} aria-label={solutions.name}>
+              <Routes>{solutions.name}</Routes>
+            </Link>
+            {solutions.subRoutes.map((sub) => (
+              <Link href={sub.href} key={sub.name} aria-label={sub.name}>
+                <Routes>{sub.name}</Routes>
+              </Link>
+            ))}
           </RoutesBlock>
+
           <RoutesBlock $direction="column">
-            <Routes>Partners</Routes>
-            <Routes>About us</Routes>
-            <Routes>Connect</Routes>
-            <Routes>Privacy Policy</Routes>
+            {otherRoutes.map((route) => (
+              <Link href={route.href} key={route.name} aria-label={route.name}>
+                <Routes>{route.name}</Routes>
+              </Link>
+            ))}
           </RoutesBlock>
         </RoutesInfoContainer>
+
         <HowToReachContainer $direction="column">
-          <HowToReachTitle>Linkedin</HowToReachTitle>
+          <Link
+            href="https://www.linkedin.com/company/ensure-protect/"
+            target="_blank"
+          >
+            <HowToReachTitle>LinkedIn</HowToReachTitle>
+          </Link>
+
           <HowToReachWrapper $direction="column">
             <HowToReachTitle>Come visit us</HowToReachTitle>
             <HowToReachDesc>
-              303 Potrero Street # 53 Santa Cruz, CA 95060
+              303 Potrero Street #53, Santa Cruz, CA 95060
             </HowToReachDesc>
           </HowToReachWrapper>
+
           <HowToReachWrapper $direction="column">
             <HowToReachTitle>Talk with us</HowToReachTitle>
-            <div style={{ display: "flex", gap: "20px" }}>
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
               <HowToReachDesc>info@ensureprotect.com</HowToReachDesc>
-              <HowToReachDesc style={{ margin: "auto" }}>
-                +1 (844) 927-7689
-              </HowToReachDesc>
+              <HowToReachDesc>+1 (844) 927-7689</HowToReachDesc>
             </div>
           </HowToReachWrapper>
         </HowToReachContainer>
       </RoutesContainer>
+
       <CreditsContainer>
         © All rights reserved 2025 Ensure Protect
       </CreditsContainer>
@@ -95,6 +129,10 @@ const Routes = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--accent, #ccc);
+  }
 `;
 
 const HowToReachContainer = styled(Flex)`
@@ -116,7 +154,7 @@ const HowToReachTitle = styled.div`
 `;
 
 const HowToReachDesc = styled.div`
-  color: var(--70, rgba(255, 255, 255, 0.7));
+  color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
