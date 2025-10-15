@@ -27,9 +27,10 @@ const RetailOverviewSection = () => {
       variant: "light",
       title: (
         <>
-          <HeaderSectionTitleDark>The </HeaderSectionTitleDark>
-          <HeaderSectionTitleLight>Retail </HeaderSectionTitleLight>
-          <HeaderSectionTitleDark>Reality</HeaderSectionTitleDark>
+          <HeaderSectionTitleLight>
+            The <br />
+          </HeaderSectionTitleLight>
+          <HeaderSectionTitleDark>Retail Reality</HeaderSectionTitleDark>
         </>
       ),
       description: (
@@ -38,12 +39,14 @@ const RetailOverviewSection = () => {
             Margins are tight. Loyalty is hard-won. And service is the
             battleground where most retail brands win or lose long-term trust.
           </p>
-          <p>
+          <p className="intro-text">
             Whether you're selling electronics, power tools & appliances, or
             connected home goods, your customers expect reliable coverage—and a
             seamless experience when things go wrong.
           </p>
-          <p>We help you deliver both.</p>
+          <p className="highlight-text intro-text">
+            We help you <strong>deliver both.</strong>
+          </p>
         </>
       ),
       bg: "var(--5, rgba(26, 25, 25, 0.05))",
@@ -54,9 +57,10 @@ const RetailOverviewSection = () => {
       variant: "brand",
       title: (
         <>
-          <HeaderSectionTitleLight>Why </HeaderSectionTitleLight>
-          <HeaderSectionTitleDark>Ensure </HeaderSectionTitleDark>
-          <HeaderSectionTitleLight>Protect?</HeaderSectionTitleLight>
+          <HeaderSectionTitleLight>
+            Why <br />{" "}
+          </HeaderSectionTitleLight>
+          <HeaderSectionTitleWhite>Ensure Protect?</HeaderSectionTitleWhite>
         </>
       ),
       description: (
@@ -66,7 +70,7 @@ const RetailOverviewSection = () => {
             extended service plans and protection programs to their
             point-of-sale experience.
           </p>
-          <p>
+          <p className="borderWhite">
             Our programs are either fully white-labeled, or co-branded, designed
             for multi-channel selling, and built to maximize attachment rate and
             lifetime value—without adding operational overhead.
@@ -238,7 +242,7 @@ const HeaderSection = styled.span`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
-  max-width: 380px;
+  max-width: 350px;
   @media (max-width: 1194px) {
     font-size: 36px;
   }
@@ -249,6 +253,10 @@ const HeaderSection = styled.span`
 
 const HeaderSectionTitleDark = styled.span`
   color: var(--500, #1a1919);
+`;
+
+const HeaderSectionTitleWhite = styled.span`
+  color: var(--100, #fff);
 `;
 
 const HeaderSectionTitleLight = styled.span`
@@ -270,5 +278,22 @@ const SubHeaderSection = styled.span`
   }
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+
+  p.intro-text {
+    border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
+    padding-top: 12px;
+  }
+  p.borderWhite {
+    border-top: 0.5px dashed var(--40, rgba(255, 255, 255, 0.4));
+    padding-top: 12px;
+  }
+  p.highlight-text {
+    font-weight: 400;
+    color: var(--500, #1a1919);
+
+    strong {
+      font-weight: 700;
+    }
   }
 `;

@@ -16,6 +16,9 @@ const ISPOverviewSection = () => {
     {
       bgImage: "/assets/ISP-MSP/isp-banner-3.webp",
     },
+    {
+      bgImage: "/assets/ISP-MSP/isp-banner-4.webp",
+    },
   ];
 
   return (

@@ -16,6 +16,9 @@ const ISPOutcomesSection = () => {
     {
       bgImage: "/assets/ISP-MSP/outcomes-banner-3.webp",
     },
+    {
+      bgImage: "/assets/ISP-MSP/outcomes-banner-4.webp",
+    },
   ];
 
   return (
