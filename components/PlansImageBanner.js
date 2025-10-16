@@ -69,12 +69,6 @@ const PlansBannerImagesBackground = styled.div`
   height: 760px;
   flex: 1;
 
-  &:hover {
-    ${PlansBannerImageWrapper} {
-      display: flex;
-    }
-  }
-
   @media (max-width: 980px) {
     width: 100%;
     height: 450px;
