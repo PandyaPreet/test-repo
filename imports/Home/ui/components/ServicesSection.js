@@ -155,6 +155,7 @@ export default ServicesSection;
 const ServicesHeader = styled(Flex)`
   padding: 180px 16px 80px 16px;
   gap: 299px;
+  width: 100%;
   background: var(--100, #fff);
   @media (max-width: 1194px) {
     gap: 220px;
@@ -195,6 +196,7 @@ const ServicesHeaderTitleDark = styled.div`
 
 const ServicesWrapper = styled(Flex)`
   gap: 0px;
+  width: 100%;
   flex-direction: column;
 `;
 

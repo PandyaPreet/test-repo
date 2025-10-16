@@ -31,11 +31,7 @@ const HomePage = ({ data }) => {
 
 export default HomePage;
 
-const PageWrapper = styled(Flex)`
-  @media (max-width: 1194px) {
-    gap: 64px;
-  }
-`;
+const PageWrapper = styled(Flex)``;
 
 const Wrapper = styled.div`
   width: 100%;
