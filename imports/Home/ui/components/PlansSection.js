@@ -2,10 +2,11 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const PlansSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/home-banner-1.webp",
@@ -16,6 +17,11 @@ const PlansSection = () => {
     {
       bgImage: "/assets/home-banner-3.webp",
     },
+  ];
+  const DESCRIPTIONS = [
+    "We're a modern Independent TPA (third-party administrator) built for OEMs, retailers, and connected product brands that want to offer protection plans without operational headaches.",
+    "Whether your business runs on ecommerce, retail stores, or app-based experiences, our platform powers embedded warranty solutions that drive loyalty and long-term value.",
+    "Ensure Protect isn't just a service provider—we're a protection plan partner who shares your goals: higher attachment rates, lower churn, better customer experience, and higher margins.",
   ];
   return (
     <PlansContiner $fullwidth>
@@ -32,27 +38,23 @@ const PlansSection = () => {
               <PlansDetailsTitleDark>Plans</PlansDetailsTitleDark>
             </PlansDetailsTitle>
             <PlansDetailsDescriptionContainer $direction="column">
-              <PlansDetailsDescription>
-                We’re a modern Independent TPA (third-party administrator) built
-                for OEMs, retailers, and connected product brands that want to
-                offer protection plans without operational headaches.{" "}
-              </PlansDetailsDescription>
-              <PlansDetailsDescriptionSeparator />
-              <PlansDetailsDescription>
-                Whether your business runs on ecommerce, retail stores, or
-                app-based experiences, our platform powers embedded warranty
-                solutions that drive loyalty and long-term value.
-              </PlansDetailsDescription>
-              <PlansDetailsDescriptionSeparator />
-              <PlansDetailsDescription>
-                Ensure Protect isn’t just a service provider—we’re a protection
-                plan partner who shares your goals: higher attachment rates,
-                lower churn, better customer experience, and higher margins.
-              </PlansDetailsDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <PlansDetailsDescription>{desc}</PlansDetailsDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <PlansDetailsDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </PlansDetailsDescriptionContainer>
           </PlansDetailsContainer>
         </PlansDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </PlansInnerWrapper>
     </PlansContiner>
   );
@@ -82,6 +84,13 @@ const PlansDetails = styled(Flex)`
     width: 100%;
     padding: 24px 16px;
   }
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* gap: 12px; */
+  cursor: pointer;
 `;
 
 const PlansDetailsContainer = styled(Flex)`
@@ -125,7 +134,7 @@ const PlansDetailsTitleDark = styled.span`
 `;
 
 const PlansDetailsDescriptionContainer = styled(Flex)`
-  gap: 12px;
+  /* gap: 12px; */
   align-self: stretch;
 `;
 
@@ -134,8 +143,11 @@ const PlansDetailsDescription = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+  padding-bottom: 12px;
+  padding-top: 12px;
   line-height: 120%;
   letter-spacing: -0.42px;
+  cursor: pointer;
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
