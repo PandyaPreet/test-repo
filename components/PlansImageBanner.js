@@ -6,7 +6,7 @@ import styled, { keyframes } from "styled-components";
 import Flex from "@/lib/atoms/Flex";
 
 const PlansImageBanner = ({ banners, activeIndex = 0 }) => {
-  const [hoverIndex, setHoverIndex] = useState();
+  const [hoverIndex, setHoverIndex] = useState(null);
   const visibleIndex = hoverIndex !== null ? hoverIndex : activeIndex;
 
   return (
