@@ -2,23 +2,24 @@
 
 import PlansImageBanner from "@/components/PlansImageBanner";
 import Flex from "@/lib/atoms/Flex";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const ConsultingWorkTogetherSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/Consulting/right-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/Consulting/right-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/Consulting/right-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/Consulting/right-banner-4.webp",
-    },
+    { bgImage: "/assets/Consulting/right-banner-1.webp" },
+    { bgImage: "/assets/Consulting/right-banner-2.webp" },
+    { bgImage: "/assets/Consulting/right-banner-3.webp" },
+    { bgImage: "/assets/Consulting/right-banner-4.webp" },
+  ];
+
+  const DESCRIPTIONS = [
+    "Co-branded or white-labeled protection programs",
+    "Custom service plan design for end clients",
+    "Revenue-sharing opportunities",
+    "Fulfillment, tech, and compliance included",
   ];
 
   return (
@@ -45,25 +46,25 @@ const ConsultingWorkTogetherSection = () => {
             </ConsultingWorkTogetherTitle>
 
             <ConsultingWorkTogetherDescriptionContainer $direction="column">
-              <ConsultingWorkTogetherDescription>
-                Co-branded or white-labeled protection programs
-              </ConsultingWorkTogetherDescription>
-              <ConsultingWorkTogetherDescriptionSeparator />
-              <ConsultingWorkTogetherDescription>
-                Custom service plan design for end clients
-              </ConsultingWorkTogetherDescription>
-              <ConsultingWorkTogetherDescriptionSeparator />
-              <ConsultingWorkTogetherDescription>
-                Revenue-sharing opportunities
-              </ConsultingWorkTogetherDescription>
-              <ConsultingWorkTogetherDescriptionSeparator />
-              <ConsultingWorkTogetherDescription>
-                Fulfillment, tech, and compliance included
-              </ConsultingWorkTogetherDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <ConsultingWorkTogetherDescription>
+                    {desc}
+                  </ConsultingWorkTogetherDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <ConsultingWorkTogetherDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </ConsultingWorkTogetherDescriptionContainer>
           </ConsultingWorkTogetherDetailsContainer>
         </ConsultingWorkTogetherDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} />
+
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </ConsultingWorkTogetherInnerWrapper>
     </ConsultingWorkTogetherContainer>
   );
@@ -138,8 +139,14 @@ const ConsultingWorkTogetherTitleDark = styled.span`
 `;
 
 const ConsultingWorkTogetherDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const ConsultingWorkTogetherDescription = styled.div`
@@ -149,11 +156,12 @@ const ConsultingWorkTogetherDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
   }
 `;
 

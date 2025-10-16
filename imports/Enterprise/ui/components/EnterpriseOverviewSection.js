@@ -2,10 +2,12 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const EnterpriseOverviewSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/Enterprise/tailored-banner-1.webp",
@@ -20,7 +22,13 @@ const EnterpriseOverviewSection = () => {
       bgImage: "/assets/Enterprise/tailored-banner-4.webp",
     },
   ];
-
+  const DESCRIPTIONS = [
+    "Service contracts built for high-volume hardware and connected devices",
+    "Coverage for internal systems, field tools, displays, medical tech, and more",
+    "Tiered SLAs based on device importance or location",
+    "Flexible group enrollment and asset-based coverage assignment",
+    "Custom claims workflows, escalation paths, and reporting access",
+  ];
   return (
     <EnterpriseOverviewContainer $fullwidth>
       <EnterpriseOverviewInnerWrapper
@@ -42,31 +50,25 @@ const EnterpriseOverviewSection = () => {
             </EnterpriseOverviewTitle>
 
             <EnterpriseOverviewDescriptionContainer $direction="column">
-              <EnterpriseOverviewDescription>
-                Service contracts built for high-volume hardware and connected
-                devices
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Coverage for internal systems, field tools, displays, medical
-                tech, and more
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Tiered SLAs based on device importance or location
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Flexible group enrollment and asset-based coverage assignment
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Custom claims workflows, escalation paths, and reporting access
-              </EnterpriseOverviewDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <EnterpriseOverviewDescription>
+                      {desc}
+                    </EnterpriseOverviewDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <EnterpriseOverviewDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </EnterpriseOverviewDescriptionContainer>
           </EnterpriseOverviewDetailsContainer>
         </EnterpriseOverviewDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </EnterpriseOverviewInnerWrapper>
     </EnterpriseOverviewContainer>
   );
@@ -88,6 +90,13 @@ const EnterpriseOverviewInnerWrapper = styled(Flex)`
     flex-direction: column;
     gap: 24px;
   }
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const EnterpriseOverviewDetails = styled(Flex)`
@@ -141,7 +150,6 @@ const EnterpriseOverviewTitleDark = styled.span`
 `;
 
 const EnterpriseOverviewDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
 `;
 
@@ -151,6 +159,8 @@ const EnterpriseOverviewDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  padding-bottom: 12px;
+  padding-top: 12px;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;

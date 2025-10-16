@@ -1,25 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Flex from "@/lib/atoms/Flex";
 import styled from "styled-components";
 import PlansImageBanner from "@/components/PlansImageBanner";
 
 function AboutUsFeatureSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/About/about-feature-1.webp",
-    },
-    {
-      bgImage: "/assets/About/about-feature-2.webp",
-    },
-    {
-      bgImage: "/assets/About/about-feature-3.webp",
-    },
-    {
-      bgImage: "/assets/About/about-feature-4.webp",
-    },
+    { bgImage: "/assets/About/about-feature-1.webp" },
+    { bgImage: "/assets/About/about-feature-2.webp" },
+    { bgImage: "/assets/About/about-feature-3.webp" },
+    { bgImage: "/assets/About/about-feature-4.webp" },
   ];
+
+  const DESCRIPTIONS = [
+    "We don't cross-sell other insurance to your customers. You own the relationship",
+    "We deliver full-service protection: plan setup, underwriting, program development, compliance, tech, claims, and logistics",
+    "We're not a carrier—we build plans that serve your business, not ours, with a variety of risk structures to fit your business",
+    "We help you turn aftermarket service into a strategic growth driver",
+  ];
+
   return (
     <AboutUsFeatureContainer $fullwidth>
       <AboutUsFeatureInnerWrapper
@@ -36,30 +38,23 @@ function AboutUsFeatureSection() {
             </AboutUsFeatureTitle>
 
             <AboutUsFeatureDescriptionContainer $direction="column">
-              <AboutUsFeatureDescription>
-                We don't cross-sell other insurance to your customers. You own
-                the relationship
-              </AboutUsFeatureDescription>
-              <AboutUsFeatureDescriptionSeparator />
-              <AboutUsFeatureDescription>
-                We deliver full-service protection: plan setup,
-                underwriting,program development, compliance, tech, claims, and
-                logistics
-              </AboutUsFeatureDescription>
-              <AboutUsFeatureDescriptionSeparator />
-              <AboutUsFeatureDescription>
-                We're not a carrier—we build plans that serve your business,not
-                ours, with a variety of risk structures to fit your business
-              </AboutUsFeatureDescription>
-              <AboutUsFeatureDescriptionSeparator />
-              <AboutUsFeatureDescription>
-                We help you turn aftermarket service into a strategic growth
-                driver
-              </AboutUsFeatureDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <AboutUsFeatureDescription>{desc}</AboutUsFeatureDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <AboutUsFeatureDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </AboutUsFeatureDescriptionContainer>
           </AboutUsFeatureDetailsContainer>
         </AboutUsFeatureDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} />
+
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </AboutUsFeatureInnerWrapper>
     </AboutUsFeatureContainer>
   );
@@ -134,8 +129,14 @@ const AboutUsFeatureTitleDark = styled.span`
 `;
 
 const AboutUsFeatureDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const AboutUsFeatureDescription = styled.div`
@@ -145,11 +146,12 @@ const AboutUsFeatureDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
   }
 `;
 

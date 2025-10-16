@@ -2,10 +2,12 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const MNOverview = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/MVNO-MNO/mvno-banner-1.webp",
@@ -19,6 +21,13 @@ const MNOverview = () => {
     {
       bgImage: "/assets/MVNO-MNO/mvno-banner-4.webp",
     },
+  ];
+
+  const DESCRIPTIONS = [
+    "Reduce support volume from device failures",
+    "Increase revenue through bundled coverage sales",
+    "Strengthen device lifecycle economics",
+    "Build long-term trust and reduce replacements",
   ];
 
   return (
@@ -43,25 +52,25 @@ const MNOverview = () => {
             </EnterpriseOverviewTitle>
 
             <EnterpriseOverviewDescriptionContainer $direction="column">
-              <EnterpriseOverviewDescription>
-                Reduce support volume from device failures
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Increase revenue through bundled coverage sales
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Strengthen device lifecycle economics
-              </EnterpriseOverviewDescription>
-              <EnterpriseOverviewDescriptionSeparator />
-              <EnterpriseOverviewDescription>
-                Build long-term trust and reduce replacements
-              </EnterpriseOverviewDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <EnterpriseOverviewDescription>
+                      {desc}
+                    </EnterpriseOverviewDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <EnterpriseOverviewDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </EnterpriseOverviewDescriptionContainer>
           </EnterpriseOverviewDetailsContainer>
         </EnterpriseOverviewDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </EnterpriseOverviewInnerWrapper>
     </EnterpriseOverviewContainer>
   );
@@ -93,6 +102,13 @@ const EnterpriseOverviewDetails = styled(Flex)`
     width: 100%;
     padding: 24px 16px;
   }
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const EnterpriseOverviewDetailsContainer = styled(Flex)`
@@ -136,7 +152,6 @@ const EnterpriseOverviewTitleDark = styled.span`
 `;
 
 const EnterpriseOverviewDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
 `;
 
@@ -146,6 +161,8 @@ const EnterpriseOverviewDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  padding-bottom: 12px;
+  padding-top: 12px;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;

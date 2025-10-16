@@ -2,10 +2,12 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const EnterpriseDetailSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/Enterprise/enterprise-banner-1.webp",
@@ -21,13 +23,20 @@ const EnterpriseDetailSection = () => {
     },
   ];
 
+  const DESCRIPTIONS = [
+    "Centralized claims and service coordination",
+    "White-labeled portals to maintain internal branding",
+    "Reporting dashboards segmented by department, region, or asset class",
+    " Customized plans including accidental damage for handheld devices, and on-site service for larger installed devices",
+  ];
+
   return (
     <EnterpriseDetailContainer $fullwidth>
       <EnterpriseDetailInnerWrapper
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
 
         <EnterpriseDetailDetails $direction="column" $justifycontent="flex-end">
           <EnterpriseDetailDetailsContainer $direction="column" $fullwidth>
@@ -40,23 +49,21 @@ const EnterpriseDetailSection = () => {
             </EnterpriseDetailTitle>
 
             <EnterpriseDetailDescriptionContainer $direction="column">
-              <EnterpriseDetailDescription>
-                Centralized claims and service coordination
-              </EnterpriseDetailDescription>
-              <EnterpriseDetailDescriptionSeparator />
-              <EnterpriseDetailDescription>
-                White-labeled portals to maintain internal branding
-              </EnterpriseDetailDescription>
-              <EnterpriseDetailDescriptionSeparator />
-              <EnterpriseDetailDescription>
-                Reporting dashboards segmented by department, region, or asset
-                class
-              </EnterpriseDetailDescription>
-              <EnterpriseDetailDescriptionSeparator />
-              <EnterpriseDetailDescription>
-                Customized plans including accidental damage for handheld
-                devices, and on-site service for larger installed devices
-              </EnterpriseDetailDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <EnterpriseDetailDescription>
+                      {desc}
+                    </EnterpriseDetailDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <EnterpriseDetailDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </EnterpriseDetailDescriptionContainer>
           </EnterpriseDetailDetailsContainer>
         </EnterpriseDetailDetails>
@@ -134,7 +141,6 @@ const EnterpriseDetailTitleDark = styled.span`
 `;
 
 const EnterpriseDetailDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
 `;
 
@@ -144,6 +150,8 @@ const EnterpriseDetailDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  padding-bottom: 12px;
+  padding-top: 12px;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;
@@ -151,6 +159,12 @@ const EnterpriseDetailDescription = styled.div`
     max-width: 552px;
     letter-spacing: none;
   }
+`;
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const EnterpriseDetailDescriptionSeparator = styled.div`

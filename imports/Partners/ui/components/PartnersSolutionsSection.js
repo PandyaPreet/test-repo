@@ -1,25 +1,26 @@
 "use client";
-
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function PartnersSolutionsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const SOLUTIONS_BANNER_IMAGES = [
-    {
-      bgImage: "/assets/Partners/solutions-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/Partners/solutions-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/Partners/solutions-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/Partners/solutions-banner-4.webp",
-    },
+    { bgImage: "/assets/Partners/solutions-banner-1.webp" },
+    { bgImage: "/assets/Partners/solutions-banner-2.webp" },
+    { bgImage: "/assets/Partners/solutions-banner-3.webp" },
+    { bgImage: "/assets/Partners/solutions-banner-4.webp" },
   ];
+
+  const DESCRIPTIONS = [
+    "Reserve sharing with our reinsurance structure, or set up a captive that we help manage",
+    "Monthly, yearly, or multi-year options to fit customer buying needs and your Sales & Marketing approach",
+    "White-labeled or co-branded coverage, to ensure continuity and brand awareness",
+    "Set up quoting and reporting using APIs or flat files",
+  ];
+
   return (
     <PartnersSolutionContainer $fullwidth>
       <PartnersSolutionInnerWrapper
@@ -45,28 +46,28 @@ function PartnersSolutionsSection() {
             </PartnersSolutionHeader>
 
             <PartnersSolutionDescriptionContainer $direction="column">
-              <PartnersSolutionDescription>
-                Reserve sharing with our reinsurance structure, or set up a
-                captive that we help manage
-              </PartnersSolutionDescription>
-              <PartnersSolutionDescriptionSeparator />
-              <PartnersSolutionDescription>
-                Monthly, yearly, or multi-year options to fit customer buying
-                needs and your Sales & Marketing approach
-              </PartnersSolutionDescription>
-              <PartnersSolutionDescriptionSeparator />
-              <PartnersSolutionDescription>
-                White-labeled or co-branded coverage, to ensure continuity and
-                brand awareness
-              </PartnersSolutionDescription>
-              <PartnersSolutionDescriptionSeparator />
-              <PartnersSolutionDescription>
-                Set up quoting and reporting using APIs or flat files
-              </PartnersSolutionDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <PartnersSolutionDescription>
+                    {desc}
+                  </PartnersSolutionDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <PartnersSolutionDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </PartnersSolutionDescriptionContainer>
           </PartnersSolutionDetailsContainer>
         </PartnersSolutionDetails>
-        <PlansImageBanner banners={SOLUTIONS_BANNER_IMAGES} />
+
+        <PlansImageBanner
+          banners={SOLUTIONS_BANNER_IMAGES}
+          activeIndex={activeIndex}
+        />
       </PartnersSolutionInnerWrapper>
     </PartnersSolutionContainer>
   );
@@ -81,7 +82,6 @@ const PartnersSolutionContainer = styled(Flex)`
 
 const PartnersSolutionInnerWrapper = styled(Flex)`
   flex: 1 0 0;
-
   @media (max-width: 980px) {
     flex-direction: column;
     gap: 24px;
@@ -134,8 +134,6 @@ const PartnersSolutionTitle = styled.h2`
   }
 `;
 
-const PartnersSolutionSubTitle = styled.span``;
-
 const PartnersSolutionTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
 `;
@@ -145,8 +143,14 @@ const PartnersSolutionTitleDark = styled.span`
 `;
 
 const PartnersSolutionDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const PartnersSolutionDescription = styled.div`
@@ -156,12 +160,13 @@ const PartnersSolutionDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   ${({ $uppercase }) => $uppercase && `text-transform: uppercase;`}
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
   }
 `;
 
@@ -169,25 +174,4 @@ const PartnersSolutionDescriptionSeparator = styled.div`
   width: 100%;
   height: 1px;
   border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const PartnersSolutionBannerContainer = styled(Flex)`
-  flex: 1 0 0;
-`;
-
-const PartnersSolutionBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-`;
-
-const PartnersSolutionBannerImagesBackground = styled.div`
-  height: 760px;
-  flex: 1 0 0;
-  background: ${({ bg }) => bg};
-
-  &:hover {
-    ${PartnersSolutionBannerImageWrapper} {
-      display: block;
-    }
-  }
 `;

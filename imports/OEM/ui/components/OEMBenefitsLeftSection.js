@@ -1,32 +1,38 @@
 "use client";
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function OEMBenefitsLeftSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BENEFITS_BANNER_IMAGES = [
-    {
-      bgImage: "/assets/OEM/benefits-banner-left-1.webp",
-    },
-    {
-      bgImage: "/assets/OEM/benefits-banner-left-2.webp",
-    },
-    {
-      bgImage: "/assets/OEM/benefits-banner-left-3.webp",
-    },
-    {
-      bgImage: "/assets/OEM/benefits-banner-left-4.webp",
-    },
+    { bgImage: "/assets/OEM/benefits-banner-left-1.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-left-2.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-left-3.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-left-4.webp" },
   ];
+
+  const DESCRIPTIONS = [
+    "Program monetization through reserve sharing or fixed pricing",
+    "Upsell options during product activation or after-sale campaigns",
+    "Seamless experience integration with your CRM or support flows",
+  ];
+
   return (
     <OEMBenefitsLeftSectionContainer $fullwidth>
       <OEMBenefitsLeftSectionInnerWrapper
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BENEFITS_BANNER_IMAGES} />
+        {/* Image on left */}
+        <PlansImageBanner
+          banners={BENEFITS_BANNER_IMAGES}
+          activeIndex={activeIndex}
+        />
 
+        {/* Details on right */}
         <OEMBenefitsLeftSectionDetails
           $direction="column"
           $justifycontent="flex-end"
@@ -52,18 +58,20 @@ function OEMBenefitsLeftSection() {
             </OEMBenefitsLeftSectionHeader>
 
             <OEMBenefitsLeftSectionDescriptionContainer $direction="column">
-              <OEMBenefitsLeftSectionDescription>
-                Program monetization through reserve sharing or fixed pricing
-              </OEMBenefitsLeftSectionDescription>
-              <OEMBenefitsLeftSectionDescriptionSeparator />
-              <OEMBenefitsLeftSectionDescription>
-                Upsell options during product activation or after-sale campaigns
-              </OEMBenefitsLeftSectionDescription>
-              <OEMBenefitsLeftSectionDescriptionSeparator />
-              <OEMBenefitsLeftSectionDescription>
-                Seamless experience integration with your CRM or support flows
-              </OEMBenefitsLeftSectionDescription>
-              <OEMBenefitsLeftSectionDescriptionSeparator />
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <OEMBenefitsLeftSectionDescription>
+                    {desc}
+                  </OEMBenefitsLeftSectionDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <OEMBenefitsLeftSectionDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </OEMBenefitsLeftSectionDescriptionContainer>
           </OEMBenefitsLeftSectionDetailsContainer>
         </OEMBenefitsLeftSectionDetails>
@@ -73,6 +81,8 @@ function OEMBenefitsLeftSection() {
 }
 
 export default OEMBenefitsLeftSection;
+
+/* ===================== STYLES (No Visual Changes) ===================== */
 
 const OEMBenefitsLeftSectionContainer = styled(Flex)`
   gap: 10px;
@@ -136,8 +146,6 @@ const OEMBenefitsLeftSectionTitle = styled.h2`
   }
 `;
 
-const OEMBenefitsLeftSectionSubTitle = styled.span``;
-
 const OEMBenefitsLeftSectionTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
 `;
@@ -147,8 +155,14 @@ const OEMBenefitsLeftSectionTitleDark = styled.span`
 `;
 
 const OEMBenefitsLeftSectionDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const OEMBenefitsLeftSectionDescription = styled.div`
@@ -158,12 +172,13 @@ const OEMBenefitsLeftSectionDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   ${({ $uppercase }) => $uppercase && `text-transform: uppercase;`}
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
   }
 `;
 

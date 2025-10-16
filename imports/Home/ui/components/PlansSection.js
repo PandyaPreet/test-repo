@@ -91,6 +91,7 @@ const DescriptionBlock = styled.div`
   flex-direction: column;
   /* gap: 12px; */
   cursor: pointer;
+  width: 100%;
 `;
 
 const PlansDetailsContainer = styled(Flex)`

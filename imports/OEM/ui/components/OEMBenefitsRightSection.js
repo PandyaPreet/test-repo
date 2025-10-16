@@ -1,24 +1,27 @@
 "use client";
+
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function OEMBenefitsRightSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BENEFITS_BANNER_IMAGES = [
-    {
-      bgImage: "/assets/OEM/benefits-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/OEM/benefits-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/OEM/benefits-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/OEM/benefits-banner-4.webp",
-    },
+    { bgImage: "/assets/OEM/benefits-banner-1.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-2.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-3.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-4.webp" },
   ];
+
+  const DESCRIPTIONS = [
+    "Embedded coverage activated during registration or app onboarding",
+    "White-labeled warranty extensions and accidental damage protection",
+    "Technical and repair support built into your customer experience ecosystem",
+    "Options for bundled support + protection SKUs sold through your channels",
+  ];
+
   return (
     <PartnersPlansContiner $fullwidth>
       <PartnersPlansInnerWrapper
@@ -44,29 +47,28 @@ function OEMBenefitsRightSection() {
             </PartnersDetailsHeader>
 
             <PartnersPlansDetailsDescriptionContainer $direction="column">
-              <PartnersPlansDetailsDescription>
-                Embedded coverage activated during registration or app
-                onboarding
-              </PartnersPlansDetailsDescription>
-              <PartnersPlansDetailsDescriptionSeparator />
-              <PartnersPlansDetailsDescription>
-                White-labeled warranty extensions and accidental damage
-                protection
-              </PartnersPlansDetailsDescription>
-              <PartnersPlansDetailsDescriptionSeparator />
-              <PartnersPlansDetailsDescription>
-                Technical and repair support built into your customer experience
-                ecosystem
-              </PartnersPlansDetailsDescription>
-              <PartnersPlansDetailsDescriptionSeparator />
-              <PartnersPlansDetailsDescription>
-                Options for bundled support + protection SKUs sold through your
-                channels
-              </PartnersPlansDetailsDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <PartnersPlansDetailsDescription>
+                    {desc}
+                  </PartnersPlansDetailsDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <PartnersPlansDetailsDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </PartnersPlansDetailsDescriptionContainer>
           </PartnersPlansDetailsContainer>
         </PartnersPlansDetails>
-        <PlansImageBanner banners={BENEFITS_BANNER_IMAGES} />
+
+        <PlansImageBanner
+          banners={BENEFITS_BANNER_IMAGES}
+          activeIndex={activeIndex}
+        />
       </PartnersPlansInnerWrapper>
     </PartnersPlansContiner>
   );
@@ -136,8 +138,6 @@ const PartnersPlansDetailsTitle = styled.h2`
   }
 `;
 
-const PartnersPlansDetailsSubTitle = styled.span``;
-
 const PartnersPlansDetailsTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
 `;
@@ -147,8 +147,14 @@ const PartnersPlansDetailsTitleDark = styled.span`
 `;
 
 const PartnersPlansDetailsDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const PartnersPlansDetailsDescription = styled.div`
@@ -158,6 +164,8 @@ const PartnersPlansDetailsDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   ${({ $uppercase }) => $uppercase && `text-transform: uppercase;`}
   @media (max-width: 980px) {
     width: 100%;

@@ -2,10 +2,12 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const ISPOverviewSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/ISP-MSP/isp-banner-1.webp",
@@ -21,13 +23,20 @@ const ISPOverviewSection = () => {
     },
   ];
 
+  const DESCRIPTIONS = [
+    "Wi-Fi and broadband providers",
+    "Smart home platforms",
+    "Connected device resellers and MVNO",
+    "White-label tech or hardware bundles",
+  ];
+
   return (
     <ISPOverviewContainer $fullwidth>
       <ISPOverviewInnerWrapper
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
 
         <ISPOverviewDetails $direction="column" $justifycontent="flex-end">
           <ISPOverviewDetailsContainer $direction="column" $fullwidth>
@@ -36,21 +45,19 @@ const ISPOverviewSection = () => {
             </ISPOverviewTitle>
 
             <ISPOverviewDescriptionContainer $direction="column">
-              <ISPOverviewDescription>
-                Wi-Fi and broadband providers
-              </ISPOverviewDescription>
-              <ISPOverviewDescriptionSeparator />
-              <ISPOverviewDescription>
-                Smart home platforms
-              </ISPOverviewDescription>
-              <ISPOverviewDescriptionSeparator />
-              <ISPOverviewDescription>
-                Connected device resellers and MVNO
-              </ISPOverviewDescription>
-              <ISPOverviewDescriptionSeparator />
-              <ISPOverviewDescription>
-                White-label tech or hardware bundles
-              </ISPOverviewDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <ISPOverviewDescription>{desc}</ISPOverviewDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <ISPOverviewDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </ISPOverviewDescriptionContainer>
           </ISPOverviewDetailsContainer>
         </ISPOverviewDetails>
@@ -75,6 +82,12 @@ const ISPOverviewInnerWrapper = styled(Flex)`
     flex-direction: column-reverse;
     gap: 24px;
   }
+`;
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const ISPOverviewDetails = styled(Flex)`
@@ -128,7 +141,6 @@ const ISPOverviewTitleDark = styled.span`
 `;
 
 const ISPOverviewDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
 `;
 
@@ -138,6 +150,8 @@ const ISPOverviewDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  padding-bottom: 12px;
+  padding-top: 12px;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;

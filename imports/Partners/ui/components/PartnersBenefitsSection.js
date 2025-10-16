@@ -1,31 +1,37 @@
 "use client";
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function PartnersBenefitsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BENEFITS_BANNER_IMAGES = [
-    {
-      bgImage: "/assets/Partners/benefits-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/Partners/benefits-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/Partners/benefits-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/Partners/benefits-banner-4.webp",
-    },
+    { bgImage: "/assets/Partners/benefits-banner-1.webp" },
+    { bgImage: "/assets/Partners/benefits-banner-2.webp" },
+    { bgImage: "/assets/Partners/benefits-banner-3.webp" },
+    { bgImage: "/assets/Partners/benefits-banner-4.webp" },
   ];
+
+  const DESCRIPTIONS = [
+    "Add incremental margin from every qualifying product sold",
+    "Strengthen customer retention with branded coverage",
+    "Reduce internal support costs and claims administration",
+    "Go to market faster with templated onboarding",
+  ];
+
   return (
     <PartnersPlansContiner $fullwidth>
       <PartnersPlansInnerWrapper
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BENEFITS_BANNER_IMAGES} />
+        <PlansImageBanner
+          banners={BENEFITS_BANNER_IMAGES}
+          activeIndex={activeIndex}
+        />
+
         <PartnersPlansDetails $direction="column" $justifycontent="flex-end">
           <PartnersPlansDetailsContainer $direction="column" $fullwidth>
             <PartnersDetailsHeader $direction="column">
@@ -47,21 +53,20 @@ function PartnersBenefitsSection() {
             </PartnersDetailsHeader>
 
             <PartnersPlansDetailsDescriptionContainer $direction="column">
-              <PartnersPlansDetailsDescription>
-                Add incremental margin from every qualifying product sold
-              </PartnersPlansDetailsDescription>
-              <PartnersPlansDetailsDescriptionSeparator />
-              <PartnersPlansDetailsDescription>
-                Strengthen customer retention with branded coverage
-              </PartnersPlansDetailsDescription>
-              <PartnersPlansDetailsDescriptionSeparator />
-              <PartnersPlansDetailsDescription>
-                Reduce internal support costs and claims administration
-              </PartnersPlansDetailsDescription>
-              <PartnersPlansDetailsDescriptionSeparator />
-              <PartnersPlansDetailsDescription>
-                Go to market faster with templated onboarding
-              </PartnersPlansDetailsDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <PartnersPlansDetailsDescription>
+                    {desc}
+                  </PartnersPlansDetailsDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <PartnersPlansDetailsDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </PartnersPlansDetailsDescriptionContainer>
           </PartnersPlansDetailsContainer>
         </PartnersPlansDetails>
@@ -134,8 +139,6 @@ const PartnersPlansDetailsTitle = styled.h2`
   }
 `;
 
-const PartnersPlansDetailsSubTitle = styled.span``;
-
 const PartnersPlansDetailsTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
 `;
@@ -145,8 +148,14 @@ const PartnersPlansDetailsTitleDark = styled.span`
 `;
 
 const PartnersPlansDetailsDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const PartnersPlansDetailsDescription = styled.div`
@@ -156,12 +165,13 @@ const PartnersPlansDetailsDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   ${({ $uppercase }) => $uppercase && `text-transform: uppercase;`}
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
   }
 `;
 

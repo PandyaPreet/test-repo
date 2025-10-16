@@ -2,10 +2,12 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const ISPOutcomesSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/ISP-MSP/outcomes-banner-1.webp",
@@ -19,6 +21,13 @@ const ISPOutcomesSection = () => {
     {
       bgImage: "/assets/ISP-MSP/outcomes-banner-4.webp",
     },
+  ];
+
+  const DESCRIPTIONS = [
+    "Lower churn from better post-install support",
+    "Increased monthly revenue via service add-ons",
+    "Fewer escalations and ticket volumes for device failures",
+    "Branded customer experience across all service interactions",
   ];
 
   return (
@@ -37,25 +46,23 @@ const ISPOutcomesSection = () => {
             </ISPOutcomesTitle>
 
             <ISPOutcomesDescriptionContainer $direction="column">
-              <ISPOutcomesDescription>
-                Lower churn from better post-install support
-              </ISPOutcomesDescription>
-              <ISPOutcomesDescriptionSeparator />
-              <ISPOutcomesDescription>
-                Increased monthly revenue via service add-ons
-              </ISPOutcomesDescription>
-              <ISPOutcomesDescriptionSeparator />
-              <ISPOutcomesDescription>
-                Fewer escalations and ticket volumes for device failures
-              </ISPOutcomesDescription>
-              <ISPOutcomesDescriptionSeparator />
-              <ISPOutcomesDescription>
-                Branded customer experience across all service interactions
-              </ISPOutcomesDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <ISPOutcomesDescription>{desc}</ISPOutcomesDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <ISPOutcomesDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </ISPOutcomesDescriptionContainer>
           </ISPOutcomesDetailsContainer>
         </ISPOutcomesDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </ISPOutcomesInnerWrapper>
     </ISPOutcomesContainer>
   );
@@ -87,6 +94,13 @@ const ISPOutcomesDetails = styled(Flex)`
     width: 100%;
     padding: 24px 16px;
   }
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const ISPOutcomesDetailsContainer = styled(Flex)`
@@ -130,7 +144,6 @@ const ISPOutcomesTitleDark = styled.span`
 `;
 
 const ISPOutcomesDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
 `;
 
@@ -140,6 +153,8 @@ const ISPOutcomesDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  padding-bottom: 12px;
+  padding-top: 12px;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;

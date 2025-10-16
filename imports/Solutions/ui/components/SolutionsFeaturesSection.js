@@ -2,10 +2,12 @@
 
 import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const SolutionsFeaturesSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
     {
       bgImage: "/assets/Solutions/solutions-banner-1.jpg",
@@ -19,6 +21,13 @@ const SolutionsFeaturesSection = () => {
     {
       bgImage: "/assets/Solutions/solutions-banner-4.jpg",
     },
+  ];
+
+  const DESCRIPTIONS = [
+    "Add plans to product pages, checkouts, CRMs, or customer portals",
+    "Real-time registration, claim submission, and status tracking",
+    "Dashboards to monitor plan adoption, revenue, and claims",
+    "We make it easy to launch and scale",
   ];
 
   return (
@@ -47,26 +56,26 @@ const SolutionsFeaturesSection = () => {
             </SolutionsFeaturesTitle>
 
             <SolutionsFeaturesDescriptionContainer $direction="column">
-              <SolutionsFeaturesDescription>
-                Add plans to product pages, checkouts, CRMs, or customer portals
-              </SolutionsFeaturesDescription>
-              <SolutionsFeaturesDescriptionSeparator />
-              <SolutionsFeaturesDescription>
-                Real-time registration, claim submission, and status tracking
-              </SolutionsFeaturesDescription>
-              <SolutionsFeaturesDescriptionSeparator />
-              <SolutionsFeaturesDescription>
-                Dashboards to monitor plan adoption, revenue, and claims
-              </SolutionsFeaturesDescription>
-              <SolutionsFeaturesDescriptionSeparator />
-              <SolutionsFeaturesDescription>
-                We make it easy to launch and scale
-              </SolutionsFeaturesDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <React.Fragment key={index}>
+                  <DescriptionBlock
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(0)}
+                  >
+                    <SolutionsFeaturesDescription>
+                      {desc}
+                    </SolutionsFeaturesDescription>
+                    {index !== DESCRIPTIONS.length - 1 && (
+                      <SolutionsFeaturesDescriptionSeparator />
+                    )}
+                  </DescriptionBlock>
+                </React.Fragment>
+              ))}
             </SolutionsFeaturesDescriptionContainer>
           </SolutionsFeaturesDetailsContainer>
         </SolutionsFeaturesDetails>
 
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
       </SolutionsFeaturesInnerWrapper>
     </SolutionsFeaturesContainer>
   );
@@ -96,6 +105,13 @@ const SolutionsFeaturesDetails = styled(Flex)`
     width: 100%;
     padding: 24px 16px;
   }
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const SolutionsFeaturesDetailsContainer = styled(Flex)`
@@ -139,7 +155,7 @@ const SolutionsFeaturesTitleDark = styled.span`
 `;
 
 const SolutionsFeaturesDescriptionContainer = styled(Flex)`
-  gap: 12px;
+  /* gap: 12px; */
   align-self: stretch;
 `;
 
@@ -149,6 +165,8 @@ const SolutionsFeaturesDescription = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  padding-bottom: 12px;
+  padding-top: 12px;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;

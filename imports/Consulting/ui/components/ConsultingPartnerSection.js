@@ -2,23 +2,24 @@
 
 import PlansImageBanner from "@/components/PlansImageBanner";
 import Flex from "@/lib/atoms/Flex";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const ConsultingPartnerSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/Consulting/left-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/Consulting/left-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/Consulting/left-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/Consulting/left-banner-4.webp",
-    },
+    { bgImage: "/assets/Consulting/left-banner-1.webp" },
+    { bgImage: "/assets/Consulting/left-banner-2.webp" },
+    { bgImage: "/assets/Consulting/left-banner-3.webp" },
+    { bgImage: "/assets/Consulting/left-banner-4.webp" },
+  ];
+
+  const DESCRIPTIONS = [
+    "Discovery workshops and whiteboarding",
+    "API and onboarding documentation",
+    "Sample plan templates and pricing models",
+    "Channel support and client-facing materials",
   ];
 
   return (
@@ -27,7 +28,7 @@ const ConsultingPartnerSection = () => {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BANNER_IMAGES} />
+        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
 
         <ConsultingPartnerDetails
           $direction="column"
@@ -44,21 +45,20 @@ const ConsultingPartnerSection = () => {
             </ConsultingPartnerTitle>
 
             <ConsultingPartnerDescriptionContainer $direction="column">
-              <ConsultingPartnerDescription>
-                Discovery workshops and whiteboarding
-              </ConsultingPartnerDescription>
-              <ConsultingPartnerDescriptionSeparator />
-              <ConsultingPartnerDescription>
-                API and onboarding documentation
-              </ConsultingPartnerDescription>
-              <ConsultingPartnerDescriptionSeparator />
-              <ConsultingPartnerDescription>
-                Sample plan templates and pricing models
-              </ConsultingPartnerDescription>
-              <ConsultingPartnerDescriptionSeparator />
-              <ConsultingPartnerDescription>
-                Channel support and client-facing materials
-              </ConsultingPartnerDescription>
+              {DESCRIPTIONS.map((desc, index) => (
+                <DescriptionBlock
+                  key={index}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(0)}
+                >
+                  <ConsultingPartnerDescription>
+                    {desc}
+                  </ConsultingPartnerDescription>
+                  {index !== DESCRIPTIONS.length - 1 && (
+                    <ConsultingPartnerDescriptionSeparator />
+                  )}
+                </DescriptionBlock>
+              ))}
             </ConsultingPartnerDescriptionContainer>
           </ConsultingPartnerDetailsContainer>
         </ConsultingPartnerDetails>
@@ -136,8 +136,14 @@ const ConsultingPartnerTitleDark = styled.span`
 `;
 
 const ConsultingPartnerDescriptionContainer = styled(Flex)`
-  gap: 12px;
   align-self: stretch;
+`;
+
+const DescriptionBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
 `;
 
 const ConsultingPartnerDescription = styled.div`
@@ -147,11 +153,12 @@ const ConsultingPartnerDescription = styled.div`
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.42px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
   }
 `;
 
