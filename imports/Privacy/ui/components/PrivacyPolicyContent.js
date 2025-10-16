@@ -36,7 +36,7 @@ const PrivacyPolicyContent = () => {
 export default PrivacyPolicyContent;
 
 const HeaderContainer = styled(Flex)`
-  padding: 100px 0 56px 0;
+  padding: 100px 20px 56px 20px;
   gap: 80px;
   align-self: stretch;
   background: var(--500, #2877b0);
