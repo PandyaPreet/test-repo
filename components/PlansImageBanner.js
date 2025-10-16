@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
 
 const PlansImageBanner = ({ banners, activeIndex = 0 }) => {
@@ -56,25 +56,12 @@ const PlansBannerContainer = styled(Flex)`
   }
 `;
 
-const zoomIn = keyframes`
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-`;
-
 const PlansBannerImageWrapper = styled.div`
   height: 100%;
   display: none;
-  transition: opacity 0.6s ease, transform 0.6s ease;
 
   &.active {
-    display: block;
-    /* animation: zoomIn 0.6s ease-out forwards; */
+    display: flex;
   }
 `;
 
@@ -84,8 +71,7 @@ const PlansBannerImagesBackground = styled.div`
 
   &:hover {
     ${PlansBannerImageWrapper} {
-      display: block;
-      animation: zoomIn 0.6s ease-out forwards;
+      display: flex;
     }
   }
 
