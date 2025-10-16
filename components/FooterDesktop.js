@@ -23,7 +23,7 @@ const ROUTES = [
   { name: "Partners", href: "/partners" },
   { name: "About us", href: "/about" },
   { name: "Connect", href: "/connect" },
-  // { name: "Privacy Policy", href: "/privacy-policy" },
+  { name: "Privacy Policy", href: "/privacy" },
 ];
 
 const FooterDesktop = () => {

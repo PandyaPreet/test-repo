@@ -1,6 +1,7 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
-
+import Navbar from "@/components/Navbar";
+import ClientFooter from "@/components/ClientFooter";
 import Script from "next/script";
 
 export const metadata = {
@@ -28,7 +29,11 @@ export default function RootLayout({ children }) {
 
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
-          <ProviderLayout>{children}</ProviderLayout>
+          <ProviderLayout>
+            <Navbar />
+            {children}
+            <ClientFooter />
+          </ProviderLayout>
         </StyledComponentsRegistry>
       </body>
     </html>

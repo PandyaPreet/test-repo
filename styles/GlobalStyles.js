@@ -18,6 +18,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+h1,p{
+  margin: 0px;
+  padding: 0px;
+}
 `;
 
 export default GlobalStyles;
