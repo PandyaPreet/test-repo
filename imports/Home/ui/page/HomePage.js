@@ -1,38 +1,36 @@
 "use client";
 
-import React, { Fragment } from "react";
-import dynamic from "next/dynamic";
-
-const HeroSection = dynamic(() => import("../components/HeroSection"), {
-  ssr: false,
-});
-const PlansSection = dynamic(() => import("../components/PlansSection"), {
-  ssr: false,
-});
-const ServicesSection = dynamic(() => import("../components/ServicesSection"), {
-  ssr: false,
-});
-const PartnersSection = dynamic(() => import("../components/PartnersSection"), {
-  ssr: false,
-});
-const StatsSection = dynamic(() => import("../components/StatsSection"), {
-  ssr: false,
-});
-const CTASection = dynamic(() => import("../components/CTASection"), {
-  ssr: false,
-});
+import React from "react";
+import HeroSection from "../components/HeroSection";
+import PlansSection from "../components/PlansSection";
+import ServicesSection from "../components/ServicesSection";
+import PartnersSection from "../components/PartnersSection";
+import StatsSection from "../components/StatsSection";
+import CTASection from "../components/CTASection";
+import ClientFooter from "@/components/ClientFooter";
+import Navbar from "@/components/Navbar";
+import styled from "styled-components";
+import Flex from "@/lib/atoms/Flex";
 
 const HomePage = ({ data }) => {
   return (
-    <Fragment>
+    <PageWrapper $fullwidth $direction="column">
+      <Navbar />
       <HeroSection heroData={data?.heroSection} />
       <PlansSection plansData={data?.featureSection} />
       <ServicesSection serviceData={data?.solutionsSection} />
       <PartnersSection partnersData={data?.whatWeDoSection} />
       <StatsSection statsData={data?.statsSection} />
       <CTASection ctaData={data?.ctaSection} />
-    </Fragment>
+      <ClientFooter />
+    </PageWrapper>
   );
 };
 
 export default HomePage;
+
+const PageWrapper = styled(Flex)`
+  @media (max-width: 1194px) {
+    gap: 64px;
+  }
+`;

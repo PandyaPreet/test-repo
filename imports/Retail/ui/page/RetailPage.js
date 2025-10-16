@@ -1,35 +1,20 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
 import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
+import Navbar from "@/components/Navbar";
+import ClientFooter from "@/components/ClientFooter";
+import RetailHeroSection from "../components/RetailHeroSection";
+import RetailOverviewSection from "../components/RetailOverviewSection";
+import RetailServicesSection from "../components/RetailServicesSection";
+import RetailResultWrapper from "../components/RetailResultWrapper";
+import RetailCTASection from "../components/RetailCTASection";
 
-const RetailHeroSection = dynamic(
-  () => import("../components/RetailHeroSection").then((mod) => mod.default),
-  { ssr: false }
-);
-const RetailOverviewSection = dynamic(
-  () => import("../components/RetailOverviewSection"),
-  { ssr: false }
-);
-const RetailServicesSection = dynamic(
-  () => import("../components/RetailServicesSection"),
-  { ssr: false }
-);
-
-const RetailCTASection = dynamic(
-  () => import("../components/RetailCTASection"),
-  { ssr: false }
-);
-
-const RetailResultWrapper = dynamic(
-  () => import("../components/RetailResultWrapper.js"),
-  { ssr: false }
-);
 const RetailPage = () => {
   return (
     <PageWrapper $fullwidth $direction="column">
+      <Navbar />
       <RetailHeroSection />
       <RetailOverviewSection />
       <RetailServicesSection />
@@ -37,6 +22,7 @@ const RetailPage = () => {
         <RetailResultWrapper />
         <RetailCTASection />
       </Wrapper>
+      <ClientFooter />
     </PageWrapper>
   );
 };

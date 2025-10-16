@@ -1,6 +1,6 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
-
+import { unstable_ViewTransition as ViewTransition } from "react";
 import Script from "next/script";
 
 export const metadata = {
@@ -28,7 +28,9 @@ export default function RootLayout({ children }) {
 
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
-          <ProviderLayout>{children}</ProviderLayout>
+          <ProviderLayout>
+            <ViewTransition>{children}</ViewTransition>
+          </ProviderLayout>
         </StyledComponentsRegistry>
       </body>
     </html>

@@ -1,40 +1,26 @@
 "use client";
 
-import React, { Fragment } from "react";
-import dynamic from "next/dynamic";
+import React from "react";
 import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
-
-const ConsultingHeroSection = dynamic(
-  () =>
-    import("../components/ConsultingHeroSection").then((mod) => mod.default),
-  { ssr: false }
-);
-const ConsultingWorkTogetherSection = dynamic(
-  () => import("../components/ConsultingWorkTogetherSection"),
-  { ssr: false }
-);
-const ConsultingCardSection = dynamic(
-  () => import("../components/ConsultingCardSection"),
-  { ssr: false }
-);
-const ConsultingPartnerSection = dynamic(
-  () => import("../components/ConsultingPartnerSection"),
-  { ssr: false }
-);
-const ConsultingCTASection = dynamic(
-  () => import("../components/ConsultingCTASection"),
-  { ssr: false }
-);
+import ConsultingHeroSection from "../components/ConsultingHeroSection";
+import ConsultingWorkTogetherSection from "../components/ConsultingWorkTogetherSection";
+import ConsultingCardSection from "../components/ConsultingCardSection";
+import ConsultingPartnerSection from "../components/ConsultingPartnerSection";
+import ConsultingCTASection from "../components/ConsultingCTASection";
+import Navbar from "@/components/Navbar";
+import ClientFooter from "@/components/ClientFooter";
 
 const ConsultingPage = () => {
   return (
     <PageWrapper $fullwidth $direction="column">
+      <Navbar />
       <ConsultingHeroSection />
       <ConsultingWorkTogetherSection />
       <ConsultingCardSection />
       <ConsultingPartnerSection />
       <ConsultingCTASection />
+      <ClientFooter />
     </PageWrapper>
   );
 };

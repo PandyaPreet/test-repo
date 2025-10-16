@@ -13,7 +13,7 @@ const PrivacyFooter = () => {
       $fullwidth
     >
       <CopyrightContent>
-        © 2024 Ensure Protect. All Rights Reserved.
+        © 2025 Ensure Protect. All Rights Reserved.
       </CopyrightContent>
       <CopyrightContent>
         +1-844-927-7689, or email us at info@ensureprotect.com.

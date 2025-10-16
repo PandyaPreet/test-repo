@@ -1,34 +1,26 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
 import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
-
-const AboutUsHeroSection = dynamic(() =>
-  import("../components/AboutUsHeroSection")
-);
-const AboutUsFeatureSection = dynamic(() =>
-  import("../components/AboutUsFeatureSection")
-);
-const AboutUsCardsSection = dynamic(() =>
-  import("../components/AboutUsCardsSection")
-);
-const AboutUsStatsSection = dynamic(() =>
-  import("../components/AboutUsStatsSection")
-);
-const AboutUsCTASection = dynamic(() =>
-  import("../components/AboutUsCTASection")
-);
+import Navbar from "@/components/Navbar";
+import ClientFooter from "@/components/ClientFooter";
+import AboutUsHeroSection from "../components/AboutUsHeroSection";
+import AboutUsFeatureSection from "../components/AboutUsFeatureSection";
+import AboutUsCardsSection from "../components/AboutUsCardsSection";
+import AboutUsStatsSection from "../components/AboutUsStatsSection";
+import AboutUsCTASection from "../components/AboutUsCTASection";
 
 function AboutUsPage() {
   return (
     <PageWrapper>
+      <Navbar />
       <AboutUsHeroSection />
       <AboutUsFeatureSection />
       <AboutUsCardsSection />
       <AboutUsStatsSection />
       <AboutUsCTASection />
+      <ClientFooter />
     </PageWrapper>
   );
 }
