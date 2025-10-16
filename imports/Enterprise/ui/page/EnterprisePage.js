@@ -19,8 +19,10 @@ const EnterprisePage = () => {
       <EnterpriseOverviewSection />
       <EnterpriseDetailSection />
       <EnterpriseCardSection />
-      <EnterpriseCTASection />
-      <ClientFooter />
+      <Wrapper>
+        <EnterpriseCTASection />
+        <ClientFooter />
+      </Wrapper>
     </PageWrapper>
   );
 };
@@ -31,4 +33,8 @@ const PageWrapper = styled(Flex)`
   @media (max-width: 1194px) {
     gap: 64px;
   }
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
 `;

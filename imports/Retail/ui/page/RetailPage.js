@@ -21,8 +21,8 @@ const RetailPage = () => {
       <Wrapper>
         <RetailResultWrapper />
         <RetailCTASection />
+        <ClientFooter />
       </Wrapper>
-      <ClientFooter />
     </PageWrapper>
   );
 };

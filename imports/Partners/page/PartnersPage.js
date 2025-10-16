@@ -19,8 +19,10 @@ const PartnersPage = () => {
       <PartnersBenefitsSection />
       <PartnersCategoriesSection />
       <PartnersSolutionsSection />
-      <PartnersCTASection />
-      <ClientFooter />
+      <Wrapper>
+        <PartnersCTASection />
+        <ClientFooter />
+      </Wrapper>
     </PageWrapper>
   );
 };
@@ -31,4 +33,8 @@ const PageWrapper = styled(Flex)`
   @media (max-width: 1194px) {
     gap: 64px;
   }
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
 `;

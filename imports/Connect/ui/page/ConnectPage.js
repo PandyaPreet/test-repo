@@ -15,8 +15,10 @@ function ConnectPage() {
       <Navbar />
       <ConnectHeroSection />
       <ConnectClientForm />
-      <ConnectCTASection />
-      <ClientFooter />
+      <Wrapper>
+        <ConnectCTASection />
+        <ClientFooter />
+      </Wrapper>
     </PageWrapper>
   );
 }
@@ -27,4 +29,8 @@ const PageWrapper = styled(Flex)`
   @media (max-width: 1194px) {
     gap: 64px;
   }
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
 `;

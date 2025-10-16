@@ -19,8 +19,10 @@ const MobileNetworkPage = () => {
       <MNCardSection />
       <MNServicesSection />
       <MNOverview />
-      <MNCTASection />
-      <ClientFooter />
+      <Wrapper>
+        <MNCTASection />
+        <ClientFooter />
+      </Wrapper>
     </PageWrapper>
   );
 };
@@ -32,4 +34,8 @@ const PageWrapper = styled(Flex)`
   @media (max-width: 1194px) {
     gap: 64px;
   }
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
 `;
