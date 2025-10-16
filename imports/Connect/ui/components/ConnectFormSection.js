@@ -92,7 +92,13 @@ function ConnectFormSection() {
             <ConnectFormGroup>
               <ConnectFormInput type="text" placeholder="FULL NAME" />
             </ConnectFormGroup>
-
+            {/* <InputLayout
+              dark
+              placeholder="FULL NAME"
+              // leftIcon={<Mail />}
+              // rightIcon={<ChevronDown />}
+              // disabled
+            /> */}
             <ConnectFormGroup>
               <ConnectFormInput type="text" placeholder="COMPANY NAME" />
             </ConnectFormGroup>
