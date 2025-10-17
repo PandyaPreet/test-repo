@@ -17,9 +17,6 @@ const page = () => {
           name="keywords"
           content="embedded coverage solutions, aftermarket revenue, extended warranty partner, protection program for retailers, co-branded warranty plans, embedded protection platform, extended warranty provider, device insurance partner, service plan monetization"
         />
-        <meta name="robots" content="index, follow" />
-        {/*
-        <link rel="canonical" href="https://ensureprotect.com/" /> */}
       </Head>
       <PartnersPage />
     </>

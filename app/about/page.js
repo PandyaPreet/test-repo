@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import React from "react";
 import Head from "next/head";
 import AboutUsPage from "@/imports/AboutUs/ui/page/AboutUsPage";
@@ -16,9 +15,6 @@ const Page = () => {
           name="keywords"
           content="third-party administrator, electronics insurance partner, protection plan company, insuretech TPA, service contract provider"
         />
-        <meta name="robots" content="index, follow" />
-        {/* 
-        <link rel="canonical" href="https://ensureprotect.com/about-us" /> */}
       </Head>
       <AboutUsPage />
     </>
