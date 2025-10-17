@@ -11,6 +11,9 @@ export const metadata = {
     "connected product support",
     "IoT warranty API",
   ],
+  alternates: {
+    canonical: "https://staging.ensureprotect.com/solutions/mvno-mno",
+  },
 };
 
 export default function Page() {

@@ -12,6 +12,7 @@ export const metadata = {
     "partner inquiry",
   ],
   robots: "index, follow",
+  alternates: { canonical: "https://staging.ensureprotect.com/connect" },
 };
 
 export default function Page() {

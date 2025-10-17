@@ -1,8 +1,23 @@
 import PrivacyPolicy from "@/imports/Privacy/ui/page/PrivacyPolicy";
-import React from "react";
 
-const page = () => {
-  return <PrivacyPolicy />;
+export const metadata = {
+  title: "Privacy Policy - Ensure Protect",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      maxImagePreview: "large",
+      maxSnippet: -1,
+      maxVideoPreview: -1,
+    },
+  },
+  alternates: {
+    canonical: "https://staging.ensureprotect.com/privacy",
+  },
 };
 
-export default page;
+export default function Page() {
+  return <PrivacyPolicy />;
+}

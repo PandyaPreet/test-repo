@@ -10,6 +10,9 @@ export const metadata = {
     "router coverage plans",
     "smart home protection services",
   ],
+  alternates: {
+    canonical: "https://staging.ensureprotect.com/solutions/isp-msp",
+  },
 };
 
 export default function Page() {

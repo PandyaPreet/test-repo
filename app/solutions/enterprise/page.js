@@ -13,6 +13,9 @@ export const metadata = {
     "IT asset protectionIT asset protection",
     "fleet device support",
   ],
+  alternates: {
+    canonical: "https://staging.ensureprotect.com/solutions/enterprise",
+  },
 };
 
 const Page = () => {

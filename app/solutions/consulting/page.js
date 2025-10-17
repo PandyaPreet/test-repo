@@ -10,6 +10,9 @@ export const metadata = {
     "reseller protection plans",
     "partner program warranty",
   ],
+  alternates: {
+    canonical: "https://staging.ensureprotect.com/solutions/consulting",
+  },
 };
 
 export default function Page() {

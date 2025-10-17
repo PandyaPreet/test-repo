@@ -10,6 +10,9 @@ export const metadata = {
     "POS warranty integration",
     "protection plan at checkout",
   ],
+  alternates: {
+    canonical: "https://staging.ensureprotect.com/solutions/retail",
+  },
 };
 
 export default function Page() {

@@ -10,6 +10,7 @@ export const metadata = {
     "embedded device coverage",
     "warranty extensions for manufacturers",
   ],
+  alternates: { canonical: "https://staging.ensureprotect.com/solutions/oem" },
 };
 
 export default function Page() {

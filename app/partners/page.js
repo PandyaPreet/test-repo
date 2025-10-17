@@ -15,6 +15,7 @@ export const metadata = {
     "device insurance partner",
     "service plan monetization",
   ],
+  alternates: { canonical: "https://staging.ensureprotect.com/partners" },
 };
 
 export default function Page() {
