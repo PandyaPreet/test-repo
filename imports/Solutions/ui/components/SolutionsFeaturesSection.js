@@ -129,7 +129,7 @@ const SolutionsFeaturesDetailsContainer = styled(Flex)`
   }
 `;
 
-const SolutionsFeaturesTitle = styled.h2`
+const SolutionsFeaturesTitle = styled.p`
   font-size: 48px;
   font-style: normal;
   font-weight: 400;

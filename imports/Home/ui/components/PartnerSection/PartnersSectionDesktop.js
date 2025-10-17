@@ -34,9 +34,7 @@ function PartnersSectionDesktop({ partnersData }) {
   ];
 
   const cards = (
-    partnersData && partnersData.cards && partnersData.cards.length
-      ? partnersData.cards
-      : DEFAULT_CARDS
+    partnersData?.cards?.length ? partnersData.cards : DEFAULT_CARDS
   ).slice(0, 4);
 
   const sectionRef = useRef(null);
@@ -73,8 +71,8 @@ function PartnersSectionDesktop({ partnersData }) {
 
     const t = (currentProgress - start) / (end - start);
     return [0, 1, 2, 3].map((idx) => {
-      const s = cardHeights[start] ? cardHeights[start][idx] : 0;
-      const e = cardHeights[end] ? cardHeights[end][idx] : 0;
+      const s = cardHeights[start][idx];
+      const e = cardHeights[end][idx];
       return s + (e - s) * t;
     });
   }, []);
@@ -115,11 +113,7 @@ function PartnersSectionDesktop({ partnersData }) {
         if (!title) return;
         tl.to(
           title,
-          {
-            opacity: isFinalStage ? 1 : 0,
-            duration: 0.8,
-            ease: "power2.out",
-          },
+          { opacity: isFinalStage ? 1 : 0, duration: 0.8, ease: "power2.out" },
           "sync"
         );
       });
@@ -164,41 +158,32 @@ function PartnersSectionDesktop({ partnersData }) {
           $alignitems="center"
           $justifycontent="space-between"
         >
-          <PartnersHeaderTitle>
-            {partnersData && partnersData.title ? partnersData.title : ""}
-          </PartnersHeaderTitle>
+          <PartnersHeaderTitle>{partnersData?.title}</PartnersHeaderTitle>
 
           <PartnersDetails $alignitems="flex-end" $justifycontent="flex-end">
-            {cards.map((data, index) => {
-              const cardKey = data && data._key ? data._key : index;
-              const cardTitle = data && data.title ? data.title : "";
-              const cardDescription =
-                data && data.description ? data.description : "";
-
-              return (
-                <PartnersDetailsCards
-                  $direction="column"
-                  $justifycontent="space-between"
-                  key={cardKey}
+            {cards.map((data, index) => (
+              <PartnersDetailsCards
+                $direction="column"
+                $justifycontent="space-between"
+                key={data._key ?? index}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                $isFullHeight={cardStates[index]}
+              >
+                <PartnersDetailsCardsTitle
                   ref={(el) => {
-                    cardRefs.current[index] = el;
+                    cardTitleRef.current[index] = el;
                   }}
-                  $isFullHeight={cardStates[index]}
                 >
-                  <PartnersDetailsCardsTitle
-                    ref={(el) => {
-                      cardTitleRef.current[index] = el;
-                    }}
-                  >
-                    {cardTitle}
-                  </PartnersDetailsCardsTitle>
+                  {data.title}
+                </PartnersDetailsCardsTitle>
 
-                  <PartnersDetailsCardsDescription>
-                    {cardDescription}
-                  </PartnersDetailsCardsDescription>
-                </PartnersDetailsCards>
-              );
-            })}
+                <PartnersDetailsCardsDescription>
+                  {data.description}
+                </PartnersDetailsCardsDescription>
+              </PartnersDetailsCards>
+            ))}
           </PartnersDetails>
         </PartnersContentContainer>
       </PartnersInnerWrapper>
@@ -261,7 +246,7 @@ const PartnersContentContainer = styled(Flex)`
   height: 100%;
 `;
 
-const PartnersHeaderTitle = styled.p`
+const PartnersHeaderTitle = styled.div`
   color: var(--500, #1a1919);
   text-align: center;
   font-size: 48px;
