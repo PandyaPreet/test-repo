@@ -158,7 +158,7 @@ const CTAContentWrapper = styled(Flex)`
   align-self: stretch;
 `;
 
-const CTATitle = styled.h1`
+const CTATitle = styled.h2`
   color: var(--100, #fff);
   text-align: center;
   font-size: 40px;
