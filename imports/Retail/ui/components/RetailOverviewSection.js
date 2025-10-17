@@ -237,7 +237,7 @@ const ContentSection = styled(Flex)`
   }
 `;
 
-const HeaderSection = styled.span`
+const HeaderSection = styled.h2`
   font-size: 48px;
   font-weight: 400;
   line-height: 100%;
@@ -263,7 +263,7 @@ const HeaderSectionTitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
 `;
 
-const SubHeaderSection = styled.span`
+const SubHeaderSection = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 120%;

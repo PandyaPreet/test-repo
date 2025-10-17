@@ -48,7 +48,7 @@ const RetailServicesSection = () => {
     <ServicesContainer $direction="column">
       <TitleCardContainer>
         <div></div>
-        <div>
+        <h2>
           <Flex style={{ gap: "10px" }}>
             <TitleLight>What </TitleLight>
             <TitleDark>We </TitleDark>
@@ -58,7 +58,7 @@ const RetailServicesSection = () => {
             <TitleLight>for </TitleLight>
             <TitleDark>Retailers</TitleDark>
           </Flex>
-        </div>
+        </h2>
       </TitleCardContainer>
       <ServicesCardContainer $direction="column">
         <ServicesCardWrapper $alignitems="center">
@@ -102,7 +102,7 @@ const TitleCardContainer = styled(Flex)`
   }
 `;
 
-const TitleLight = styled.div`
+const TitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
   font-size: 48px;
   font-style: normal;
@@ -114,7 +114,7 @@ const TitleLight = styled.div`
   }
 `;
 
-const TitleDark = styled.div`
+const TitleDark = styled.span`
   color: var(--500, #1a1919);
   font-size: 48px;
   font-style: normal;
