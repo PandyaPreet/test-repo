@@ -11,6 +11,7 @@ function CTABanner({
   description,
   buttonText,
   backgroundImage,
+  videoUrl,
   onButtonClick,
 }) {
   return (
@@ -18,9 +19,25 @@ function CTABanner({
       $direction="column"
       $justifycontent="center"
       $alignitems="center"
-      $background={backgroundImage}
       $fullwidth
     >
+      {videoUrl ? (
+        <VideoWrapper>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          >
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+          <Overlay />
+        </VideoWrapper>
+      ) : (
+        <ImageBackground $background={backgroundImage} />
+      )}
+
       <CTAInnerWrapper
         $direction="column"
         $justifycontent="center"
@@ -44,20 +61,51 @@ export default CTABanner;
 
 const CTABlock = styled(Flex)`
   height: 550px;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  overflow: hidden;
+`;
+
+const VideoWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 25, 25, 0.3);
+  z-index: 1;
+`;
+
+const ImageBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(
       0deg,
-      var(--30, rgba(26, 25, 25, 0.3)) 0%,
-      var(--30, rgba(26, 25, 25, 0.3)) 100%
+      rgba(26, 25, 25, 0.3) 0%,
+      rgba(26, 25, 25, 0.3) 100%
     ),
     url(${(props) => props.$background}) lightgray 50% / cover no-repeat;
+  z-index: 0;
 `;
 
 const CTAInnerWrapper = styled(Flex)`
+  position: relative;
   height: 550px;
   gap: 40px;
   flex-shrink: 0;
