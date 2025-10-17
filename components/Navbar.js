@@ -9,7 +9,7 @@ import CloseIcon from "./svg/CloseIcon";
 import HeaderBrandLogo from "./svg/HeaderBrandLogo";
 import Link from "next/link";
 import MenuLine from "./svg/MenuLine";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/lib/atoms/Button";
 import ButtonIcon from "@/lib/atoms/ButtonIcon";
 import RetailIcon from "./svg/RetailIcon";
@@ -39,11 +39,12 @@ const MENU_ITEMS = [
 ];
 
 export default function Navbar() {
+  const router = useRouter();
+
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredSub, setHoveredSub] = useState(null); // <-- Track hovered submenu
+  const [hoveredSub, setHoveredSub] = useState(null);
 
-  // Map submenu hrefs to icons
   const SOLUTIONS_ICON_MAP = {
     "/solutions/retail": RetailIcon,
     "/solutions/enterprise": EnterpriseIcon,
@@ -171,8 +172,15 @@ export default function Navbar() {
           </SubContainer>
 
           <ActionButtons $justifycontent="space-between" $alignitems="center">
-            <Button variant="outline">Login</Button>
-            <Button>
+            <Link
+              href="https://ensureprotect.com/dealer-login/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline">Login</Button>
+            </Link>
+
+            <Button onClick={() => router.push("/connect")}>
               Get Started <ButtonIcon />
             </Button>
           </ActionButtons>
