@@ -184,7 +184,7 @@ const ContentSection = styled(Flex)`
   }
 `;
 
-const HeaderSection = styled.span`
+const HeaderSection = styled.h2`
   font-size: 48px;
   font-weight: 400;
   width: 100%;

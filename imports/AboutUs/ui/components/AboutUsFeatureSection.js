@@ -139,7 +139,7 @@ const DescriptionBlock = styled.div`
   width: 100%;
 `;
 
-const AboutUsFeatureDescription = styled.div`
+const AboutUsFeatureDescription = styled.h2`
   color: var(--500, #1a1919);
   font-size: 16px;
   font-style: normal;

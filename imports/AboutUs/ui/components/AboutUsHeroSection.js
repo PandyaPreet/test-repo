@@ -93,7 +93,7 @@ const AboutUsHeroContent = styled(Flex)`
   }
 `;
 
-const AboutUsHeroTitle = styled.div`
+const AboutUsHeroTitle = styled.h1`
   font-family: Arial;
   width: 100%;
   max-width: 1162px;
@@ -115,7 +115,7 @@ const AboutUsHeroTitle = styled.div`
   }
 `;
 
-const AboutUsHeroSubtitle = styled.div`
+const AboutUsHeroSubtitle = styled.p`
   color: #fff;
   width: 100%;
   max-width: 552px;
@@ -168,7 +168,7 @@ const AboutUsDescriptionContainer = styled(Flex)`
   }
 `;
 
-const AboutUsDescriptionIcon = styled.span`
+const AboutUsDescriptionIcon = styled.p`
   font-family: Arial;
   font-size: 14px;
   font-weight: 700;
@@ -204,7 +204,7 @@ const AboutUsDescriptionChildWrapper = styled(Flex)`
   }
 `;
 
-const AboutUsDescriptionsText = styled.span`
+const AboutUsDescriptionsText = styled.p`
   font-family: Arial;
   font-size: 14px;
   font-weight: 400;

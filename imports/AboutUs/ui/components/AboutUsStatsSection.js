@@ -107,7 +107,7 @@ const StatsMetricsTitleWrapper = styled(Flex)`
   gap: 12px;
 `;
 
-const StatsMetricsTitle = styled.div`
+const StatsMetricsTitle = styled.h2`
   color: var(--500, #1a1919);
   font-family: Arial;
   font-size: 48px;
@@ -117,7 +117,7 @@ const StatsMetricsTitle = styled.div`
   letter-spacing: -1.44px;
 `;
 
-const StatsMetricsDescription = styled.div`
+const StatsMetricsDescription = styled.p`
   color: var(--500, #1a1919);
   font-family: Arial;
   font-size: 16px;
@@ -186,7 +186,7 @@ const StatsMetricsBlock = styled(Flex)`
   }
 `;
 
-const StatsMetricsValue = styled.div`
+const StatsMetricsValue = styled.p`
   color: var(--500, #1a1919);
   font-size: 96px;
   font-style: normal;
