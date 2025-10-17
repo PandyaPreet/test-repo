@@ -4,7 +4,7 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 import Script from "next/script";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.ensureprotect.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://staging.ensureprotect.com";
 
 export default function RootLayout({ children }) {
   return (
