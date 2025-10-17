@@ -1,5 +1,5 @@
 export const markdown = `
-# Why Choose Ensure Protect?
+## Why Choose Ensure Protect?
 
 At Ensure Protect, we know how important it is to protect the products that matter most to you. That's why we offer personalized service plans designed to keep your items running smoothly long after the manufacturer's warranty expires. Unlike many other companies, we're not owned by an insurance provider, so our focus is on you, the customer. Our mission is simple: we work for you.
 
