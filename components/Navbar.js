@@ -87,8 +87,8 @@ export default function Navbar() {
                   item.submenu?.some((sub) => pathname === sub.href);
 
                 return (
-                  <>
-                    <MenuItemWrapper key={index} tabIndex={0}>
+                  <React.Fragment key={item.href || item.name}>
+                    <MenuItemWrapper tabIndex={0}>
                       {item.name === "Solutions" ? (
                         <Link href={item.href} passHref>
                           <Button variant="menu" $isActive={isTopActive}>
@@ -116,7 +116,6 @@ export default function Navbar() {
                         </Link>
                       )}
 
-                      {/* Submenu Section */}
                       {item.submenu && (
                         <Submenu $direction="column">
                           <div
@@ -165,7 +164,7 @@ export default function Navbar() {
                         </Submenu>
                       )}
                     </MenuItemWrapper>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </MenuContainer>
@@ -246,8 +245,16 @@ export default function Navbar() {
           </SubSideBlock>
 
           <SidebarButtons>
-            <Button variant="outline">Login</Button>
-            <Button>
+            <Link
+              href="https://ensureprotect.com/dealer-login/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="xl">
+                Login
+              </Button>
+            </Link>
+            <Button onClick={() => router.push("/connect")}>
               Get Started <ButtonIcon />
             </Button>
           </SidebarButtons>

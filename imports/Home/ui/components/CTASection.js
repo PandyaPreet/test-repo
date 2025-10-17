@@ -3,14 +3,26 @@
 import CTABanner from "@/components/CTABanner";
 import { getBackgroundImageUrl } from "@/lib/imageUtils";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const CTASection = ({ ctaData }) => {
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 835);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <>
       <CTABanner
-        videoUrl={"/assets/HomePageCTAvideo.mp4"}
+        {...(isMobile
+          ? { backgroundImage: "/assets/cta-banner-image.webp" }
+          : { videoUrl: "/assets/HomePageVideo.mp4" })}
         title={
           ctaData && ctaData.title
             ? ctaData.title
