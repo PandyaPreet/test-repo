@@ -1,20 +1,7 @@
-import Flex from "@/lib/atoms/Flex";
-import { getBackgroundImageUrl } from "@/lib/imageUtils";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-
-const descriptions = [
-  {
-    icon: "/",
-    text: "Ensure Protect delivers partner-first service plans and programs designed for today's multi-channel economy.",
-    indent: "27%",
-  },
-  {
-    icon: "//",
-    text: "We help brands unlock scalable aftermarket revenue and increase customer satisfaction with service contracts featuring repair, replacement, and maintenance programs.",
-    indent: "35%",
-  },
-];
+import Flex from "@/lib/atoms/Flex";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
 export default function HeroSection({ heroData }) {
   const [descHeight, setDescHeight] = useState(null);
@@ -22,58 +9,49 @@ export default function HeroSection({ heroData }) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-
       if (scrollY > 0) {
-        const newHeight = 180 + scrollY;
-        setDescHeight(newHeight);
+        setDescHeight(180 + scrollY);
       } else {
         setDescHeight(null);
       }
     };
 
-    // Check if window is defined (for SSR)
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, []);
 
-  const { backgroundImage } = heroData || {};
-  const backgroundImageURL = getBackgroundImageUrl(backgroundImage);
+  const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
+  const items = heroData?.supportingTexts || []; // [{ icon, text, indent }]
 
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
         <HeroImageWrapper $bgimg={backgroundImageURL}>
           <HeroContent $direction="column">
-            <HeroTitle>
-              {(heroData && heroData.title) || "Repair.Replace. Maintain."}
-            </HeroTitle>
-            <HeroSubtitle>
-              {(heroData && heroData.description) ||
-                "When products break or fail, so can the customer relationship with your brand."}
-            </HeroSubtitle>
+            {heroData?.title ? <HeroTitle>{heroData.title}</HeroTitle> : null}
+            {heroData?.description ? (
+              <HeroSubtitle>{heroData.description}</HeroSubtitle>
+            ) : null}
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {descriptions.map((item, index) => (
+          {items.map((item, index) => (
             <Fragment key={index}>
               <DescriptionWrapper>
                 <DescriptionChildWrapper>
-                  <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  <DescriptionsText $indent={item.indent}>
-                    {(heroData &&
-                      heroData.supportingTexts &&
-                      heroData.supportingTexts[index]) ||
-                      item.text}
+                  {item?.icon ? (
+                    <DescriptionIcon>{item.icon}</DescriptionIcon>
+                  ) : null}
+                  <DescriptionsText $indent={item?.indent}>
+                    {item?.text}
                   </DescriptionsText>
                 </DescriptionChildWrapper>
               </DescriptionWrapper>
 
-              {index !== descriptions.length - 1 && (
-                <DescriptionBorderWrapper />
-              )}
+              {index !== items.length - 1 && <DescriptionBorderWrapper />}
             </Fragment>
           ))}
           <DescriptionThirdPartWrapper />
@@ -83,6 +61,7 @@ export default function HeroSection({ heroData }) {
   );
 }
 
+/* Styles */
 const HeroWrapper = styled(Flex)`
   background: rgb(40, 119, 176);
   width: 100%;
@@ -98,9 +77,7 @@ const HeroImageWrapper = styled.div`
   width: 100%;
   height: 100svh;
   background: ${(props) =>
-    props.$bgimg
-      ? `url("${props.$bgimg}") no-repeat center center`
-      : `url("/assets/Hero.webp") no-repeat center center`};
+    props.$bgimg ? `url("${props.$bgimg}") no-repeat center center` : "none"};
   background-size: cover;
   display: flex;
   align-items: flex-end;
@@ -169,6 +146,7 @@ const DescriptionContainer = styled(Flex)`
     margin-top: 0;
     height: auto;
   `}
+
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: stretch;
@@ -235,7 +213,7 @@ const DescriptionsText = styled.p`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: ${(props) => props.$indent || "27%"};
+  text-indent: ${(props) => props.$indent || "0"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`
