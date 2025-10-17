@@ -8,25 +8,8 @@ const SITE_URL =
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Protection Plans That Build Loyalty & Revenue | Ensure Protect",
-  description:
-    "Discover flexible, white-labeled extended service plans and electronics protection programs designed to drive revenue and build customer trust.",
-  keywords: [
-    "device protection",
-    "warranty programs",
-    "embedded service plans",
-    "electronics coverage",
-    "white-label protection",
-  ],
   robots: { index: true, follow: true },
   icons: { icon: "/favicon.svg" },
-  openGraph: {
-    type: "website",
-    title: "Protection Plans That Build Loyalty & Revenue | Ensure Protect",
-    description:
-      "Discover flexible, white-labeled extended service plans and electronics protection programs designed to drive revenue and build customer trust.",
-    siteName: "Ensure Protect",
-  },
   alternates: {
     canonical: "/",
   },
