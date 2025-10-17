@@ -14,9 +14,7 @@ const ServicesSection = ({ serviceData }) => {
       <ServicesHeader>
         <ServicesPagination />
         <ServicesHeaderTitle>
-          <ServicesHeaderTitleDark>
-            {serviceData && serviceData.title ? serviceData.title : ""}
-          </ServicesHeaderTitleDark>
+          {serviceData && serviceData.title ? serviceData.title : ""}
         </ServicesHeaderTitle>
       </ServicesHeader>
 
@@ -92,8 +90,8 @@ const ServicesPagination = styled.div`
   }
 `;
 
-const ServicesHeaderTitle = styled.div`
-  color: var(--40, rgba(26, 25, 25, 0.4));
+const ServicesHeaderTitle = styled.h2`
+  color: var(--500, #1a1919);
   font-size: 48px;
   font-style: normal;
   font-weight: 400;

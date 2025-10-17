@@ -261,7 +261,7 @@ const PartnersContentContainer = styled(Flex)`
   height: 100%;
 `;
 
-const PartnersHeaderTitle = styled.div`
+const PartnersHeaderTitle = styled.p`
   color: var(--500, #1a1919);
   text-align: center;
   font-size: 48px;

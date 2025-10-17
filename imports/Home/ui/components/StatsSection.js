@@ -78,7 +78,7 @@ const StatsTitleWrapper = styled(Flex)`
   flex: 1 0 0;
 `;
 
-const StatsTitle = styled.div`
+const StatsTitle = styled.p`
   max-width: 134px;
   width: 100%;
   color: var(--500, #1a1919);
@@ -122,7 +122,7 @@ const StatsMetricsBlock = styled(Flex)`
   }
 `;
 
-const StatsMetricsValue = styled.div`
+const StatsMetricsValue = styled.p`
   color: var(--500, #1a1919);
   font-size: 96px;
   font-style: normal;
@@ -137,7 +137,7 @@ const StatsMetricsValue = styled.div`
   }
 `;
 
-const StatsMetricsDescription = styled.div`
+const StatsMetricsDescription = styled.p`
   color: var(--100, #4e4b4b);
   font-size: 16px;
   font-style: normal;

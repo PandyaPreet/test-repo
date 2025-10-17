@@ -37,14 +37,7 @@ const PartnersSectionMobile = ({ partnersData }) => {
           $alignitems="center"
           $justifycontent="space-between"
         >
-          <PartnersHeaderTitle>
-            We Partner{" "}
-            <PartnersHeaderTitleWithBrand>
-              with Brands
-            </PartnersHeaderTitleWithBrand>
-            <br />
-            Who Sell Smarter
-          </PartnersHeaderTitle>
+          <PartnersHeaderTitle>{partnersData?.title}</PartnersHeaderTitle>
 
           <PartnersCarousel $alignitems="flex-end" $justifycontent="flex-start">
             {cards.map((card, index) => {
@@ -96,7 +89,7 @@ const PartnersContentContainer = styled(Flex)`
   align-self: stretch;
 `;
 
-const PartnersHeaderTitle = styled.div`
+const PartnersHeaderTitle = styled.p`
   color: var(--500, #1a1919);
   text-align: center;
   font-size: 36px;
