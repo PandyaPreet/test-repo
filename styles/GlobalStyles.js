@@ -19,7 +19,7 @@ a {
   box-sizing: border-box;
 }
 
-h1,p{
+h1, h2, h3, h4, h5, h6 p{
   margin: 0px;
   padding: 0px;
 }

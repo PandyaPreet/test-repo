@@ -123,7 +123,7 @@ const ServicesWrapper = styled(Flex)`
 `;
 
 const ServicesContainer = styled(Flex)`
-  min-height: 357px;
+  max-height: 357px;
   height: 100%;
   width: 100%;
   padding: 48px 16px;
