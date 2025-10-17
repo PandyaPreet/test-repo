@@ -158,7 +158,7 @@ const DescriptionBlock = styled.div`
   width: 100%;
 `;
 
-const PartnersPlansDetailsDescription = styled.div`
+const PartnersPlansDetailsDescription = styled.p`
   color: var(--500, #1a1919);
   font-size: 16px;
   font-style: normal;

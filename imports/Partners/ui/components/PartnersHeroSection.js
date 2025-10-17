@@ -91,7 +91,7 @@ const PartnersHeroContent = styled(Flex)`
   }
 `;
 
-const PartnersHeroTitle = styled.div`
+const PartnersHeroTitle = styled.h1`
   font-family: Arial;
   width: 100%;
   max-width: 1162px;
@@ -156,7 +156,7 @@ const PartnersDescriptionContainer = styled(Flex)`
   }
 `;
 
-const PartnersDescriptionIcon = styled.span`
+const PartnersDescriptionIcon = styled.p`
   font-family: Arial;
   font-size: 14px;
   font-weight: 700;
@@ -192,7 +192,7 @@ const PartnersDescriptionChildWrapper = styled(Flex)`
   }
 `;
 
-const PartnersDescriptionsText = styled.span`
+const PartnersDescriptionsText = styled.p`
   font-family: Arial;
   font-size: 14px;
   font-weight: 400;

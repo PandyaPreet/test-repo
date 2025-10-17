@@ -127,7 +127,7 @@ const ConnectHeaderContainer = styled(Flex)`
   align-self: stretch;
 `;
 
-const ConnectTitle = styled.div`
+const ConnectTitle = styled.h2`
   color: var(--500, #1a1919);
   font-size: 32px;
   font-style: normal;

@@ -189,7 +189,7 @@ const ConnectTextContent = styled(Flex)`
   gap: 16px;
 `;
 
-const ConnectTitle = styled.span`
+const ConnectTitle = styled.h2`
   text-align: center;
   font-family: Arial;
   font-size: 48px;
