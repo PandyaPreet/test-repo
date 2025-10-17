@@ -5,11 +5,34 @@ import PhoneIcon from "@/components/svg/PhoneIcon";
 import { Button } from "@/lib/atoms/Button";
 import ButtonIcon from "@/lib/atoms/ButtonIcon";
 import Flex from "@/lib/atoms/Flex";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import React from "react";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
 import styled from "styled-components";
+import InputLayout from "@/lib/atoms/InputLayout";
+
+const formSchema = Yup.object().shape({
+  fullName: Yup.string().required("Full name is required"),
+  companyName: Yup.string().required("Comany name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  phoneNo: Yup.string().required("Phone number is required"),
+});
 
 const ConnectFormSectionMobile = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(formSchema),
+  });
+
+  const onSubmit = (data) => {
+    console.log("Form Data:", data);
+  };
+
   return (
     <Flex $direction="column">
       <ConnectSectionContainer $direction="column">
@@ -46,29 +69,44 @@ const ConnectFormSectionMobile = () => {
         </ConnectInfoContainer>
       </ConnectSectionContainer>
       <ConnectFormContainer $direction="column">
-        <ConnectFormGroup>
-          <ConnectFormInput type="text" placeholder="FULL NAME" />
-        </ConnectFormGroup>
+        <InputLayout
+          {...register("fullName")}
+          dark
+          placeholder="FULL NAME"
+          message={errors.fullName?.message || ""}
+          isError={!!errors.fullName}
+        />
 
-        <ConnectFormGroup>
-          <ConnectFormInput type="text" placeholder="COMPANY NAME" />
-        </ConnectFormGroup>
+        <InputLayout
+          {...register("companyName")}
+          dark
+          placeholder="COMPANY NAME"
+          message={errors.companyName?.message || ""}
+          isError={!!errors.companyName}
+        />
 
-        <ConnectFormGroup>
-          <ConnectFormInput type="text" placeholder="BUSINESS EMAIL" />
-        </ConnectFormGroup>
+        <InputLayout
+          {...register("email")}
+          dark
+          placeholder="BUSINESS EMAIL"
+          message={errors.email?.message || ""}
+          isError={!!errors.email}
+        />
 
-        <ConnectFormGroup>
-          <ConnectFormInput type="text" placeholder="PHONE NUMBER" />
-        </ConnectFormGroup>
+        <InputLayout
+          {...register("phoneNo")}
+          dark
+          placeholder="PHONE NUMBER"
+          message={errors.phoneNo?.message || ""}
+          isError={!!errors.phoneNo}
+        />
 
-        <ConnectFormGroup>
-          <ConnectFormInput
-            type="text"
-            placeholder="MESSAGE / ADDITIONAL DETAILS"
-          />
-        </ConnectFormGroup>
-        <Button size="xl">
+        <InputLayout
+          {...register("messgae")}
+          dark
+          placeholder="MESSAGE / ADDITIONAL DETAILS"
+        />
+        <Button size="xl" onClick={handleSubmit(onSubmit)}>
           Send Message <ButtonIcon />
         </Button>
       </ConnectFormContainer>
