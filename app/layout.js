@@ -6,37 +6,48 @@ import Script from "next/script";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://staging.ensureprotect.com";
 
+export const metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: "Protection Plans That Build Loyalty & Revenue | Ensure Protect",
+  description:
+    "Discover flexible, white-labeled extended service plans and electronics protection programs designed to drive revenue and build customer trust.",
+  keywords: [
+    "device protection",
+    "warranty programs",
+    "embedded service plans",
+    "electronics coverage",
+    "white-label protection",
+  ],
+  robots: { index: true, follow: true },
+  icons: { icon: "/favicon.svg" },
+  openGraph: {
+    type: "website",
+    title: "Protection Plans That Build Loyalty & Revenue | Ensure Protect",
+    description:
+      "Discover flexible, white-labeled extended service plans and electronics protection programs designed to drive revenue and build customer trust.",
+    siteName: "Ensure Protect",
+  },
+  alternates: {
+    canonical: "/",
+  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="canonical" href={SITE_URL} />
-        <link rel="shortcut icon" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="robots" content="index, follow" />
-        <meta
-          name="keywords"
-          content="device protection, warranty programs, embedded service plans, electronics coverage, white-label protection"
-        />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={SITE_URL} />
-        <meta
-          property="og:title"
-          content="Protection Plans That Build Loyalty & Revenue | Ensure Protect"
-        />
-        <meta
-          property="og:description"
-          content="Discover flexible, white-labeled extended service plans and electronics protection programs designed to drive revenue and build customer trust."
-        />
-
+      {/* Don't hand-write <head> tags; Next injects them from metadata */}
+      <body suppressHydrationWarning>
         {/* Google Analytics */}
         <Script
-          async
           src="https://www.googletagmanager.com/gtag/js?id=G-P38G9X9LF3"
+          strategy="afterInteractive"
         />
-        <Script id="google-analytics">
+        <Script id="ga" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -44,9 +55,7 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-P38G9X9LF3');
           `}
         </Script>
-      </head>
 
-      <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <ProviderLayout>
             <ViewTransition>{children}</ViewTransition>
