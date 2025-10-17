@@ -90,7 +90,7 @@ export default function Navbar() {
                     <MenuItemWrapper key={index} tabIndex={0}>
                       {item.name === "Solutions" ? (
                         <Link href={item.href} passHref>
-                          <Button variant="menu" isActive={isTopActive}>
+                          <Button variant="menu" $isActive={isTopActive}>
                             {item.name}
                             {item.submenu && (
                               <MenuWrapper>

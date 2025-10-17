@@ -10,14 +10,9 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-function PartnersSectionDesktop() {
-  const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
-  const animationRef = useRef(null);
-  const cardTitleRef = useRef([]);
-  const [cardStates, setCardStates] = useState([false, false, false, false]);
-
-  const PARTNER_CARDS = [
+function PartnersSectionDesktop({ partnersData }) {
+  // Sanity enforces exactly 4 cards; keep a safe fallback:
+  const DEFAULT_CARDS = [
     {
       title: "Retail & Ecommerce",
       description:
@@ -38,6 +33,20 @@ function PartnersSectionDesktop() {
     },
   ];
 
+  const cards = (
+    partnersData && partnersData.cards && partnersData.cards.length
+      ? partnersData.cards
+      : DEFAULT_CARDS
+  ).slice(0, 4);
+
+  const sectionRef = useRef(null);
+  const cardRefs = useRef([null, null, null, null]);
+  const cardTitleRef = useRef([null, null, null, null]);
+  const animationRef = useRef(null);
+
+  const [cardStates, setCardStates] = useState([false, false, false, false]);
+
+  // exact choreography preserved
   const cardHeights = {
     0: [0, 0, 0, 0],
     25: [0, 0, 0, 0],
@@ -46,78 +55,64 @@ function PartnersSectionDesktop() {
     100: [340, 340, 340, 340],
   };
 
-  useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, 4);
-    cardTitleRef.current = cardTitleRef.current.slice(0, 4);
-  }, []);
+  const getInterpolatedHeights = useCallback((currentProgress) => {
+    const milestones = [0, 25, 50, 75, 100];
+    let start = 0,
+      end = 25;
 
-  const handleMilestoneChange = useCallback((progress) => {
-    if (animationRef.current) {
-      animationRef.current.kill();
+    for (let i = 0; i < milestones.length - 1; i++) {
+      if (
+        currentProgress >= milestones[i] &&
+        currentProgress <= milestones[i + 1]
+      ) {
+        start = milestones[i];
+        end = milestones[i + 1];
+        break;
+      }
     }
 
-    const getInterpolatedHeights = (currentProgress) => {
-      const milestones = [0, 25, 50, 75, 100];
-
-      let startMilestone = 0;
-      let endMilestone = 25;
-
-      for (let i = 0; i < milestones.length - 1; i++) {
-        if (
-          currentProgress >= milestones[i] &&
-          currentProgress <= milestones[i + 1]
-        ) {
-          startMilestone = milestones[i];
-          endMilestone = milestones[i + 1];
-          break;
-        }
-      }
-
-      const rangeProgress =
-        (currentProgress - startMilestone) / (endMilestone - startMilestone);
-
-      return cardRefs.current.map((_, index) => {
-        const startHeight = cardHeights[startMilestone][index];
-        const endHeight = cardHeights[endMilestone][index];
-        return startHeight + (endHeight - startHeight) * rangeProgress;
-      });
-    };
-
-    const targetHeights = getInterpolatedHeights(progress);
-    const isFinalStage = progress >= 75;
-
-    const fullHeight = 340;
-    const newCardStates = targetHeights.map(
-      (height) => Math.round(height) >= fullHeight
-    );
-
-    setCardStates((prevStates) => {
-      const hasChanged = prevStates.some(
-        (state, index) => state !== newCardStates[index]
-      );
-      return hasChanged ? newCardStates : prevStates;
+    const t = (currentProgress - start) / (end - start);
+    return [0, 1, 2, 3].map((idx) => {
+      const s = cardHeights[start] ? cardHeights[start][idx] : 0;
+      const e = cardHeights[end] ? cardHeights[end][idx] : 0;
+      return s + (e - s) * t;
     });
+  }, []);
 
-    const tl = gsap.timeline();
-    animationRef.current = tl;
+  const handleMilestoneChange = useCallback(
+    (progress) => {
+      if (animationRef.current) animationRef.current.kill();
 
-    cardRefs.current.forEach((card, index) => {
-      if (card) {
+      const targetHeights = getInterpolatedHeights(progress);
+      const isFinalStage = progress >= 75;
+      const fullHeight = 340;
+
+      const newCardStates = targetHeights.map(
+        (h) => Math.round(h) >= fullHeight
+      );
+      setCardStates((prev) =>
+        prev.some((v, i) => v !== newCardStates[i]) ? newCardStates : prev
+      );
+
+      const tl = gsap.timeline();
+      animationRef.current = tl;
+
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return;
         tl.to(
           card,
           {
-            height: targetHeights[index],
+            height: targetHeights[i],
             duration: 0.8,
             ease: "power2.out",
             opacity: 1,
           },
           "sync"
         );
-      }
-    });
+      });
 
-    cardTitleRef.current.forEach((title, index) => {
-      if (title) {
+      cardTitleRef.current.forEach((title) => {
+        if (!title) return;
         tl.to(
           title,
           {
@@ -127,64 +122,35 @@ function PartnersSectionDesktop() {
           },
           "sync"
         );
-      }
-    });
-  }, []);
+      });
+    },
+    [getInterpolatedHeights]
+  );
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    let scrollTrigger;
+    const st = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.5,
+      onUpdate: (self) =>
+        handleMilestoneChange(Math.round(self.progress * 100)),
+      onEnter: () => handleMilestoneChange(0),
+      onLeave: () => handleMilestoneChange(100),
+      onEnterBack: () => handleMilestoneChange(0),
+      onLeaveBack: () => handleMilestoneChange(0),
+    });
 
-    const initScrollAnimation = () => {
-      scrollTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.5,
-        onUpdate: (self) => {
-          const currentProgress = Math.round(self.progress * 100);
-          handleMilestoneChange(currentProgress);
-        },
-        onEnter: () => {
-          handleMilestoneChange(0);
-        },
-        onLeave: () => {
-          handleMilestoneChange(100);
-        },
-        onEnterBack: () => {
-          handleMilestoneChange(0);
-        },
-        onLeaveBack: () => {
-          handleMilestoneChange(0);
-        },
-      });
-    };
-
-    const timeoutId = setTimeout(initScrollAnimation, 100);
+    // initial frame
+    handleMilestoneChange(0);
 
     return () => {
-      clearTimeout(timeoutId);
-      if (scrollTrigger) {
-        scrollTrigger.kill();
-      }
-      if (animationRef.current) {
-        animationRef.current.kill();
-      }
+      st.kill();
+      if (animationRef.current) animationRef.current.kill();
     };
   }, [handleMilestoneChange]);
-
-  const addToCardRefs = useCallback((el) => {
-    if (el && !cardRefs.current.includes(el)) {
-      cardRefs.current.push(el);
-    }
-  }, []);
-
-  const addToTitleRefs = useCallback((el) => {
-    if (el && !cardTitleRef.current.includes(el)) {
-      cardTitleRef.current.push(el);
-    }
-  }, []);
 
   return (
     <PartnersContainer ref={sectionRef}>
@@ -199,30 +165,40 @@ function PartnersSectionDesktop() {
           $justifycontent="space-between"
         >
           <PartnersHeaderTitle>
-            We Partner{" "}
-            <PartnersHeaderTitleWithBrand>
-              with Brands
-            </PartnersHeaderTitleWithBrand>
-            <br />
-            Who Sell Smarter
+            {partnersData && partnersData.title ? partnersData.title : ""}
           </PartnersHeaderTitle>
+
           <PartnersDetails $alignitems="flex-end" $justifycontent="flex-end">
-            {PARTNER_CARDS.map((data, index) => (
-              <PartnersDetailsCards
-                $direction="column"
-                $justifycontent="space-between"
-                key={index}
-                ref={addToCardRefs}
-                $isFullHeight={cardStates[index]}
-              >
-                <PartnersDetailsCardsTitle ref={addToTitleRefs}>
-                  {data.title}
-                </PartnersDetailsCardsTitle>
-                <PartnersDetailsCardsDescription>
-                  {data.description}
-                </PartnersDetailsCardsDescription>
-              </PartnersDetailsCards>
-            ))}
+            {cards.map((data, index) => {
+              const cardKey = data && data._key ? data._key : index;
+              const cardTitle = data && data.title ? data.title : "";
+              const cardDescription =
+                data && data.description ? data.description : "";
+
+              return (
+                <PartnersDetailsCards
+                  $direction="column"
+                  $justifycontent="space-between"
+                  key={cardKey}
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
+                  $isFullHeight={cardStates[index]}
+                >
+                  <PartnersDetailsCardsTitle
+                    ref={(el) => {
+                      cardTitleRef.current[index] = el;
+                    }}
+                  >
+                    {cardTitle}
+                  </PartnersDetailsCardsTitle>
+
+                  <PartnersDetailsCardsDescription>
+                    {cardDescription}
+                  </PartnersDetailsCardsDescription>
+                </PartnersDetailsCards>
+              );
+            })}
           </PartnersDetails>
         </PartnersContentContainer>
       </PartnersInnerWrapper>
@@ -231,6 +207,34 @@ function PartnersSectionDesktop() {
 }
 
 export default PartnersSectionDesktop;
+
+// --- helpers & styles ---
+
+function renderSplitTitle(title) {
+  const fallback = (
+    <>
+      We Partner{" "}
+      <PartnersHeaderTitleWithBrand>with Brands</PartnersHeaderTitleWithBrand>
+      <br />
+      Who Sell Smarter
+    </>
+  );
+  if (!title) return fallback;
+
+  const phrase = "with Brands";
+  const i = title.indexOf(phrase);
+  if (i === -1) return title;
+
+  const before = title.slice(0, i);
+  const after = title.slice(i + phrase.length);
+  return (
+    <>
+      {before}
+      <PartnersHeaderTitleWithBrand>{phrase}</PartnersHeaderTitleWithBrand>
+      {after}
+    </>
+  );
+}
 
 const PartnersContainer = styled.div`
   height: 200vh;
@@ -315,7 +319,7 @@ const PartnersDetailsCards = styled(Flex)`
     &:hover {
       background: var(--500, #2877b0);
       border-color: transparent;
-      
+
       ${PartnersDetailsCardsTitle} {
         color: var(--100, #fff);
       }

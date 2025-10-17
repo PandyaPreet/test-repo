@@ -20,7 +20,9 @@ const STATS = [
   },
 ];
 
-const StatsSection = () => {
+const StatsSection = ({ statsData }) => {
+  const stats = statsData && statsData.stats ? statsData.stats : STATS;
+
   return (
     <StatsBlock
       $alignitems="flex-end"
@@ -29,18 +31,26 @@ const StatsSection = () => {
     >
       <StatsTitleWrapper>
         <StatsTitle>
-          Performance Backed <br /> by Data
+          {statsData && statsData.title ? statsData.title : ""}
         </StatsTitle>
       </StatsTitleWrapper>
       <StatsMetricsWrapper>
-        {STATS.map((stat, index) => (
-          <StatsMetricsBlock $direction="column" key={index}>
-            <StatsMetricsValue>{stat.value}</StatsMetricsValue>
-            <StatsMetricsDescription>
-              {stat.description}
-            </StatsMetricsDescription>
-          </StatsMetricsBlock>
-        ))}
+        {stats.map((stat, index) => {
+          const statValue = stat && stat.value ? stat.value : "";
+          const statLabel =
+            stat && stat.label
+              ? stat.label
+              : stat && stat.description
+              ? stat.description
+              : "";
+
+          return (
+            <StatsMetricsBlock $direction="column" key={index}>
+              <StatsMetricsValue>{statValue}</StatsMetricsValue>
+              <StatsMetricsDescription>{statLabel}</StatsMetricsDescription>
+            </StatsMetricsBlock>
+          );
+        })}
       </StatsMetricsWrapper>
     </StatsBlock>
   );
@@ -69,6 +79,8 @@ const StatsTitleWrapper = styled(Flex)`
 `;
 
 const StatsTitle = styled.div`
+  max-width: 134px;
+  width: 100%;
   color: var(--500, #1a1919);
   font-size: 14px;
   font-style: normal;

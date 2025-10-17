@@ -25,7 +25,10 @@ const PARTNER_CARDS = [
   },
 ];
 
-const PartnersSectionMobile = () => {
+const PartnersSectionMobile = ({ partnersData }) => {
+  const cards =
+    partnersData && partnersData.cards ? partnersData.cards : PARTNER_CARDS;
+
   return (
     <PartnersContainer>
       <PartnersInnerWrapper $direction="column" $fullwidth>
@@ -44,18 +47,24 @@ const PartnersSectionMobile = () => {
           </PartnersHeaderTitle>
 
           <PartnersCarousel $alignitems="flex-end" $justifycontent="flex-start">
-            {PARTNER_CARDS.map((card, index) => (
-              <PartnersDetailsCard
-                $direction="column"
-                $justifycontent="space-between"
-                key={index}
-              >
-                <PartnersDetailsTitle>{card.title}</PartnersDetailsTitle>
-                <PartnersDetailsDescription>
-                  {card.description}
-                </PartnersDetailsDescription>
-              </PartnersDetailsCard>
-            ))}
+            {cards.map((card, index) => {
+              const cardTitle = card && card.title ? card.title : "";
+              const cardDescription =
+                card && card.description ? card.description : "";
+
+              return (
+                <PartnersDetailsCard
+                  $direction="column"
+                  $justifycontent="space-between"
+                  key={index}
+                >
+                  <PartnersDetailsTitle>{cardTitle}</PartnersDetailsTitle>
+                  <PartnersDetailsDescription>
+                    {cardDescription}
+                  </PartnersDetailsDescription>
+                </PartnersDetailsCard>
+              );
+            })}
           </PartnersCarousel>
         </PartnersContentContainer>
       </PartnersInnerWrapper>

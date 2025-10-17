@@ -4,57 +4,44 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const PlansSection = () => {
+const PlansSection = ({ plansData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/home-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/home-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/home-banner-3.webp",
-    },
-  ];
-  const DESCRIPTIONS = [
-    "We're a modern Independent TPA (third-party administrator) built for OEMs, retailers, and connected product brands that want to offer protection plans without operational headaches.",
-    "Whether your business runs on ecommerce, retail stores, or app-based experiences, our platform powers embedded warranty solutions that drive loyalty and long-term value.",
-    "Ensure Protect isn't just a service provider—we're a protection plan partner who shares your goals: higher attachment rates, lower churn, better customer experience, and higher margins.",
-  ];
+  const images = plansData && plansData.images ? plansData.images : [];
+  const featureImages = images.map((img, i) => ({
+    bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
+  }));
+
   return (
     <PlansContiner $fullwidth>
       <PlansInnerWrapper $justifycontent="space-between" $alignitems="center">
         <PlansDetails $direction="column" $justifycontent="flex-end">
           <PlansDetailsContainer $direction="column" $fullwidth>
             <PlansDetailsTitle>
-              <PlansDetailsTitleLight>A New </PlansDetailsTitleLight>
-              <PlansDetailsTitleDark>Standard</PlansDetailsTitleDark>
-              <br />
-              <PlansDetailsTitleLight>for </PlansDetailsTitleLight>
-              <PlansDetailsTitleDark>Protection</PlansDetailsTitleDark>
-              <br />
-              <PlansDetailsTitleDark>Plans</PlansDetailsTitleDark>
+              {plansData && plansData.title ? plansData.title : ""}
             </PlansDetailsTitle>
             <PlansDetailsDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
-                <React.Fragment key={index}>
-                  <DescriptionBlock
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onMouseLeave={() => setActiveIndex(0)}
-                  >
-                    <PlansDetailsDescription>{desc}</PlansDetailsDescription>
-                    {index !== DESCRIPTIONS.length - 1 && (
-                      <PlansDetailsDescriptionSeparator />
-                    )}
-                  </DescriptionBlock>
-                </React.Fragment>
-              ))}
+              {plansData &&
+                plansData.points &&
+                plansData.points.map((desc, index) => (
+                  <React.Fragment key={index}>
+                    <DescriptionBlock
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(0)}
+                    >
+                      <PlansDetailsDescription>{desc}</PlansDetailsDescription>
+                      {plansData.points &&
+                        index !== plansData.points.length - 1 && (
+                          <PlansDetailsDescriptionSeparator />
+                        )}
+                    </DescriptionBlock>
+                  </React.Fragment>
+                ))}
             </PlansDetailsDescriptionContainer>
           </PlansDetailsContainer>
         </PlansDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
       </PlansInnerWrapper>
     </PlansContiner>
   );
@@ -89,7 +76,6 @@ const PlansDetails = styled(Flex)`
 const DescriptionBlock = styled.div`
   display: flex;
   flex-direction: column;
-  /* gap: 12px; */
   cursor: pointer;
   width: 100%;
 `;
@@ -135,7 +121,6 @@ const PlansDetailsTitleDark = styled.span`
 `;
 
 const PlansDetailsDescriptionContainer = styled(Flex)`
-  /* gap: 12px; */
   align-self: stretch;
 `;
 
@@ -153,7 +138,7 @@ const PlansDetailsDescription = styled.div`
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
+    letter-spacing: normal;
   }
 `;
 

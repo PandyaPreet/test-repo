@@ -17,7 +17,7 @@ const descriptions = [
 ];
 
 export default function HeroSection({ heroData }) {
-  const [descHeight, setDescHeight] = useState();
+  const [descHeight, setDescHeight] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,11 +31,14 @@ export default function HeroSection({ heroData }) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Check if window is defined (for SSR)
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, []);
 
-  const { backgroundImage } = heroData;
+  const { backgroundImage } = heroData || {};
   const backgroundImageURL = getBackgroundImageUrl(backgroundImage);
 
   return (
@@ -44,10 +47,10 @@ export default function HeroSection({ heroData }) {
         <HeroImageWrapper $bgimg={backgroundImageURL}>
           <HeroContent $direction="column">
             <HeroTitle>
-              {heroData?.title || "Repair.Replace. Maintain."}
+              {(heroData && heroData.title) || "Repair.Replace. Maintain."}
             </HeroTitle>
             <HeroSubtitle>
-              {heroData?.description ||
+              {(heroData && heroData.description) ||
                 "When products break or fail, so can the customer relationship with your brand."}
             </HeroSubtitle>
           </HeroContent>
@@ -60,7 +63,10 @@ export default function HeroSection({ heroData }) {
                 <DescriptionChildWrapper>
                   <DescriptionIcon>{item.icon}</DescriptionIcon>
                   <DescriptionsText $indent={item.indent}>
-                    {heroData?.supportingTexts?.[index] || item.text}
+                    {(heroData &&
+                      heroData.supportingTexts &&
+                      heroData.supportingTexts[index]) ||
+                      item.text}
                   </DescriptionsText>
                 </DescriptionChildWrapper>
               </DescriptionWrapper>
@@ -91,9 +97,9 @@ const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100svh;
-  background: ${({ $bgimg }) =>
-    $bgimg
-      ? `url("${$bgimg}") no-repeat center center`
+  background: ${(props) =>
+    props.$bgimg
+      ? `url("${props.$bgimg}") no-repeat center center`
       : `url("/assets/Hero.webp") no-repeat center center`};
   background-size: cover;
   display: flex;
@@ -104,11 +110,9 @@ const HeroContent = styled(Flex)`
   position: absolute;
   width: 100%;
   gap: 24px;
-  /* height: 100vh; */
   justify-content: end;
   padding: 56px 16px;
   bottom: 0;
-  /* justify-content: center; */
   z-index: 3;
 
   @media (max-width: 1194px) {
@@ -155,11 +159,11 @@ const DescriptionContainer = styled(Flex)`
   box-sizing: border-box;
   flex-wrap: wrap;
 
-  ${({ $height }) =>
-    $height
+  ${(props) =>
+    props.$height
       ? `
-    margin-top: -${$height - 180}px;
-    height: ${$height}px;
+    margin-top: -${props.$height - 180}px;
+    height: ${props.$height}px;
   `
       : `
     margin-top: 0;
@@ -172,12 +176,12 @@ const DescriptionContainer = styled(Flex)`
     padding: 24px 16px;
     gap: 16px;
 
-    ${({ $height }) =>
-      $height
+    ${(props) =>
+      props.$height
         ? `
-      margin-top: -${Math.min($height - 180, 300)}px;
+      margin-top: -${Math.min(props.$height - 180, 300)}px;
       height: auto; 
-      padding-top: ${Math.min($height - 180, 300)}px; 
+      padding-top: ${Math.min(props.$height - 180, 300)}px; 
     `
         : `
       margin-top: 0;
@@ -209,7 +213,6 @@ const DescriptionWrapper = styled(Flex)`
     max-width: 100%;
     min-height: auto;
     padding: unset;
-    /* padding: 24px 16px; */
     flex: unset;
   }
 `;
@@ -232,7 +235,7 @@ const DescriptionsText = styled.span`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: ${({ $indent }) => $indent || "27%"};
+  text-indent: ${(props) => props.$indent || "27%"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`
@@ -251,11 +254,6 @@ const DescriptionBorderWrapper = styled(Flex)`
   }
   @media (max-width: 768px) {
     display: none;
-    /* border-right: none;
-    border-bottom: 0.5px solid #fff;
-    margin-right: 0;
-    width: 100%;
-    max-height: unset; */
   }
 `;
 
