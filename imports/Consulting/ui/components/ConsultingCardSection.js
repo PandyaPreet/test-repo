@@ -184,7 +184,7 @@ const ConsultingCard = styled(Flex)`
   }
 `;
 
-const ConsultingCardDescription = styled.div`
+const ConsultingCardDescription = styled.p`
   color: var(--500, #1a1919);
   max-width: 227px;
   font-size: 16px;

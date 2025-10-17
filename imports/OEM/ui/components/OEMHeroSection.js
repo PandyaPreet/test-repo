@@ -115,7 +115,7 @@ const HeroContent = styled(Flex)`
   }
 `;
 
-const HeroTitle = styled.div`
+const HeroTitle = styled.h1`
   font-family: Arial;
   width: 100%;
   max-width: 1248px;
@@ -137,7 +137,7 @@ const HeroTitle = styled.div`
   }
 `;
 
-const HeroSubtitle = styled.div`
+const HeroSubtitle = styled.p`
   color: #fff;
   font-family: Arial;
   font-size: 20px;
@@ -231,7 +231,7 @@ const DescriptionChildWrapper = styled(Flex)`
   }
 `;
 
-const DescriptionsText = styled.span`
+const DescriptionsText = styled.p`
   font-family: Arial;
   font-size: 14px;
   font-weight: 400;

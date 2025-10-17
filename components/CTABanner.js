@@ -177,7 +177,7 @@ const CTATitle = styled.h1`
   }
 `;
 
-const CTADescription = styled.div`
+const CTADescription = styled.p`
   color: var(--100, #fff);
   text-align: center;
   width: 100%;
