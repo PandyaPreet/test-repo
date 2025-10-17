@@ -4,6 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
 export default function HeroSection({ heroData }) {
+  console.log("heroData", heroData);
   const [descHeight, setDescHeight] = useState(null);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function HeroSection({ heroData }) {
   }, []);
 
   const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
-  const items = heroData?.supportingTexts || []; // [{ icon, text, indent }]
+  const items = heroData?.supportingTexts || []; // [{ text, indent } or string]
 
   return (
     <HeroWrapper $direction="column">
@@ -38,22 +39,25 @@ export default function HeroSection({ heroData }) {
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {items.map((item, index) => (
-            <Fragment key={index}>
-              <DescriptionWrapper>
-                <DescriptionChildWrapper>
-                  {item?.icon ? (
-                    <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  ) : null}
-                  <DescriptionsText $indent={item?.indent}>
-                    {item?.text}
-                  </DescriptionsText>
-                </DescriptionChildWrapper>
-              </DescriptionWrapper>
+          {items.map((item, index) => {
+            // keep indent + generate icon by index
+            const icon = "/".repeat(index + 1);
+            const text = typeof item === "string" ? item : item?.text;
+            const indent = typeof item === "string" ? undefined : item?.indent;
 
-              {index !== items.length - 1 && <DescriptionBorderWrapper />}
-            </Fragment>
-          ))}
+            return (
+              <Fragment key={index}>
+                <DescriptionWrapper>
+                  <DescriptionChildWrapper>
+                    <DescriptionIcon>{icon}</DescriptionIcon>
+                    <DescriptionsText $indent={indent}>{text}</DescriptionsText>
+                  </DescriptionChildWrapper>
+                </DescriptionWrapper>
+
+                {index !== items.length - 1 && <DescriptionBorderWrapper />}
+              </Fragment>
+            );
+          })}
           <DescriptionThirdPartWrapper />
         </DescriptionContainer>
       </HeroInner>
@@ -213,7 +217,7 @@ const DescriptionsText = styled.p`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: ${(props) => props.$indent || "0"};
+  text-indent: ${(props) => props.$indent || "27%"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`
