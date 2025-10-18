@@ -25,7 +25,7 @@ function ConnectCTASection() {
       {...(isMobile
         ? { backgroundImage: "/assets/cta-banner-image.webp" }
         : { videoUrl: "/assets/HomePageVideo.mp4" })}
-      onButtonClick={() => router.push("/connect")}
+      onButtonClick={() => router.push("/partners")}
     />
   );
 }
