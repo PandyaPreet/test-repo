@@ -39,7 +39,7 @@ function AboutUsCardsSection() {
           >
             <ContentSection $direction="column">
               <HeaderSection>
-                <HeaderSectionTitleDark>Designed to</HeaderSectionTitleDark>
+                <HeaderSectionTitleDark>Designed to </HeaderSectionTitleDark>
                 <HeaderSectionTitleLight>Be Invisible</HeaderSectionTitleLight>
                 <HeaderSectionTitleDark>
                   — But Indispensable

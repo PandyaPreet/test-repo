@@ -8,7 +8,7 @@ const STATS = [
   {
     value: "40+",
     description:
-      "Years in warranty, logistics, insurance,and service protection plans",
+      "Years in warranty, logistics, insurance, and service protection plans",
   },
   {
     value: "50",
@@ -35,8 +35,7 @@ function AboutUsStatsSection() {
         <StatsMetricsTitleWrapper>
           <StatsMetricsTitle>Proven Experience</StatsMetricsTitle>
           <StatsMetricsDescription>
-            We believe service plans should increase trust, not <br />
-            frustration.
+            We believe service plans should increase trust, not frustration.
           </StatsMetricsDescription>
         </StatsMetricsTitleWrapper>
         <StatsMetricsWrapper $alignitems="center">
@@ -119,6 +118,8 @@ const StatsMetricsTitle = styled.h2`
 
 const StatsMetricsDescription = styled.p`
   color: var(--500, #1a1919);
+  max-width: 340px;
+  width: 100%;
   font-family: Arial;
   font-size: 16px;
   font-style: normal;
@@ -178,10 +179,12 @@ const StatsMetricsBlock = styled(Flex)`
     }
   }
   @media (max-width: 768px) {
+    width: 100%;
+
     flex-direction: column;
     align-items: flex-start;
 
-    gap: 0px;
+    gap: unset;
     padding: 12px 0px;
   }
 `;

@@ -15,7 +15,7 @@ import InputLayout from "@/lib/atoms/InputLayout";
 
 const formSchema = Yup.object().shape({
   fullName: Yup.string().required("Full name is required"),
-  companyName: Yup.string().required("Comany name is required"),
+  companyName: Yup.string().required("Company name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   phoneNo: Yup.string().required("Phone number is required"),
 });
@@ -42,7 +42,7 @@ const ConnectFormSectionMobile = () => {
             Whether you're looking to integrate extended service plans, request
             a quote, or learn how our protection programs work, we’d love to
             hear from you. Fill out the form and our team will get back to you
-            within one business day
+            within one business day.
           </ConnectDescription>
         </ConnectHeaderContainer>
         <ConnectInfoContainer $direction="column">

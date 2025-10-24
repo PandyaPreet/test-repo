@@ -30,8 +30,8 @@ export default function AboutUsHeroSection() {
               Protection Plans, Reimagined for today's brands
             </AboutUsHeroTitle>
             <AboutUsHeroSubtitle>
-              “That's why we build everything around your brand, your product,
-              and your customer experience.”
+              That's why we build everything around your brand, your product,
+              and your customer experience.
             </AboutUsHeroSubtitle>
           </AboutUsHeroContent>
         </AboutUsHeroImageWrapper>

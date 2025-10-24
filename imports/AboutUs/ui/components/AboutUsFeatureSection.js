@@ -16,10 +16,10 @@ function AboutUsFeatureSection() {
   ];
 
   const DESCRIPTIONS = [
-    "We don't cross-sell other insurance to your customers. You own the relationship",
-    "We deliver full-service protection: plan setup, underwriting, program development, compliance, tech, claims, and logistics",
-    "We're not a carrier—we build plans that serve your business, not ours, with a variety of risk structures to fit your business",
-    "We help you turn aftermarket service into a strategic growth driver",
+    "We don't cross-sell other insurance to your customers, You own the relationship.",
+    "We deliver full-service protection: plan setup, underwriting, program development, compliance, tech, claims, and logistics.",
+    "We're not a carrier—we build plans that serve your business, not ours, with a variety of risk structures to fit your business.",
+    "We help you turn aftermarket service into a strategic growth driver.",
   ];
 
   return (
