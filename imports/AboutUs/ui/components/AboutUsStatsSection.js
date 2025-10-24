@@ -134,7 +134,6 @@ const StatsMetricsDescription = styled.p`
   }
   @media (max-width: 980px) {
     align-items: center;
-    justify-content: center;
     display: flex;
   }
   @media (max-width: 768px) {
