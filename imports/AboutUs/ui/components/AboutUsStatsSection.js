@@ -180,7 +180,7 @@ const StatsMetricsBlock = styled(Flex)`
   @media (max-width: 768px) {
     width: 100%;
 
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: flex-start;
 
     gap: unset;
