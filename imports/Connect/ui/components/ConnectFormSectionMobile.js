@@ -7,7 +7,7 @@ import ButtonIcon from "@/lib/atoms/ButtonIcon";
 import Flex from "@/lib/atoms/Flex";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import styled from "styled-components";
@@ -18,19 +18,47 @@ const formSchema = Yup.object().shape({
   companyName: Yup.string().required("Company name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   phoneNo: Yup.string().required("Phone number is required"),
+  message: Yup.string(),
 });
 
 const ConnectFormSectionMobile = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(formSchema),
+    defaultValues: {
+      fullName: "",
+      companyName: "",
+      email: "",
+      phoneNo: "",
+      message: "",
+    },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const resdata = await res.json();
+
+      if (res.ok) {
+        reset();
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -40,7 +68,7 @@ const ConnectFormSectionMobile = () => {
           <ConnectTitle>Get in touch with us</ConnectTitle>
           <ConnectDescription>
             Whether you're looking to integrate extended service plans, request
-            a quote, or learn how our protection programs work, we’d love to
+            a quote, or learn how our protection programs work, we'd love to
             hear from you. Fill out the form and our team will get back to you
             within one business day.
           </ConnectDescription>
@@ -75,6 +103,7 @@ const ConnectFormSectionMobile = () => {
           placeholder="FULL NAME"
           message={errors.fullName?.message || ""}
           isError={!!errors.fullName}
+          disabled={isLoading}
         />
 
         <InputLayout
@@ -83,6 +112,7 @@ const ConnectFormSectionMobile = () => {
           placeholder="COMPANY NAME"
           message={errors.companyName?.message || ""}
           isError={!!errors.companyName}
+          disabled={isLoading}
         />
 
         <InputLayout
@@ -91,6 +121,7 @@ const ConnectFormSectionMobile = () => {
           placeholder="BUSINESS EMAIL"
           message={errors.email?.message || ""}
           isError={!!errors.email}
+          disabled={isLoading}
         />
 
         <InputLayout
@@ -99,15 +130,19 @@ const ConnectFormSectionMobile = () => {
           placeholder="PHONE NUMBER"
           message={errors.phoneNo?.message || ""}
           isError={!!errors.phoneNo}
+          disabled={isLoading}
         />
 
         <InputLayout
-          {...register("messgae")}
+          {...register("message")} // Fixed typo from "messgae" to "message"
           dark
           placeholder="MESSAGE / ADDITIONAL DETAILS"
+          disabled={isLoading}
         />
-        <Button size="xl" onClick={handleSubmit(onSubmit)}>
-          Send Message <ButtonIcon />
+
+        <Button size="xl" onClick={handleSubmit(onSubmit)} disabled={isLoading}>
+          {isLoading ? "SENDING..." : "SEND MESSAGE"}
+          {!isLoading && <ButtonIcon />}
         </Button>
       </ConnectFormContainer>
     </Flex>
