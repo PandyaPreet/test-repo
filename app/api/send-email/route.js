@@ -22,6 +22,7 @@ export async function POST(req) {
       from: `"${fullName}" <${fromEmail}>`,
       to: "info@ensureprotect.com",
       subject: `New Contact Form Submission from ${fullName}`,
+      replyTo: email,
       text: `
 Full Name: ${fullName}
 Company: ${companyName}
