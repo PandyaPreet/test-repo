@@ -3,13 +3,12 @@
 import CTAButtonArrow from "@/components/svg/CTAButtonArrow";
 import Flex from "@/lib/atoms/Flex";
 import InputLayout from "@/lib/atoms/InputLayout";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import * as Yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 const formSchema = Yup.object().shape({
   fullName: Yup.string().required("Full name is required"),
@@ -27,8 +26,13 @@ function ConnectFormSection() {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data) => {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const resdata = await res.json();
   };
 
   return (
@@ -59,10 +63,10 @@ function ConnectFormSection() {
               <ConnectTitleDark>us</ConnectTitleDark>
             </ConnectTitle>
             <ConnectDescription>
-              Whether you're looking to integrate extended service plans,
+              {`Whether you're looking to integrate extended service plans,
               request a quote, or learn how our protection programs work, we’d
               love to hear from you. Fill out the form and our team will get
-              back to you within one business day.
+              back to you within one business day.`}
             </ConnectDescription>
           </ConnectTextContent>
         </ConnectLeftContentWrapper>
