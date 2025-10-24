@@ -179,12 +179,13 @@ const StatsMetricsBlock = styled(Flex)`
   }
   @media (max-width: 768px) {
     width: 100%;
-
+    display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start;
-
-    gap: unset;
-    padding: 12px 0px;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    padding: 12px 0px !important;
+    flex-wrap: nowrap !important;
   }
 `;
 
