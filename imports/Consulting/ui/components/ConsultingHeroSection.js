@@ -7,12 +7,12 @@ import styled from "styled-components";
 const descriptions = [
   {
     icon: "/",
-    text: "Consultants, integrators, and solution architects often get asked about service contracts and warranty models—but lack the infrastructure to deliver them. That’s where we come in.",
+    text: "                      At Ensure Protect, we design and manage  service plans  for a wide range of industries, helping you increase customer lifetime value and reduce service friction.",
     indent: "27%",
   },
   {
     icon: "//",
-    text: "Whether you manage 50 laptops or 50,000 smart endpoints, unexpected failures cost time, money, and credibility. Our group service plans and repair coverage help you reduce unplanned outages, eliminate administrative chaos, and deliver consistent protection across your entire fleet.",
+    text: "                       From power tools to consumer electronics to connected devices and enterprise networks, we help you deliver reliable protection that fits how your customers live, work, and shop.",
     indent: "35%",
   },
 ];
@@ -40,7 +40,7 @@ export default function ConsultingHeroSection() {
       <HeroInner>
         <HeroImageWrapper>
           <HeroContent $direction="column">
-            <HeroTitle>Expand Your Offering. Deliver More Value</HeroTitle>
+            <HeroTitle>EXPAND YOUR OFFERING. DELIVER MORE VALUE.</HeroTitle>
             <HeroSubtitle>
               If you build solutions for OEMs, retailers, or device
               companies—let’s add coverage programs to your toolkit.

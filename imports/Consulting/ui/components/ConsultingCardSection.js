@@ -7,39 +7,20 @@ import styled from "styled-components";
 
 const RETAILER_SERVICES = [
   {
-    icon: "/assets/retailer-services-icon-1.svg",
-    text: "White-labeled or co-branded protection plans at checkout (online or in-store)",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
+    icon: "/assets/Consulting/consulting-card-icon-1.svg",
+    text: "Warranty and Customer Experience consultants",
   },
   {
-    icon: "/assets/retailer-services-icon-2.svg",
-    text: "Repair, replacement, and maintenance coverage for mechanical and accidental damage",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
+    icon: "/assets/Consulting/consulting-card-icon-2.svg",
+    text: "Technical sales solution providers",
   },
   {
-    icon: "/assets/retailer-services-icon-3.svg",
-    text: "Program designs tailored by product category and price point",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
+    icon: "/assets/Consulting/consulting-card-icon-3.svg",
+    text: "Embedded service integrators",
   },
   {
-    icon: "/assets/retailer-services-icon-4.svg",
-    text: "Embedded ecommerce modules and point-of-sale system integrations",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-5.svg",
-    text: "Branded claim portals and 24/7 customer support",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-6.svg",
-    text: "Sales training tools, pitch prompts, and in-store enablement",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-7.svg",
-    text: "Real-time dashboards to track attach rate, conversions, and NPS",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
+    icon: "/assets/Consulting/consulting-card-icon-4.svg",
+    text: "Nationwide deployment and field service providers",
   },
 ];
 
@@ -60,11 +41,7 @@ const ConsultingCardSection = () => {
       <ConsultingCardGridContainer $direction="column">
         <ConsultingCardGridWrapper $alignitems="center">
           {RETAILER_SERVICES.map((card, index) => (
-            <ConsultingCard
-              $direction="column"
-              bgcolor={card.bgcolor}
-              key={index}
-            >
+            <ConsultingCard $direction="column" key={index}>
               <Image
                 height={72}
                 width={72}
@@ -152,7 +129,13 @@ const ConsultingCard = styled(Flex)`
   padding: 16px 16px 32px 16px;
   gap: 10px;
   border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
-  background: ${({ bgcolor }) => bgcolor};
+  &:nth-child(odd) {
+    background: var(--3, rgba(26, 25, 25, 0.03));
+  }
+
+  &:nth-child(even) {
+    background: var(--5, rgba(26, 25, 25, 0.05));
+  }
   justify-content: flex-end;
 
   img {

@@ -31,7 +31,7 @@ const SOLUTIONS_PLANS = [
     id: "4/4",
     title: "ISP & IoT Device Protection",
     description:
-      "Offer protection for connected devices and infrastructure / Embed activation in onboarding flows or user portals / Cover all your hand held and desk top devices, plus, routers, home security",
+      "Offer protection for connected devices and infrastructure / Embed activation in onboarding flows or user portals / Cover all your connected handheld and desktop products, routers, and home security devices",
     icon: "/assets/solutions-icon-4.svg",
   },
 ];

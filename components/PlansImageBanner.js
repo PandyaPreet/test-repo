@@ -14,6 +14,7 @@ const PlansImageBanner = ({ banners, activeIndex = 0 }) => {
       {banners.map((banner, index) => (
         <PlansBannerImagesBackground
           key={index}
+          $isActive={index === visibleIndex}
           onMouseEnter={() => setHoverIndex(index)}
           onMouseLeave={() => setHoverIndex(null)}
         >
@@ -36,8 +37,11 @@ const PlansImageBanner = ({ banners, activeIndex = 0 }) => {
 };
 
 export default PlansImageBanner;
+
 const PlansBannerContainer = styled(Flex)`
   flex: 1;
+  overflow: hidden;
+
   @media (max-width: 980px) {
     width: 100%;
   }
@@ -56,18 +60,12 @@ const PlansBannerContainer = styled(Flex)`
   }
 `;
 
-const PlansBannerImageWrapper = styled.div`
-  height: 100%;
-  display: none;
-
-  &.active {
-    display: flex;
-  }
-`;
-
 const PlansBannerImagesBackground = styled.div`
   height: 760px;
-  flex: 1;
+  flex: ${({ $isActive }) => ($isActive ? "5" : "1")};
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
 
   @media (max-width: 980px) {
     width: 100%;
@@ -79,12 +77,22 @@ const PlansBannerImagesBackground = styled.div`
   }
 `;
 
-const StyledImage = styled(Image)`
+const PlansBannerImageWrapper = styled.div`
   height: 100%;
-  width: 509px;
+  width: 100%;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+`;
+
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 
   @media (max-width: 1194px) {
-    width: 289px;
-    object-fit: cover;
+    width: 100%;
   }
 `;

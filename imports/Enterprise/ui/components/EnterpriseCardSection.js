@@ -52,8 +52,8 @@ function EnterpriseCardSection() {
                 Whether your team operates regionally or nationwide, our
                 platform offers centralized control with localized support.
                 Device replacements, on-site, depot and mail-in repairs, and
-                logistics are managed through trusted vendors—backed by
-                real-time performance data
+                logistics are managed through trusted vendors —backed by
+                real-time performance data.
               </SubHeaderSection>
             </ContentSection>
           </ContentWrapper>
