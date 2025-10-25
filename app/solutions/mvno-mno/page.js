@@ -12,7 +12,7 @@ export const metadata = {
     "IoT warranty API",
   ],
   alternates: {
-    canonical: "https://staging.ensureprotect.com/solutions/mvno-mno",
+    canonical: "https://ensureprotect.com/solutions/mvno-mno",
   },
 };
 

@@ -14,7 +14,7 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://staging.ensureprotect.com/privacy",
+    canonical: "https://ensureprotect.com/privacy",
   },
 };
 

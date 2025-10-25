@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://staging.ensureprotect.com";
+  const baseUrl = "https://ensureprotect.com";
 
   const paths = [
     "/",

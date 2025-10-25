@@ -14,7 +14,7 @@ export const metadata = {
     "fleet device support",
   ],
   alternates: {
-    canonical: "https://staging.ensureprotect.com/solutions/enterprise",
+    canonical: "https://ensureprotect.com/solutions/enterprise",
   },
 };
 

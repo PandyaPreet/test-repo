@@ -4,7 +4,7 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 import Script from "next/script";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://staging.ensureprotect.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://ensureprotect.com";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

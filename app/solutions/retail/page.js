@@ -11,7 +11,7 @@ export const metadata = {
     "protection plan at checkout",
   ],
   alternates: {
-    canonical: "https://staging.ensureprotect.com/solutions/retail",
+    canonical: "https://ensureprotect.com/solutions/retail",
   },
 };
 

@@ -11,7 +11,7 @@ export const metadata = {
     "insuretech TPA",
     "service contract provider",
   ],
-  alternates: { canonical: "https://staging.ensureprotect.com/about" },
+  alternates: { canonical: "https://ensureprotect.com/about" },
 };
 
 export default function Page() {

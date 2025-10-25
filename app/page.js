@@ -20,7 +20,7 @@ export const metadata = {
     "third party administrator",
     "extended warranty",
   ],
-  alternates: { canonical: "https://staging.ensureprotect.com/" },
+  alternates: { canonical: "https://ensureprotect.com/" },
 };
 
 export default async function Page() {

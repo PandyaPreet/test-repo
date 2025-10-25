@@ -11,7 +11,7 @@ export const metadata = {
     "smart home protection services",
   ],
   alternates: {
-    canonical: "https://staging.ensureprotect.com/solutions/isp-msp",
+    canonical: "https://ensureprotect.com/solutions/isp-msp",
   },
 };
 

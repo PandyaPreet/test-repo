@@ -1,6 +1,6 @@
 // app/robots.js
 export default function robots() {
-  const siteUrl = "https://staging.ensureprotect.com";
+  const siteUrl = "https://ensureprotect.com";
 
   return {
     rules: [

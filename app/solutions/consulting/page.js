@@ -11,7 +11,7 @@ export const metadata = {
     "partner program warranty",
   ],
   alternates: {
-    canonical: "https://staging.ensureprotect.com/solutions/consulting",
+    canonical: "https://ensureprotect.com/solutions/consulting",
   },
 };
 

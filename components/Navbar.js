@@ -172,7 +172,7 @@ export default function Navbar() {
 
           <ActionButtons $justifycontent="space-between" $alignitems="center">
             <Link
-              href="https://ensureprotect.com/dealer-login/"
+              href="https://ensureprotect1.wpengine.com/dealer-login/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -246,7 +246,7 @@ export default function Navbar() {
 
           <SidebarButtons>
             <Link
-              href="https://ensureprotect.com/dealer-login/"
+              href="https://ensureprotect1.wpengine.com/dealer-login/"
               target="_blank"
               rel="noopener noreferrer"
             >

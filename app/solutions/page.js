@@ -17,7 +17,7 @@ export const metadata = {
     "maintenance plan administrator",
   ],
   robots: "index, follow",
-  alternates: { canonical: "https://staging.ensureprotect.com/solutions" },
+  alternates: { canonical: "https://ensureprotect.com/solutions" },
 };
 
 export default function Page() {
