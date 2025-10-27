@@ -1,9 +1,11 @@
 "use client";
-import { useParams } from "next/navigation";
+
+import { useParams, notFound } from "next/navigation";
 import React from "react";
 
 function DealersLoginPage() {
   const { id } = useParams();
+
   const validDealers = [
     "atwoods",
     "5devices",
@@ -29,6 +31,11 @@ function DealersLoginPage() {
     "biggear",
     "eastwood",
   ];
+
+  if (!validDealers.includes(id)) {
+    notFound();
+  }
+
   const iframeSrc = `https://ensureprotect1.wpengine.com/${id}/`;
 
   return (
