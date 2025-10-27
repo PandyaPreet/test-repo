@@ -110,6 +110,7 @@ const ServicesWrapper = styled(Flex)`
   gap: 0px;
   width: 100%;
   flex-direction: column;
+  height: 200vh;
 
   & > div:nth-child(odd) {
     background: var(--200, #f2f2f2);
@@ -118,11 +119,27 @@ const ServicesWrapper = styled(Flex)`
   & > div:nth-child(even) {
     background: var(--100, #fff);
   }
+
+  @media (max-width: 980px) {
+    height: auto;
+  }
 `;
 
 const ServicesContainer = styled(Flex)`
-  max-height: 357px;
-  height: 100%;
+  position: sticky;
+  &:nth-child(1) {
+    top: 80px;
+  }
+  &:nth-child(2) {
+    top: 200px;
+  }
+  &:nth-child(3) {
+    top: 315px;
+  }
+  &:nth-child(4) {
+    top: 420px;
+  }
+  min-height: 357px;
   width: 100%;
   padding: 48px 16px;
   gap: 10px;

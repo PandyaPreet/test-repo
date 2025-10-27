@@ -4,7 +4,6 @@ import Flex from "@/lib/atoms/Flex";
 import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
 export default function HeroSection({ heroData }) {
-  console.log("heroData", heroData);
   const [descHeight, setDescHeight] = useState(null);
 
   useEffect(() => {
