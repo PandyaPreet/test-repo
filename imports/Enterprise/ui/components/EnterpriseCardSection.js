@@ -43,9 +43,9 @@ function EnterpriseCardSection() {
                 <HeaderSectionTitleLight>Simplify </HeaderSectionTitleLight>
                 <HeaderSectionTitleDark>Support </HeaderSectionTitleDark>
                 <HeaderSectionTitleLight>Across </HeaderSectionTitleLight>
-                <br />
+
                 <HeaderSectionTitleDark>
-                  Departments <br /> and Regions
+                  Departments and Regions
                 </HeaderSectionTitleDark>
               </HeaderSection>
               <SubHeaderSection>
@@ -182,6 +182,8 @@ const ContentWrapper = styled(Flex)`
 `;
 
 const ContentSection = styled(Flex)`
+  justify-content: center;
+  align-items: center;
   gap: 40px;
   @media (max-width: 980px) {
     gap: 16px;
@@ -190,6 +192,8 @@ const ContentSection = styled(Flex)`
 
 const HeaderSection = styled.h2`
   font-size: 48px;
+  width: 100%;
+  max-width: 376px;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
@@ -210,6 +214,8 @@ const HeaderSectionTitleLight = styled.span`
 `;
 
 const SubHeaderSection = styled.p`
+  width: 100%;
+  max-width: 376px;
   color: var(--80, rgba(26, 25, 25, 0.8));
   font-size: 14px;
   font-weight: 400;

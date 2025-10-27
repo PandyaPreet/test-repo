@@ -46,29 +46,28 @@ function ISPCardSection() {
                 <HeaderSectionTitleDark>From </HeaderSectionTitleDark>
                 <HeaderSectionTitleLight>Setup </HeaderSectionTitleLight>
                 <HeaderSectionTitleDark>to </HeaderSectionTitleDark>
-                <br />
                 <HeaderSectionTitleLight>Support </HeaderSectionTitleLight>
                 <HeaderSectionTitleDark>— Make </HeaderSectionTitleDark>
-                <br />
                 <HeaderSectionTitleDark>It Seamless</HeaderSectionTitleDark>
               </HeaderSection>
-
-              <SubHeaderSection>
-                Bundle repair, replacement, or service plans with your connected
-                devices to increase ARPU and customer stickiness—without added
-                support strain.
-              </SubHeaderSection>
-              <SubHeaderSection>
-                Subscribers expect more than a signal. They want confidence that
-                the devices they rely on will work, be fixed fast, or be
-                replaced easily.
-              </SubHeaderSection>
-              <SubHeaderSection>
-                Ensure Protect helps you offer device protection plans and
-                embedded support coverage through your existing customer
-                relationships, without building out an entire service
-                infrastructure.
-              </SubHeaderSection>
+              <SubHeaderWrapper>
+                <SubHeaderSection>
+                  Bundle repair, replacement, or service plans with your
+                  connected devices to increase ARPU and customer
+                  stickiness—without added support strain.
+                </SubHeaderSection>
+                <SubHeaderSection>
+                  Subscribers expect more than a signal. They want confidence
+                  that the devices they rely on will work, be fixed fast, or be
+                  replaced easily.
+                </SubHeaderSection>
+                <SubHeaderSection>
+                  Ensure Protect helps you offer device protection plans and
+                  embedded support coverage through your existing customer
+                  relationships, without building out an entire service
+                  infrastructure.
+                </SubHeaderSection>
+              </SubHeaderWrapper>
             </ContentSection>
           </ContentWrapper>
         </ContentBlock>
@@ -192,6 +191,9 @@ const ContentWrapper = styled(Flex)`
   @media (max-width: 980px) {
     padding: 40px;
   }
+  @media (max-width: 380px) {
+    padding: 25px;
+  }
 `;
 
 const ContentSection = styled(Flex)`
@@ -201,10 +203,17 @@ const ContentSection = styled(Flex)`
   }
 `;
 
+const SubHeaderWrapper = styled(Flex)`
+  gap: 20px;
+  flex-direction: column;
+`;
+
 const HeaderSection = styled.h2`
   font-size: 48px;
   font-weight: 400;
   line-height: 100%;
+  width: 100%;
+  max-width: 376px;
   letter-spacing: -1.44px;
   @media (max-width: 1194px) {
     font-size: 36px;
@@ -223,6 +232,8 @@ const HeaderSectionTitleLight = styled.span`
 `;
 
 const SubHeaderSection = styled.p`
+  width: 100%;
+  max-width: 376px;
   color: var(--80, rgba(26, 25, 25, 0.8));
   font-size: 14px;
   font-weight: 400;
