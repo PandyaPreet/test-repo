@@ -147,6 +147,7 @@ const ServicesContainer = styled(Flex)`
   border-top: 1px dashed var(--40, rgba(26, 25, 25, 0.4));
 
   @media (max-width: 980px) {
+    position: static;
     padding: 24px 16px;
     flex-direction: column;
     gap: 40px;
