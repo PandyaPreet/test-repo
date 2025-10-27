@@ -30,13 +30,16 @@ function DealersLoginPage() {
     "education",
     "biggear",
     "eastwood",
+    "servicecenter",
   ];
 
   if (!validDealers.includes(id)) {
     notFound();
   }
 
-  const iframeSrc = `https://ensureprotect1.wpengine.com/${id}/`;
+  const iframeSrc = `https://ensureprotect1.wpengine.com/${
+    id == "servicecenter" ? `f/${id}` : id
+  }/`;
 
   return (
     <div
