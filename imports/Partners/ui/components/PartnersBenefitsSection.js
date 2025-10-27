@@ -8,10 +8,10 @@ function PartnersBenefitsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const BENEFITS_BANNER_IMAGES = [
-    { bgImage: "/assets/Partners/benefits-banner-1.webp" },
-    { bgImage: "/assets/Partners/benefits-banner-2.webp" },
-    { bgImage: "/assets/Partners/benefits-banner-3.webp" },
-    { bgImage: "/assets/Partners/benefits-banner-4.webp" },
+    { bgImage: "/assets/Partners/benefits-banner-1.jpg" },
+    { bgImage: "/assets/Partners/benefits-banner-2.jpg" },
+    { bgImage: "/assets/Partners/benefits-banner-3.jpg" },
+    { bgImage: "/assets/Partners/benefits-banner-4.jpg" },
   ];
 
   const DESCRIPTIONS = [

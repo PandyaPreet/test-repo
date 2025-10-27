@@ -8,10 +8,10 @@ function PartnersSolutionsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const SOLUTIONS_BANNER_IMAGES = [
-    { bgImage: "/assets/Partners/solutions-banner-1.webp" },
-    { bgImage: "/assets/Partners/solutions-banner-2.webp" },
-    { bgImage: "/assets/Partners/solutions-banner-3.webp" },
-    { bgImage: "/assets/Partners/solutions-banner-4.webp" },
+    { bgImage: "/assets/Partners/solutions-banner-1.jpg" },
+    { bgImage: "/assets/Partners/solutions-banner-2.jpg" },
+    { bgImage: "/assets/Partners/solutions-banner-3.jpg" },
+    { bgImage: "/assets/Partners/solutions-banner-4.jpg" },
   ];
 
   const DESCRIPTIONS = [
