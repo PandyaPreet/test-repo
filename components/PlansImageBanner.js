@@ -25,7 +25,6 @@ const PlansImageBanner = ({ banners, activeIndex = 0 }) => {
               src={banner.bgImage}
               width={509}
               height={760}
-              quality={50}
               alt="plans banner image"
               priority
             />
