@@ -23,9 +23,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* Don't hand-write <head> tags; Next injects them from metadata */}
-      <body suppressHydrationWarning>
-        {/* Google Analytics */}
+      <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-P38G9X9LF3"
           strategy="afterInteractive"
@@ -38,7 +36,8 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-P38G9X9LF3');
           `}
         </Script>
-
+      </head>
+      <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <ProviderLayout>
             <ViewTransition>{children}</ViewTransition>
