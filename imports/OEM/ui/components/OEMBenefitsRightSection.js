@@ -9,10 +9,10 @@ function OEMBenefitsRightSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const BENEFITS_BANNER_IMAGES = [
-    { bgImage: "/assets/OEM/benefits-banner-1.webp" },
-    { bgImage: "/assets/OEM/benefits-banner-2.webp" },
-    { bgImage: "/assets/OEM/benefits-banner-3.webp" },
-    { bgImage: "/assets/OEM/benefits-banner-4.webp" },
+    { bgImage: "/assets/OEM/benefits-banner-1.jpg" },
+    { bgImage: "/assets/OEM/benefits-banner-2.jpg" },
+    { bgImage: "/assets/OEM/benefits-banner-3.jpg" },
+    { bgImage: "/assets/OEM/benefits-banner-4.jpg" },
   ];
 
   const DESCRIPTIONS = [
