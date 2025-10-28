@@ -1,42 +1,8 @@
 "use client";
 
-import { useParams, notFound } from "next/navigation";
 import React from "react";
 
-function DealersLoginPage() {
-  const { id } = useParams();
-
-  const validDealers = [
-    "atwoods",
-    "5devices",
-    "ruralking",
-    "rides",
-    "bikemart",
-    "gorhambikeandski",
-    "landrys",
-    "pedal",
-    "wheelandsprocket",
-    "globalbikes",
-    "seeds",
-    "lmfleetsupply",
-    "fcfarmandhome",
-    "theisens",
-    "scw",
-    "buchheit",
-    "shoppers",
-    "instaprotek",
-    "fhsfpp-frame-brochure",
-    "fhs",
-    "education",
-    "biggear",
-    "eastwood",
-    "servicecenter",
-  ];
-
-  if (!validDealers.includes(id)) {
-    notFound();
-  }
-
+function DealersLoginPage({ id }) {
   const iframeSrc =
     id == "servicecenter"
       ? `https://ensureprotect.tfaforms.net/f/servicecenter`
