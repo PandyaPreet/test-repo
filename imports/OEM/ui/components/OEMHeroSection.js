@@ -1,6 +1,7 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -17,7 +18,8 @@ const descriptions = [
   },
 ];
 
-export default function OEMHeroSection() {
+export default function OEMHeroSection({ heroData }) {
+  console.log("heroData", heroData);
   const [descHeight, setDescHeight] = useState(null);
 
   useEffect(() => {
@@ -35,39 +37,40 @@ export default function OEMHeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
+  const items = heroData?.supportingTexts || []; // [{ text, indent } or string]
+
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
-        <HeroImageWrapper>
+        <HeroImageWrapper $bgimg={backgroundImageURL}>
           <HeroContent $direction="column">
-            <HeroTitle>
-              Control the Full Lifecycle — From Sale to Support
-            </HeroTitle>
-            <HeroSubtitle>
-              Design, deliver, and manage co-branded warranties, extended
-              warranties, and protection plans that extend your product's value
-              long after it leaves the box.
-            </HeroSubtitle>
+            {heroData?.title ? <HeroTitle>{heroData.title}</HeroTitle> : null}
+            {heroData?.description ? (
+              <HeroSubtitle>{heroData.description} </HeroSubtitle>
+            ) : null}
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {descriptions.map((item, index) => (
-            <Fragment key={index}>
-              <DescriptionWrapper>
-                <DescriptionChildWrapper>
-                  <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  <DescriptionsText $indent={item.indent}>
-                    {item.text}
-                  </DescriptionsText>
-                </DescriptionChildWrapper>
-              </DescriptionWrapper>
+          {items.map((item, index) => {
+            const icon = "/".repeat(index + 1);
+            const text = typeof item === "string" ? item : item?.text;
+            const indent = typeof item === "string" ? undefined : item?.indent;
 
-              {index !== descriptions.length - 1 && (
-                <DescriptionBorderWrapper />
-              )}
-            </Fragment>
-          ))}
+            return (
+              <Fragment key={index}>
+                <DescriptionWrapper>
+                  <DescriptionChildWrapper>
+                    <DescriptionIcon>{icon}</DescriptionIcon>
+                    <DescriptionsText $indent={indent}>{text}</DescriptionsText>
+                  </DescriptionChildWrapper>
+                </DescriptionWrapper>
+
+                {index !== items.length - 1 && <DescriptionBorderWrapper />}
+              </Fragment>
+            );
+          })}
           <DescriptionThirdPartWrapper />
         </DescriptionContainer>
       </HeroInner>
@@ -89,12 +92,15 @@ const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100svh;
-  background: linear-gradient(
-      0deg,
-      rgba(26, 25, 25, 0.4) 0%,
-      rgba(26, 25, 25, 0.4) 100%
-    ),
-    url("/assets/OEM/oem-hero-bg.webp") no-repeat center center;
+  background: ${(props) =>
+    props.$bgimg
+      ? `linear-gradient(
+          0deg,
+          rgba(26, 25, 25, 0.4) 0%,
+          rgba(26, 25, 25, 0.4) 100%
+        ),
+        url("${props.$bgimg}") center center / cover no-repeat`
+      : `none`};
   background-size: cover;
   display: flex;
   align-items: flex-end;
@@ -239,7 +245,7 @@ const DescriptionsText = styled.p`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: ${({ $indent }) => $indent || "27%"};
+  text-indent: ${(props) => props.$indent || "27%"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`

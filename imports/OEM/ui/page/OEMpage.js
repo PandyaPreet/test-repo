@@ -11,16 +11,16 @@ import OEMBenefitsRightSection from "../components/OEMBenefitsRightSection";
 import OEMBenefitsLeftSection from "../components/OEMBenefitsLeftSection";
 import OEMCtaSection from "../components/OEMCtaSection";
 
-function OEMpage() {
+function OEMpage({ data }) {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <OEMHeroSection />
-      <OEMCardSection />
-      <OEMBenefitsRightSection />
-      <OEMBenefitsLeftSection />
+      <OEMHeroSection heroData={data?.heroSection} />
+      <OEMCardSection cardData={data?.cardSection} />
+      <OEMBenefitsRightSection rightFeatureData={data?.featureSection} />
+      <OEMBenefitsLeftSection leftFeatureData={data?.featureSection2} />
       <Wrapper>
-        <OEMCtaSection />
+        <OEMCtaSection ctaData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

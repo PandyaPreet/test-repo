@@ -3,22 +3,18 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-function OEMBenefitsLeftSection() {
+function OEMBenefitsLeftSection({ leftFeatureData }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BENEFITS_BANNER_IMAGES = [
-    { bgImage: "/assets/OEM/benefits-banner-left-1.jpg" },
-    { bgImage: "/assets/OEM/benefits-banner-left-2.webp" },
-    { bgImage: "/assets/OEM/benefits-banner-left-3.jpg" },
-    { bgImage: "/assets/OEM/benefits-banner-left-4.jpg" },
-  ];
-
-  const DESCRIPTIONS = [
-    "Program monetization through reserve sharing or fixed pricing",
-    "Upsell options during product activation or after-sale campaigns",
-    "Seamless experience integration with your CRM or support flows",
-  ];
+  const images =
+    leftFeatureData && leftFeatureData.featureImages
+      ? leftFeatureData.featureImages
+      : [];
+  const featureImages = images.map((img, i) => ({
+    bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
+  }));
 
   return (
     <OEMBenefitsLeftSectionContainer $fullwidth>
@@ -26,13 +22,8 @@ function OEMBenefitsLeftSection() {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        {/* Image on left */}
-        <PlansImageBanner
-          banners={BENEFITS_BANNER_IMAGES}
-          activeIndex={activeIndex}
-        />
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
 
-        {/* Details on right */}
         <OEMBenefitsLeftSectionDetails
           $direction="column"
           $justifycontent="flex-end"
@@ -43,35 +34,31 @@ function OEMBenefitsLeftSection() {
           >
             <OEMBenefitsLeftSectionHeader $direction="column">
               <OEMBenefitsLeftSectionTitle>
-                <OEMBenefitsLeftSectionTitleDark>
-                  Revenue
-                </OEMBenefitsLeftSectionTitleDark>
-                <OEMBenefitsLeftSectionTitleLight>
-                  {" "}
-                  Without
-                </OEMBenefitsLeftSectionTitleLight>
-                <br />
-                <OEMBenefitsLeftSectionTitleDark>
-                  Rework
-                </OEMBenefitsLeftSectionTitleDark>
+                {leftFeatureData && leftFeatureData.title
+                  ? leftFeatureData.title
+                  : ""}
               </OEMBenefitsLeftSectionTitle>
             </OEMBenefitsLeftSectionHeader>
 
             <OEMBenefitsLeftSectionDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
-                <DescriptionBlock
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(0)}
-                >
-                  <OEMBenefitsLeftSectionDescription>
-                    {desc}
-                  </OEMBenefitsLeftSectionDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
-                    <OEMBenefitsLeftSectionDescriptionSeparator />
-                  )}
-                </DescriptionBlock>
-              ))}
+              {leftFeatureData &&
+                leftFeatureData.featurePoints &&
+                leftFeatureData.featurePoints.map((desc, index) => (
+                  <React.Fragment key={index}>
+                    <DescriptionBlock
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(0)}
+                    >
+                      <OEMBenefitsLeftSectionDescription>
+                        {desc}{" "}
+                      </OEMBenefitsLeftSectionDescription>
+                      {leftFeatureData.featurePoints &&
+                        index !== leftFeatureData.featurePoints.length - 1 && (
+                          <OEMBenefitsLeftSectionDescriptionSeparator />
+                        )}
+                    </DescriptionBlock>
+                  </React.Fragment>
+                ))}
             </OEMBenefitsLeftSectionDescriptionContainer>
           </OEMBenefitsLeftSectionDetailsContainer>
         </OEMBenefitsLeftSectionDetails>
@@ -81,8 +68,6 @@ function OEMBenefitsLeftSection() {
 }
 
 export default OEMBenefitsLeftSection;
-
-/* ===================== STYLES (No Visual Changes) ===================== */
 
 const OEMBenefitsLeftSectionContainer = styled(Flex)`
   gap: 10px;

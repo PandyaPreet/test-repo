@@ -4,7 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-function OEMCardSection() {
+function OEMCardSection({ cardData }) {
   const contentRefs = useRef([]);
   const [heights, setHeights] = useState([600, 600]);
 
@@ -21,78 +21,55 @@ function OEMCardSection() {
     return () => window.removeEventListener("resize", updateHeights);
   }, []);
 
-  const cardData = [
-    {
-      bg: "var(--5, rgba(26, 25, 25, 0.05))",
-      title: (
-        <>
-          <HeaderSectionTitleDark>Custom Plans for </HeaderSectionTitleDark>
-          <HeaderSectionTitleLight>Any </HeaderSectionTitleLight>
-          <HeaderSectionTitleDark>Device or </HeaderSectionTitleDark>
-          <HeaderSectionTitleLight>Use </HeaderSectionTitleLight>
-          <HeaderSectionTitleDark>Case</HeaderSectionTitleDark>
-        </>
-      ),
-      description:
-        "From high-end electronics to durable power tools and smart devices, we tailor each plan to match the risk profile and expected lifespan of the product.",
-      textColor: "dark",
-    },
-    {
-      bg: "var(--500, #2877b0)",
-      title: (
-        <>
-          <HeaderSectionTitleLight>Co</HeaderSectionTitleLight>
-          <HeaderSectionTitleWhite>-Branded or </HeaderSectionTitleWhite>
-          <HeaderSectionTitleWhite>White-</HeaderSectionTitleWhite>
-          <HeaderSectionTitleLight>Labeled </HeaderSectionTitleLight>
-          <HeaderSectionTitleWhite>— Your Choice</HeaderSectionTitleWhite>
-        </>
-      ),
-      description:
-        "You decide the brand presence. We handle the compliance, logistics, and fulfillment behind the scenes.",
-      textColor: "light",
-    },
-  ];
-
   return (
     <CardsContainer $direction="column">
-      {cardData.map((card, index) => (
-        <CardsWrapper
-          key={index}
-          $justifycontent="space-between"
-          $alignitems="center"
-        >
-          <HorizontalLineTop />
-          <HorizontalLineBottom />
+      {Array.isArray(cardData?.cards) &&
+        cardData.cards.map((card, index) => {
+          const isEven = index % 2 === 1;
+          const bgColor = isEven
+            ? "var(--500, #2877b0)"
+            : "var(--5, rgba(26, 25, 25, 0.05))";
+          const isLightText = isEven;
 
-          <DashedBlocks style={{ height: `${heights[index] || 600}px` }}>
-            <FirstBlock />
-            <SecondBlock $isLeft />
-          </DashedBlocks>
-
-          <ContentBlock>
-            <ContentWrapper
-              ref={(el) => (contentRefs.current[index] = el)}
-              $bg={card.bg}
+          return (
+            <CardsWrapper
+              key={card._key || index}
+              $justifycontent="space-between"
               $alignitems="center"
-              $justifycontent="center"
             >
-              <ContentSection $direction="column">
-                <HeaderSection>{card.title}</HeaderSection>
-                <SubHeaderSection $light={card.textColor === "light"}>
-                  {card.description}
-                </SubHeaderSection>
-              </ContentSection>
-            </ContentWrapper>
-          </ContentBlock>
+              <HorizontalLineTop />
+              <HorizontalLineBottom />
 
-          {/* Right dashed section */}
-          <DashedBlocks style={{ height: `${heights[index] || 600}px` }}>
-            <SecondBlock $isRight />
-            <FirstBlock />
-          </DashedBlocks>
-        </CardsWrapper>
-      ))}
+              <DashedBlocks style={{ height: `${heights[index] || 600}px` }}>
+                <FirstBlock />
+                <SecondBlock $isLeft />
+              </DashedBlocks>
+
+              <ContentBlock>
+                <ContentWrapper
+                  ref={(el) => (contentRefs.current[index] = el)}
+                  $bg={bgColor}
+                  $alignitems="center"
+                  $justifycontent="center"
+                >
+                  <ContentSection $direction="column">
+                    <HeaderSection $light={isLightText}>
+                      {card.title}
+                    </HeaderSection>
+                    <SubHeaderSection $light={isLightText}>
+                      {card.description}
+                    </SubHeaderSection>
+                  </ContentSection>
+                </ContentWrapper>
+              </ContentBlock>
+
+              <DashedBlocks style={{ height: `${heights[index] || 600}px` }}>
+                <SecondBlock $isRight />
+                <FirstBlock />
+              </DashedBlocks>
+            </CardsWrapper>
+          );
+        })}
     </CardsContainer>
   );
 }
@@ -220,24 +197,14 @@ const HeaderSection = styled.h2`
   letter-spacing: -1.44px;
   max-width: 380px;
   width: 100%;
+  color: ${({ $light }) =>
+    $light ? "var(--100, #fff)" : "var(--500, #1a1919)"};
   @media (max-width: 1194px) {
     font-size: 36px;
   }
   @media (max-width: 768px) {
     font-size: 24px;
   }
-`;
-
-const HeaderSectionTitleDark = styled.span`
-  color: var(--500, #1a1919);
-`;
-
-const HeaderSectionTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const HeaderSectionTitleWhite = styled.span`
-  color: var(--100, #fff);
 `;
 
 const SubHeaderSection = styled.p`

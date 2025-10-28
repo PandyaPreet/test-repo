@@ -16,5 +16,5 @@ export const metadata = {
 
 export default async function Page() {
   const data = await getOemPage();
-  return <OEMpage />;
+  return <OEMpage data={data} />;
 }

@@ -4,23 +4,18 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-function OEMBenefitsRightSection() {
+function OEMBenefitsRightSection({ rightFeatureData }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BENEFITS_BANNER_IMAGES = [
-    { bgImage: "/assets/OEM/benefits-banner-1.jpg" },
-    { bgImage: "/assets/OEM/benefits-banner-2.jpg" },
-    { bgImage: "/assets/OEM/benefits-banner-3.jpg" },
-    { bgImage: "/assets/OEM/benefits-banner-4.jpg" },
-  ];
-
-  const DESCRIPTIONS = [
-    "Embedded coverage activated during registration or app onboarding",
-    "White-labeled warranty extensions and accidental damage protection",
-    "Technical and repair support built into your customer experience ecosystem",
-    "Options for bundled support + protection SKUs sold through your channels",
-  ];
+  const images =
+    rightFeatureData && rightFeatureData.featureImages
+      ? rightFeatureData.featureImages
+      : [];
+  const featureImages = images.map((img, i) => ({
+    bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
+  }));
 
   return (
     <PartnersPlansContiner $fullwidth>
@@ -32,43 +27,36 @@ function OEMBenefitsRightSection() {
           <PartnersPlansDetailsContainer $direction="column" $fullwidth>
             <PartnersDetailsHeader $direction="column">
               <PartnersPlansDetailsTitle>
-                <PartnersPlansDetailsTitleDark>
-                  Our OEM
-                </PartnersPlansDetailsTitleDark>
-                <PartnersPlansDetailsTitleLight>
-                  {" "}
-                  Offering
-                </PartnersPlansDetailsTitleLight>
-                <br />
-                <PartnersPlansDetailsTitleDark>
-                  Includes:
-                </PartnersPlansDetailsTitleDark>
+                {rightFeatureData && rightFeatureData.title
+                  ? rightFeatureData.title
+                  : ""}
               </PartnersPlansDetailsTitle>
             </PartnersDetailsHeader>
 
             <PartnersPlansDetailsDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
-                <DescriptionBlock
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(0)}
-                >
-                  <PartnersPlansDetailsDescription>
-                    {desc}
-                  </PartnersPlansDetailsDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
-                    <PartnersPlansDetailsDescriptionSeparator />
-                  )}
-                </DescriptionBlock>
-              ))}
+              {rightFeatureData &&
+                rightFeatureData.featurePoints &&
+                rightFeatureData.featurePoints.map((desc, index) => (
+                  <React.Fragment key={index}>
+                    <DescriptionBlock
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(0)}
+                    >
+                      <PartnersPlansDetailsDescription>
+                        {desc}{" "}
+                      </PartnersPlansDetailsDescription>
+                      {rightFeatureData.featurePoints &&
+                        index !== rightFeatureData.featurePoints.length - 1 && (
+                          <PartnersPlansDetailsDescriptionSeparator />
+                        )}
+                    </DescriptionBlock>
+                  </React.Fragment>
+                ))}
             </PartnersPlansDetailsDescriptionContainer>
           </PartnersPlansDetailsContainer>
         </PartnersPlansDetails>
 
-        <PlansImageBanner
-          banners={BENEFITS_BANNER_IMAGES}
-          activeIndex={activeIndex}
-        />
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
       </PartnersPlansInnerWrapper>
     </PartnersPlansContiner>
   );
@@ -136,14 +124,6 @@ const PartnersPlansDetailsTitle = styled.h2`
     font-size: 32px;
     letter-spacing: -0.96px;
   }
-`;
-
-const PartnersPlansDetailsTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const PartnersPlansDetailsTitleDark = styled.span`
-  color: var(--500, #1a1919);
 `;
 
 const PartnersPlansDetailsDescriptionContainer = styled(Flex)`
