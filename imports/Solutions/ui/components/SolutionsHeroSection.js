@@ -3,22 +3,14 @@
 import Flex from "@/lib/atoms/Flex";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const descriptions = [
-  {
-    icon: "/",
-    text: "At Ensure Protect, we design and manage service plans for a wide range of industries, helping you increase customer lifetime value and reduce service friction.",
-    indent: "27%",
-  },
-  {
-    icon: "//",
-    text: "From power tools to consumer electronics to connected devices and enterprise networks, we help you deliver reliable protection that fits how your customers live, work, and shop.",
-    indent: "35%",
-  },
-];
-
-export default function SolutionsHeroSection() {
+export default function SolutionsHeroSection({ heroSectionData }) {
   const [descHeight, setDescHeight] = useState(null);
+
+  const backgroundImageUrl = getBackgroundImageUrl(
+    heroSectionData?.backgroundImage
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,29 +27,34 @@ export default function SolutionsHeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const title = heroSectionData?.title || "";
+  const subtitle = heroSectionData?.description || "";
+  const descriptions = heroSectionData?.supportingTexts || [];
+
   return (
     <HeroWrapper $direction="column">
       <HeroInner $fullwidth>
-        <HeroImageWrapper>
+        <HeroImageWrapper
+          style={{
+            backgroundImage: `url(${
+              backgroundImageUrl || "/assets/solutions_hero_bg.png"
+            })`,
+          }}
+        >
           <HeroContent $direction="column">
-            <HeroTitle>
-              Custom-Built Protection Plans for Every Product, Channel, and
-              Customer
-            </HeroTitle>
-            <HeroSubtitle>
-              Our coverage isn’t off-the-shelf —and neither are your products.
-            </HeroSubtitle>
+            <HeroTitle>{title}</HeroTitle>
+            <HeroSubtitle>{subtitle}</HeroSubtitle>
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {descriptions.map((item, index) => (
+          {descriptions.map((text, index) => (
             <Fragment key={index}>
               <DescriptionWrapper>
                 <DescriptionChildWrapper>
-                  <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  <DescriptionsText $indent={item.indent}>
-                    {item.text}
+                  <DescriptionIcon>//</DescriptionIcon>
+                  <DescriptionsText $indent={index === 0 ? "27%" : "35%"}>
+                    {text}
                   </DescriptionsText>
                 </DescriptionChildWrapper>
               </DescriptionWrapper>
@@ -87,7 +84,8 @@ const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100svh;
-  background: url("/assets/solutions_hero_bg.png") no-repeat center center;
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
   display: flex;
   align-items: flex-end;

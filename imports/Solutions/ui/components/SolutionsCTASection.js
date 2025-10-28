@@ -3,8 +3,9 @@
 import CTABanner from "@/components/CTABanner";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const SolutionsCTASection = () => {
+const SolutionsCTASection = ({ ctaSectionData }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -17,18 +18,24 @@ const SolutionsCTASection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const title = ctaSectionData?.title || "";
+  const buttonText = ctaSectionData?.ctaButtonLabel || "Learn More";
+  const backgroundImage = getBackgroundImageUrl(
+    ctaSectionData?.backgroundImage
+  );
+
   return (
-    <>
-      <CTABanner
-        title="Start Offering Smarter Coverage — Your Way"
-        description="Empower your business with tailored protection solutions that fit your customers, your products, and your brand."
-        buttonText="Learn More"
-        {...(isMobile
-          ? { backgroundImage: "/assets/cta-banner-image.webp" }
-          : { videoUrl: "/assets/SolutionsPageVideo.mp4" })}
-        onButtonClick={() => router.push("/connect")}
-      />
-    </>
+    <CTABanner
+      title={title}
+      description="Empower your business with tailored protection solutions that fit your customers, your products, and your brand."
+      buttonText={buttonText}
+      {...(isMobile
+        ? {
+            backgroundImage: backgroundImage || "/assets/cta-banner-image.webp",
+          }
+        : { videoUrl: "/assets/SolutionsPageVideo.mp4" })}
+      onButtonClick={() => router.push("/connect")}
+    />
   );
 };
 

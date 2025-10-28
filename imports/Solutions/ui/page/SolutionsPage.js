@@ -12,16 +12,18 @@ import SolutionsCardsSection from "../components/SolutionsCardsSection";
 import SolutionsFeaturesSection from "../components/SolutionsFeaturesSection";
 import SolutionsCTASection from "../components/SolutionsCTASection";
 
-const SolutionsPage = () => {
+const SolutionsPage = ({ data }) => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <SolutionsHeroSection />
-      <SolutionsPlansSection />
-      <SolutionsCardsSection />
-      <SolutionsFeaturesSection />
+      <SolutionsHeroSection heroSectionData={data?.heroSection} />
+      <SolutionsPlansSection solutionsSectionData={data?.solutionsSection} />
+      <SolutionsCardsSection
+        solutionTypesSectionData={data?.solutionTypesSection}
+      />
+      <SolutionsFeaturesSection featureSectionData={data?.featureSection} />
       <Wrapper>
-        <SolutionsCTASection />
+        <SolutionsCTASection ctaSectionData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

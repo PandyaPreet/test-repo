@@ -1,3 +1,4 @@
+import { getSolutionsPage } from "@/imports/Solutions/api/api";
 import SolutionsPage from "@/imports/Solutions/ui/page/SolutionsPage";
 
 export const metadata = {
@@ -20,6 +21,8 @@ export const metadata = {
   alternates: { canonical: "https://ensureprotect.com/solutions" },
 };
 
-export default function Page() {
-  return <SolutionsPage />;
+export default async function Page() {
+  const data = await getSolutionsPage();
+
+  return <SolutionsPage data={data} />;
 }
