@@ -4,9 +4,13 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-function ISPCardSection() {
+function ISPCardSection({ cardSectionData }) {
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(600);
+
+  const cards = Array.isArray(cardSectionData?.cards)
+    ? cardSectionData.cards
+    : [];
 
   useEffect(() => {
     const updateHeight = () => {
@@ -20,68 +24,64 @@ function ISPCardSection() {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
+
   return (
-    <CardsContainer $direction={"column"}>
-      <CardsWrapper
-        $justifycontent={"space-between"}
-        $alignitems={"center"}
-        $fullwidth
-      >
-        <HorizontalLineTop />
-        <HorizontalLineBottom />
+    <CardsContainer $direction="column">
+      {cards.map((card, index) => {
+        const title = card?.title || "";
+        const descriptionPoints = Array.isArray(card?.descriptionPoints)
+          ? card.descriptionPoints
+          : [];
 
-        <DashedBlocks style={{ height: `${contentHeight}px` }}>
-          <FirstBlock />
-          <SecondBlock $isLeft />
-        </DashedBlocks>
-
-        <ContentBlock>
-          <ContentWrapper
-            ref={contentRef}
+        return (
+          <CardsWrapper
+            key={card._key || index}
+            $justifycontent="space-between"
             $alignitems="center"
-            $justifycontent="center"
+            $fullwidth
           >
-            <ContentSection $direction="column">
-              <HeaderSection>
-                <HeaderSectionTitleDark>From </HeaderSectionTitleDark>
-                <HeaderSectionTitleLight>Setup </HeaderSectionTitleLight>
-                <HeaderSectionTitleDark>to </HeaderSectionTitleDark>
-                <HeaderSectionTitleLight>Support </HeaderSectionTitleLight>
-                <HeaderSectionTitleDark>— Make </HeaderSectionTitleDark>
-                <HeaderSectionTitleDark>It Seamless</HeaderSectionTitleDark>
-              </HeaderSection>
-              <SubHeaderWrapper>
-                <SubHeaderSection>
-                  Bundle repair, replacement, or service plans with your
-                  connected devices to increase ARPU and customer
-                  stickiness—without added support strain.
-                </SubHeaderSection>
-                <SubHeaderSection>
-                  Subscribers expect more than a signal. They want confidence
-                  that the devices they rely on will work, be fixed fast, or be
-                  replaced easily.
-                </SubHeaderSection>
-                <SubHeaderSection>
-                  Ensure Protect helps you offer device protection plans and
-                  embedded support coverage through your existing customer
-                  relationships, without building out an entire service
-                  infrastructure.
-                </SubHeaderSection>
-              </SubHeaderWrapper>
-            </ContentSection>
-          </ContentWrapper>
-        </ContentBlock>
+            <HorizontalLineTop />
+            <HorizontalLineBottom />
 
-        <DashedBlocks style={{ height: `${contentHeight}px` }}>
-          <SecondBlock $isRight />
-          <FirstBlock />
-        </DashedBlocks>
-      </CardsWrapper>
+            <DashedBlocks style={{ height: `${contentHeight}px` }}>
+              <FirstBlock />
+              <SecondBlock $isLeft />
+            </DashedBlocks>
+
+            <ContentBlock>
+              <ContentWrapper
+                ref={contentRef}
+                $alignitems="center"
+                $justifycontent="center"
+              >
+                <ContentSection $direction="column">
+                  <HeaderSection>
+                    <HeaderSectionTitleDark>{title}</HeaderSectionTitleDark>
+                  </HeaderSection>
+
+                  <SubHeaderWrapper>
+                    {descriptionPoints.map((point, i) => (
+                      <SubHeaderSection key={i}>{point}</SubHeaderSection>
+                    ))}
+                  </SubHeaderWrapper>
+                </ContentSection>
+              </ContentWrapper>
+            </ContentBlock>
+
+            <DashedBlocks style={{ height: `${contentHeight}px` }}>
+              <SecondBlock $isRight />
+              <FirstBlock />
+            </DashedBlocks>
+          </CardsWrapper>
+        );
+      })}
     </CardsContainer>
   );
 }
 
 export default ISPCardSection;
+
+/* ---------------- styles ---------------- */
 
 const CardsContainer = styled(Flex)`
   width: 100%;
@@ -140,6 +140,7 @@ const SecondBlock = styled.div`
   border-right: 1px dashed rgba(26, 25, 25, 0.5);
   border-left: 1px dashed rgba(26, 25, 25, 0.5);
   background: #fff;
+
   ${({ $isLeft }) =>
     $isLeft &&
     `
@@ -225,10 +226,6 @@ const HeaderSection = styled.h2`
 
 const HeaderSectionTitleDark = styled.span`
   color: var(--500, #1a1919);
-`;
-
-const HeaderSectionTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
 `;
 
 const SubHeaderSection = styled.p`

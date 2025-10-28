@@ -12,17 +12,17 @@ import ISPFeaturesSection from "../components/ISPFeaturesSection";
 import ISPOutcomesSection from "../components/ISPOutcomesSection";
 import ISPCTASection from "../components/ISPCTASection";
 
-const ISPCablePage = () => {
+const ISPCablePage = ({ data }) => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <ISPHomeSection />
-      <ISPCardSection />
-      <ISPOverviewSection />
-      <ISPFeaturesSection />
-      <ISPOutcomesSection />
+      <ISPHomeSection heroSectionData={data?.heroSection} />
+      <ISPCardSection cardSectionData={data?.cardSection} />
+      <ISPOverviewSection featureSectiondData={data?.featureSection} />
+      <ISPFeaturesSection planFeaturesSectionData={data?.planFeaturesSection} />
+      <ISPOutcomesSection featureSection2Data={data?.featureSection2} />
       <Wrapper>
-        <ISPCTASection />
+        <ISPCTASection ctaSectionData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

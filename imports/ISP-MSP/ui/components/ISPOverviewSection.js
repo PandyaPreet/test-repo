@@ -4,31 +4,38 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const ISPOverviewSection = () => {
+const ISPOverviewSection = ({ featureSectiondData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/ISP-MSP/isp-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/ISP-MSP/isp-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/ISP-MSP/isp-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/ISP-MSP/isp-banner-4.webp",
-    },
-  ];
+  // ---- Sanity mappings & fallbacks ----
+  const title = featureSectiondData?.title || "Ideal For:";
 
-  const DESCRIPTIONS = [
-    "Wi-Fi and broadband providers",
-    "Smart home platforms",
-    "Connected device resellers and MVNO",
-    "White-label tech or hardware bundles",
-  ];
+  const featurePoints =
+    Array.isArray(featureSectiondData?.featurePoints) &&
+    featureSectiondData.featurePoints.length
+      ? featureSectiondData.featurePoints
+      : [
+          "Wi-Fi and broadband providers",
+          "Smart home platforms",
+          "Connected device resellers and MVNO",
+          "White-label tech or hardware bundles",
+        ];
+
+  const bannersFromSanity =
+    Array.isArray(featureSectiondData?.featureImages) &&
+    featureSectiondData.featureImages.length
+      ? featureSectiondData.featureImages
+          .map((img) => getBackgroundImageUrl(img)) // or getBackgroundImageUrl(img.asset._ref)
+          .filter(Boolean)
+          .map((url) => ({ bgImage: url }))
+      : [
+          { bgImage: "/assets/ISP-MSP/isp-banner-1.webp" },
+          { bgImage: "/assets/ISP-MSP/isp-banner-2.webp" },
+          { bgImage: "/assets/ISP-MSP/isp-banner-3.webp" },
+          { bgImage: "/assets/ISP-MSP/isp-banner-4.webp" },
+        ];
 
   return (
     <ISPOverviewContainer $fullwidth>
@@ -36,23 +43,26 @@ const ISPOverviewSection = () => {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+        <PlansImageBanner
+          banners={bannersFromSanity}
+          activeIndex={activeIndex}
+        />
 
         <ISPOverviewDetails $direction="column" $justifycontent="flex-end">
           <ISPOverviewDetailsContainer $direction="column" $fullwidth>
             <ISPOverviewTitle>
-              <ISPOverviewTitleDark>Ideal For:</ISPOverviewTitleDark>
+              <ISPOverviewTitleDark>{title}</ISPOverviewTitleDark>
             </ISPOverviewTitle>
 
             <ISPOverviewDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
+              {featurePoints.map((desc, index) => (
                 <React.Fragment key={index}>
                   <DescriptionBlock
                     onMouseEnter={() => setActiveIndex(index)}
                     onMouseLeave={() => setActiveIndex(0)}
                   >
                     <ISPOverviewDescription>{desc}</ISPOverviewDescription>
-                    {index !== DESCRIPTIONS.length - 1 && (
+                    {index !== featurePoints.length - 1 && (
                       <ISPOverviewDescriptionSeparator />
                     )}
                   </DescriptionBlock>
@@ -68,6 +78,8 @@ const ISPOverviewSection = () => {
 
 export default ISPOverviewSection;
 
+/* ---------------- styles (unchanged) ---------------- */
+
 const ISPOverviewContainer = styled(Flex)`
   gap: 10px;
   background: var(--100, #fff);
@@ -75,14 +87,12 @@ const ISPOverviewContainer = styled(Flex)`
 
 const ISPOverviewInnerWrapper = styled(Flex)`
   flex: 1 0 0;
-  @media (max-width: 1194px) {
-    /* padding: 64px 0px; */
-  }
   @media (max-width: 980px) {
     flex-direction: column-reverse;
     gap: 24px;
   }
 `;
+
 const DescriptionBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -132,10 +142,6 @@ const ISPOverviewTitle = styled.h2`
   }
 `;
 
-const ISPOverviewTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
 const ISPOverviewTitleDark = styled.span`
   color: var(--500, #1a1919);
 `;
@@ -157,7 +163,7 @@ const ISPOverviewDescription = styled.div`
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
+    letter-spacing: normal;
   }
 `;
 

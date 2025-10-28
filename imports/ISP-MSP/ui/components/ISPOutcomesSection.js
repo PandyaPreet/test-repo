@@ -4,31 +4,38 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const ISPOutcomesSection = () => {
+const ISPOutcomesSection = ({ featureSection2Data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/ISP-MSP/outcomes-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/ISP-MSP/outcomes-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/ISP-MSP/outcomes-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/ISP-MSP/outcomes-banner-4.webp",
-    },
-  ];
+  // ---- Sanity mappings & fallbacks ----
+  const title = featureSection2Data?.title || "Outcomes that Matter:";
 
-  const DESCRIPTIONS = [
-    "Lower churn from better post-install support",
-    "Increased monthly revenue via service add-ons",
-    "Fewer escalations and ticket volumes for device failures",
-    "Branded customer experience across all service interactions",
-  ];
+  const featurePoints =
+    Array.isArray(featureSection2Data?.featurePoints) &&
+    featureSection2Data.featurePoints.length
+      ? featureSection2Data.featurePoints
+      : [
+          "Lower churn from better post-install support",
+          "Increased monthly revenue via service add-ons",
+          "Fewer escalations and ticket volumes for device failures",
+          "Branded customer experience across all service interactions",
+        ];
+
+  const bannersFromSanity =
+    Array.isArray(featureSection2Data?.featureImages) &&
+    featureSection2Data.featureImages.length
+      ? featureSection2Data.featureImages
+          .map((img) => getBackgroundImageUrl(img)) // or getBackgroundImageUrl(img.asset._ref)
+          .filter(Boolean)
+          .map((url) => ({ bgImage: url }))
+      : [
+          { bgImage: "/assets/ISP-MSP/outcomes-banner-1.webp" },
+          { bgImage: "/assets/ISP-MSP/outcomes-banner-2.webp" },
+          { bgImage: "/assets/ISP-MSP/outcomes-banner-3.webp" },
+          { bgImage: "/assets/ISP-MSP/outcomes-banner-4.webp" },
+        ];
 
   return (
     <ISPOutcomesContainer $fullwidth>
@@ -39,21 +46,18 @@ const ISPOutcomesSection = () => {
         <ISPOutcomesDetails $direction="column" $justifycontent="flex-end">
           <ISPOutcomesDetailsContainer $direction="column" $fullwidth>
             <ISPOutcomesTitle>
-              <ISPOutcomesTitleDark>Outcomes </ISPOutcomesTitleDark>
-              <br />
-              <ISPOutcomesTitleLight>that </ISPOutcomesTitleLight>
-              <ISPOutcomesTitleDark>Matter:</ISPOutcomesTitleDark>
+              <ISPOutcomesTitleDark>{title}</ISPOutcomesTitleDark>
             </ISPOutcomesTitle>
 
             <ISPOutcomesDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
+              {featurePoints.map((desc, index) => (
                 <React.Fragment key={index}>
                   <DescriptionBlock
                     onMouseEnter={() => setActiveIndex(index)}
                     onMouseLeave={() => setActiveIndex(0)}
                   >
                     <ISPOutcomesDescription>{desc}</ISPOutcomesDescription>
-                    {index !== DESCRIPTIONS.length - 1 && (
+                    {index !== featurePoints.length - 1 && (
                       <ISPOutcomesDescriptionSeparator />
                     )}
                   </DescriptionBlock>
@@ -62,13 +66,19 @@ const ISPOutcomesSection = () => {
             </ISPOutcomesDescriptionContainer>
           </ISPOutcomesDetailsContainer>
         </ISPOutcomesDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+
+        <PlansImageBanner
+          banners={bannersFromSanity}
+          activeIndex={activeIndex}
+        />
       </ISPOutcomesInnerWrapper>
     </ISPOutcomesContainer>
   );
 };
 
 export default ISPOutcomesSection;
+
+/* ---------------- styles (mostly unchanged) ---------------- */
 
 const ISPOutcomesContainer = styled(Flex)`
   gap: 10px;
@@ -120,7 +130,6 @@ const ISPOutcomesDetailsContainer = styled(Flex)`
 
 const ISPOutcomesTitle = styled.h2`
   font-size: 48px;
-  font-style: normal;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
@@ -135,10 +144,6 @@ const ISPOutcomesTitle = styled.h2`
   }
 `;
 
-const ISPOutcomesTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
 const ISPOutcomesTitleDark = styled.span`
   color: var(--500, #1a1919);
 `;
@@ -150,17 +155,15 @@ const ISPOutcomesDescriptionContainer = styled(Flex)`
 const ISPOutcomesDescription = styled.div`
   color: var(--500, #1a1919);
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
   line-height: 120%;
-  padding-bottom: 12px;
-  padding-top: 12px;
+  padding: 12px 0;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
+    letter-spacing: normal;
   }
 `;
 

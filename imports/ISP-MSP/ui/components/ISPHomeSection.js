@@ -3,14 +3,21 @@
 import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-export default function ISPHomeSection() {
+export default function ISPHomeSection({ heroSectionData }) {
+  const title = heroSectionData?.title || "Add Value with Every Subscription";
+  const bgUrl =
+    (heroSectionData?.backgroundImage &&
+      getBackgroundImageUrl(heroSectionData.backgroundImage)) ||
+    "/assets/ISP-MSP/isp-hero-bg.webp";
+
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
-        <HeroImageWrapper>
+        <HeroImageWrapper $bg={bgUrl}>
           <HeroContent $direction="column">
-            <HeroTitle>Add Value with Every Subscription</HeroTitle>
+            <HeroTitle>{title}</HeroTitle>
           </HeroContent>
         </HeroImageWrapper>
       </HeroInner>
@@ -40,7 +47,7 @@ const HeroImageWrapper = styled.div`
       var(--40, rgba(26, 25, 25, 0.4)) 0%,
       var(--40, rgba(26, 25, 25, 0.4)) 100%
     ),
-    url("/assets/ISP-MSP/isp-hero-bg.webp") lightgray 50% / cover no-repeat;
+    url("${(p) => p.$bg}") center center / cover no-repeat;
 `;
 
 const HeroContent = styled(Flex)`
@@ -51,6 +58,7 @@ const HeroContent = styled(Flex)`
   bottom: 0;
   justify-content: center;
   z-index: 3;
+
   @media (max-width: 1194px) {
     padding: 40px;
   }
@@ -68,11 +76,13 @@ const HeroTitle = styled.h1`
   text-transform: uppercase;
   color: #fff;
   text-indent: 9%;
+
   @media (max-width: 1194px) {
     font-size: 64px;
   }
   @media (max-width: 768px) {
     font-size: 40px;
+    text-indent: 0%;
   }
 `;
 

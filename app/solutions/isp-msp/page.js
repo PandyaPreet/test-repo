@@ -1,3 +1,4 @@
+import { getISPPage } from "@/imports/ISP-MSP/api/api";
 import ISPCablePage from "@/imports/ISP-MSP/ui/page/ISPCablePage";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export const metadata = {
   },
 };
 
-export default function Page() {
-  return <ISPCablePage />;
+export default async function Page() {
+  const data = await getISPPage();
+  return <ISPCablePage data={data} />;
 }
