@@ -11,16 +11,16 @@ import PartnersCategoriesSection from "../ui/components/PartnersCategoriesSectio
 import PartnersSolutionsSection from "../ui/components/PartnersSolutionsSection";
 import PartnersCTASection from "../ui/components/PartnersCTASection";
 
-const PartnersPage = () => {
+const PartnersPage = ({ data }) => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <PartnersHeroSection />
-      <PartnersBenefitsSection />
-      <PartnersCategoriesSection />
-      <PartnersSolutionsSection />
+      <PartnersHeroSection heroData={data?.heroSection} />
+      <PartnersBenefitsSection benefitsData={data?.featureSection} />
+      <PartnersCategoriesSection categoriesData={data?.categorySection} />
+      <PartnersSolutionsSection plansData={data?.plansSection} />
       <Wrapper>
-        <PartnersCTASection />
+        <PartnersCTASection ctaData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

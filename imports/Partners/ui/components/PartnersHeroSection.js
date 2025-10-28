@@ -1,10 +1,11 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
-import React, { useEffect, useState } from "react";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function PartnersHeroSection() {
+export default function PartnersHeroSection({ heroData }) {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {
@@ -22,31 +23,41 @@ export default function PartnersHeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
+  const items = heroData?.supportingTexts || [];
+
   return (
     <PartnersHeroWrapper $direction="column">
       <PartnersHeroInner>
-        <PartnersHeroImageWrapper>
+        <PartnersHeroImageWrapper $bgimg={backgroundImageURL}>
           <PartnersHeroContent $direction="column">
-            <PartnersHeroTitle>
-              Turn Coverage into Customer Loyalty — and New Revenue
-            </PartnersHeroTitle>
+            {heroData?.title ? (
+              <PartnersHeroTitle>{heroData.title}</PartnersHeroTitle>
+            ) : null}
           </PartnersHeroContent>
         </PartnersHeroImageWrapper>
 
         <PartnersDescriptionContainer $height={descHeight}>
-          <PartnersDescriptionWrapper>
-            <PartnersDescriptionChildWrapper>
-              <PartnersDescriptionIcon>/</PartnersDescriptionIcon>
-              <PartnersDescriptionsText>
-                Whether you're launching your first service protection and
-                extended warranty program or scaling your embedded protection
-                platform, we bring the tools, infrastructure, experience, and
-                support to help you build lasting value
-              </PartnersDescriptionsText>
-            </PartnersDescriptionChildWrapper>
-          </PartnersDescriptionWrapper>
+          {items.map((item, index) => {
+            const icon = "/".repeat(index + 1);
+            const text = typeof item === "string" ? item : item?.text;
+            const indent = typeof item === "string" ? undefined : item?.indent;
 
-          <PartnersDescriptionBorderWrapper />
+            return (
+              <Fragment key={index}>
+                <PartnersDescriptionWrapper>
+                  <PartnersDescriptionChildWrapper>
+                    <PartnersDescriptionIcon>{icon}</PartnersDescriptionIcon>
+                    <PartnersDescriptionsText $indent={indent}>
+                      {text}
+                    </PartnersDescriptionsText>
+                  </PartnersDescriptionChildWrapper>
+                </PartnersDescriptionWrapper>
+
+                <PartnersDescriptionBorderWrapper />
+              </Fragment>
+            );
+          })}
         </PartnersDescriptionContainer>
       </PartnersHeroInner>
     </PartnersHeroWrapper>
@@ -69,8 +80,9 @@ const PartnersHeroImageWrapper = styled.div`
   height: 100svh;
   height: 100dvh;
   height: 100vh;
-  background: url("/assets/Partners/partners-hero-bg.webp") no-repeat center
-    center;
+  background: ${(props) =>
+    props.$bgimg ? `url("${props.$bgimg}") no-repeat center center` : "none"};
+
   background-size: cover;
   display: flex;
   align-items: flex-end;

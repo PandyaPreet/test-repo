@@ -3,23 +3,18 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-function PartnersBenefitsSection() {
+function PartnersBenefitsSection({ benefitsData }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BENEFITS_BANNER_IMAGES = [
-    { bgImage: "/assets/Partners/benefits-banner-1.jpg" },
-    { bgImage: "/assets/Partners/benefits-banner-2.jpg" },
-    { bgImage: "/assets/Partners/benefits-banner-3.jpg" },
-    { bgImage: "/assets/Partners/benefits-banner-4.jpg" },
-  ];
-
-  const DESCRIPTIONS = [
-    "Add incremental margin from every qualifying product sold",
-    "Strengthen customer retention with branded coverage",
-    "Reduce internal support costs and claims administration",
-    "Go to market faster with templated onboarding",
-  ];
+  const images =
+    benefitsData && benefitsData.featureImages
+      ? benefitsData.featureImages
+      : [];
+  const featureImages = images.map((img, i) => ({
+    bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
+  }));
 
   return (
     <PartnersPlansContiner $fullwidth>
@@ -27,46 +22,40 @@ function PartnersBenefitsSection() {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner
-          banners={BENEFITS_BANNER_IMAGES}
-          activeIndex={activeIndex}
-        />
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
 
         <PartnersPlansDetails $direction="column" $justifycontent="flex-end">
           <PartnersPlansDetailsContainer $direction="column" $fullwidth>
             <PartnersDetailsHeader $direction="column">
               <PartnersPlansDetailsTitle>
-                <PartnersPlansDetailsTitleLight>
-                  Why Partner{" "}
-                </PartnersPlansDetailsTitleLight>
-                <br />
-                <PartnersPlansDetailsTitleLight>
-                  with{" "}
-                </PartnersPlansDetailsTitleLight>
-                <PartnersPlansDetailsTitleDark>
-                  Ensure Protect
-                </PartnersPlansDetailsTitleDark>
+                {benefitsData && benefitsData.title ? benefitsData.title : ""}
               </PartnersPlansDetailsTitle>
               <PartnersPlansDetailsDescription $uppercase>
-                More Than a Vendor. A Revenue Partner.
+                {benefitsData && benefitsData.description
+                  ? benefitsData.description
+                  : ""}
               </PartnersPlansDetailsDescription>
             </PartnersDetailsHeader>
 
             <PartnersPlansDetailsDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
-                <DescriptionBlock
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(0)}
-                >
-                  <PartnersPlansDetailsDescription>
-                    {desc}
-                  </PartnersPlansDetailsDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
-                    <PartnersPlansDetailsDescriptionSeparator />
-                  )}
-                </DescriptionBlock>
-              ))}
+              {benefitsData &&
+                benefitsData.featurePoints &&
+                benefitsData.featurePoints.map((desc, index) => (
+                  <React.Fragment key={index}>
+                    <DescriptionBlock
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(0)}
+                    >
+                      <PartnersPlansDetailsDescription>
+                        {desc}{" "}
+                      </PartnersPlansDetailsDescription>
+                      {benefitsData.featurePoints &&
+                        index !== benefitsData.featurePoints.length - 1 && (
+                          <PartnersPlansDetailsDescriptionSeparator />
+                        )}
+                    </DescriptionBlock>
+                  </React.Fragment>
+                ))}
             </PartnersPlansDetailsDescriptionContainer>
           </PartnersPlansDetailsContainer>
         </PartnersPlansDetails>

@@ -1,3 +1,4 @@
+import { getPartnersPage } from "@/imports/Partners/api/api";
 import PartnersPage from "@/imports/Partners/page/PartnersPage";
 
 export const metadata = {
@@ -18,6 +19,7 @@ export const metadata = {
   alternates: { canonical: "https://ensureprotect.com/partners" },
 };
 
-export default function Page() {
-  return <PartnersPage />;
+export default async function Page() {
+  const data = await getPartnersPage();
+  return <PartnersPage data={data} />;
 }

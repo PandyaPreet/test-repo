@@ -3,23 +3,16 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-function PartnersSolutionsSection() {
+function PartnersSolutionsSection({ plansData }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const SOLUTIONS_BANNER_IMAGES = [
-    { bgImage: "/assets/Partners/solutions-banner-1.jpg" },
-    { bgImage: "/assets/Partners/solutions-banner-2.jpg" },
-    { bgImage: "/assets/Partners/solutions-banner-3.jpg" },
-    { bgImage: "/assets/Partners/solutions-banner-4.jpg" },
-  ];
-
-  const DESCRIPTIONS = [
-    "Reserve sharing with our reinsurance structure, or set up a captive that we help manage",
-    "Monthly, yearly, or multi-year options to fit customer buying needs and your Sales & Marketing approach",
-    "White-labeled or co-branded coverage, to ensure continuity and brand awareness",
-    "Set up quoting and reporting using APIs or flat files",
-  ];
+  const images =
+    plansData && plansData.featureImages ? plansData.featureImages : [];
+  const featureImages = images.map((img, i) => ({
+    bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
+  }));
 
   return (
     <PartnersSolutionContainer $fullwidth>
@@ -31,43 +24,34 @@ function PartnersSolutionsSection() {
           <PartnersSolutionDetailsContainer $direction="column" $fullwidth>
             <PartnersSolutionHeader $direction="column">
               <PartnersSolutionTitle>
-                <PartnersSolutionTitleLight>Choose</PartnersSolutionTitleLight>
-                <PartnersSolutionTitleDark>
-                  {" "}
-                  What Works
-                </PartnersSolutionTitleDark>
-                <br />
-                <PartnersSolutionTitleLight>For</PartnersSolutionTitleLight>
-                <PartnersSolutionTitleDark>
-                  {" "}
-                  Your Business:
-                </PartnersSolutionTitleDark>
+                {plansData && plansData.title ? plansData.title : ""}
               </PartnersSolutionTitle>
             </PartnersSolutionHeader>
 
             <PartnersSolutionDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
-                <DescriptionBlock
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(0)}
-                >
-                  <PartnersSolutionDescription>
-                    {desc}
-                  </PartnersSolutionDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
-                    <PartnersSolutionDescriptionSeparator />
-                  )}
-                </DescriptionBlock>
-              ))}
+              {plansData &&
+                plansData.featurePoints &&
+                plansData.featurePoints.map((desc, index) => (
+                  <React.Fragment key={index}>
+                    <DescriptionBlock
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(0)}
+                    >
+                      <PartnersSolutionDescription>
+                        {desc}{" "}
+                      </PartnersSolutionDescription>
+                      {plansData.featurePoints &&
+                        index !== plansData.featurePoints.length - 1 && (
+                          <PartnersSolutionDescriptionSeparator />
+                        )}
+                    </DescriptionBlock>
+                  </React.Fragment>
+                ))}
             </PartnersSolutionDescriptionContainer>
           </PartnersSolutionDetailsContainer>
         </PartnersSolutionDetails>
 
-        <PlansImageBanner
-          banners={SOLUTIONS_BANNER_IMAGES}
-          activeIndex={activeIndex}
-        />
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
       </PartnersSolutionInnerWrapper>
     </PartnersSolutionContainer>
   );

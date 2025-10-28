@@ -4,28 +4,11 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 
-function PartnersCategoriesSection() {
-  const CATEGORIES_CARDS = [
-    {
-      title: "Retailers & DTC Brands",
-      description:
-        "Boost attachment rate and simplify fulfillment; drive revenue and profit streams while lowering admin costs",
-    },
-    {
-      title: "OEMs & Hardware Brands",
-      description:
-        "Protect physical products post-sale driving customer retention",
-    },
-    {
-      title: "ISPs & Smart Device Platforms",
-      description: "Provide coverage at activation and grow monthly ARPU",
-    },
-    {
-      title: "Enterprise IT & Procurement Teams",
-      description:
-        "Deliver SLAs and device support to lower organizational costs",
-    },
-  ];
+function PartnersCategoriesSection({ categoriesData }) {
+  const cards = Array.isArray(categoriesData?.cards)
+    ? categoriesData.cards
+    : [];
+
   return (
     <PartnersCardsSectionContainer
       $justifycontent="center"
@@ -33,7 +16,7 @@ function PartnersCategoriesSection() {
     >
       <PartnersCardsSectionBG />
       <PartnersCardsWrapper>
-        {CATEGORIES_CARDS.map((card, index) => (
+        {cards.map((card, index) => (
           <PartnersCards $direction="column" key={index}>
             <PartnersCardsInnerWrapper
               $direction="column"
