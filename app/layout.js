@@ -10,7 +10,6 @@ export const metadata = {
     canonical: "/",
   },
   openGraph: {
-    url: SITE_URL,
     siteName: "Ensure Protect",
     images: [
       {

@@ -1,3 +1,4 @@
+import { getAboutUsPage } from "@/imports/AboutUs/ui/api/api";
 import AboutUsPage from "@/imports/AboutUs/ui/page/AboutUsPage";
 
 export const metadata = {
@@ -14,6 +15,7 @@ export const metadata = {
   alternates: { canonical: "https://ensureprotect.com/about" },
 };
 
-export default function Page() {
-  return <AboutUsPage />;
+export default async function Page() {
+  const data = await getAboutUsPage();
+  return <AboutUsPage data={data} />;
 }

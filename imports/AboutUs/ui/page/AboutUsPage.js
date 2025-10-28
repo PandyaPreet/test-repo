@@ -11,16 +11,17 @@ import AboutUsCardsSection from "../components/AboutUsCardsSection";
 import AboutUsStatsSection from "../components/AboutUsStatsSection";
 import AboutUsCTASection from "../components/AboutUsCTASection";
 
-function AboutUsPage() {
+function AboutUsPage({ data }) {
+  console.log("data===", data);
   return (
     <PageWrapper>
       <Navbar />
-      <AboutUsHeroSection />
-      <AboutUsFeatureSection />
-      <AboutUsCardsSection />
-      <AboutUsStatsSection />
+      <AboutUsHeroSection heroData={data?.heroSection} />
+      <AboutUsFeatureSection featureData={data?.featureSection} />
+      <AboutUsCardsSection cardData={data?.cardSection} />
+      <AboutUsStatsSection statsData={data?.statsSection} />
       <Wrapper>
-        <AboutUsCTASection />
+        <AboutUsCTASection ctaData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

@@ -4,9 +4,19 @@ import React, { useState } from "react";
 import Flex from "@/lib/atoms/Flex";
 import styled from "styled-components";
 import PlansImageBanner from "@/components/PlansImageBanner";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-function AboutUsFeatureSection() {
+function AboutUsFeatureSection({ featureData }) {
+  console.log("featureData", featureData);
   const [activeIndex, setActiveIndex] = useState(0);
+  const images =
+    featureData && featureData.featureImages ? featureData.featureImages : [];
+  console.log("images", images);
+
+  const featureImages = images.map((img, i) => ({
+    bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
+  }));
+  console.log("featureImages", featureImages);
 
   const BANNER_IMAGES = [
     { bgImage: "/assets/About/about-feature-1.webp" },

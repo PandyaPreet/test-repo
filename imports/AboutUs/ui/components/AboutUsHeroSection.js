@@ -1,9 +1,10 @@
 "use client";
 import Flex from "@/lib/atoms/Flex";
-import React, { useEffect, useState } from "react";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function AboutUsHeroSection() {
+export default function AboutUsHeroSection({ heroData }) {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {
@@ -20,36 +21,44 @@ export default function AboutUsHeroSection() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
+  const items = heroData?.supportingTexts || []; // [{ text, indent } or string]
 
   return (
     <AboutUsHeroWrapper $direction="column">
       <AboutUsHeroInner>
-        <AboutUsHeroImageWrapper>
+        <AboutUsHeroImageWrapper $bgimg={backgroundImageURL}>
           <AboutUsHeroContent $direction="column">
-            <AboutUsHeroTitle>
-              Protection Plans, Reimagined for today's brands
-            </AboutUsHeroTitle>
-            <AboutUsHeroSubtitle>
-              We build everything around your brand, your product, and your
-              customer experience.
-            </AboutUsHeroSubtitle>
+            {heroData?.title ? (
+              <AboutUsHeroTitle>{heroData.title}</AboutUsHeroTitle>
+            ) : null}
+
+            {heroData?.description ? (
+              <AboutUsHeroSubtitle>{heroData.description} </AboutUsHeroSubtitle>
+            ) : null}
           </AboutUsHeroContent>
         </AboutUsHeroImageWrapper>
 
         <AboutUsDescriptionContainer $height={descHeight}>
-          <AboutUsDescriptionWrapper>
-            <AboutUsDescriptionChildWrapper>
-              <AboutUsDescriptionIcon>/</AboutUsDescriptionIcon>
-              <AboutUsDescriptionsText>
-                Ensure Protect is an independent third-party administrator (TPA)
-                helping brands launch and scale high-performing protection
-                programs across OEM, retail, ecommerce, IoT, education, and
-                enterprise.
-              </AboutUsDescriptionsText>
-            </AboutUsDescriptionChildWrapper>
-          </AboutUsDescriptionWrapper>
+          {items.map((item, index) => {
+            const icon = "/".repeat(index + 1);
+            const text = typeof item === "string" ? item : item?.text;
+            const indent = typeof item === "string" ? undefined : item?.indent;
+            return (
+              <Fragment key={index}>
+                <AboutUsDescriptionWrapper>
+                  <AboutUsDescriptionChildWrapper>
+                    <AboutUsDescriptionIcon>{icon}</AboutUsDescriptionIcon>
+                    <AboutUsDescriptionsText $indent={indent}>
+                      {text}
+                    </AboutUsDescriptionsText>
+                  </AboutUsDescriptionChildWrapper>
+                </AboutUsDescriptionWrapper>
 
-          <AboutUsDescriptionBorderWrapper />
+                <AboutUsDescriptionBorderWrapper />
+              </Fragment>
+            );
+          })}
         </AboutUsDescriptionContainer>
       </AboutUsHeroInner>
     </AboutUsHeroWrapper>
@@ -72,7 +81,8 @@ const AboutUsHeroImageWrapper = styled.div`
   height: 100svh;
   height: 100dvh;
   height: 100vh;
-  background: url("/assets/About/AboutUsHeroImage.webp") no-repeat center center;
+  background: ${(props) =>
+    props.$bgimg ? `url("${props.$bgimg}") no-repeat center center` : "none"};
   background-size: cover;
   display: flex;
   align-items: flex-end;
@@ -212,7 +222,7 @@ const AboutUsDescriptionsText = styled.p`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: 27%;
+  text-indent: ${(props) => props.$indent || "27%"};
 `;
 
 const AboutUsDescriptionBorderWrapper = styled(Flex)`
