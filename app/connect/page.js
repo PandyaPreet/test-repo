@@ -1,3 +1,4 @@
+import { getConnectPage } from "@/imports/Connect/ui/api/api";
 import ConnectPage from "@/imports/Connect/ui/page/ConnectPage";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export const metadata = {
   alternates: { canonical: "https://ensureprotect.com/connect" },
 };
 
-export default function Page() {
-  return <ConnectPage />;
+export default async function Page() {
+  const data = await getConnectPage();
+  return <ConnectPage data={data} />;
 }

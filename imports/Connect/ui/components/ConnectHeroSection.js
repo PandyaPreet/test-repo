@@ -3,19 +3,20 @@
 import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-function ConnectHeroSection() {
+function ConnectHeroSection({ heroData }) {
+  const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
+
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
-        <HeroImageWrapper>
+        <HeroImageWrapper $bgimg={backgroundImageURL}>
           <HeroContent $direction="column">
-            <HeroTitle>Let's Connect</HeroTitle>
-            <HeroSubtitle>
-              Have a question, need a product demo, or want to explore a
-              partnership? We're here to help—whether you're just getting
-              started or ready to launch.
-            </HeroSubtitle>
+            {heroData?.title ? <HeroTitle>{heroData?.title}</HeroTitle> : null}
+            {heroData?.description ? (
+              <HeroSubtitle>{heroData?.description}</HeroSubtitle>
+            ) : null}
           </HeroContent>
         </HeroImageWrapper>
       </HeroInner>
@@ -38,17 +39,20 @@ const HeroInner = styled(Flex)`
 const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
-  /* padding-top: 66.66666666666667%; */
+  height: 100svh;
+
+  background: ${(props) =>
+    props.$bgimg
+      ? `linear-gradient(
+          0deg,
+          rgba(26, 25, 25, 0.4) 0%,
+          rgba(26, 25, 25, 0.4) 100%
+        ),
+        url("${props.$bgimg}") center center / cover no-repeat`
+      : `none`};
   background-size: cover;
   display: flex;
   align-items: flex-end;
-  background: linear-gradient(
-      0deg,
-      var(--40, rgba(26, 25, 25, 0.4)) 0%,
-      var(--40, rgba(26, 25, 25, 0.4)) 100%
-    ),
-    url("/assets/Connect/connect-hero-bg.jpg") lightgray 50% / cover no-repeat;
 `;
 
 const HeroContent = styled(Flex)`

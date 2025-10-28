@@ -19,7 +19,7 @@ const formSchema = Yup.object().shape({
   message: Yup.string(),
 });
 
-function ConnectFormSection() {
+function ConnectFormSection({ formData }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -80,18 +80,13 @@ function ConnectFormSection() {
             $justifycontent="center"
             $alignitems="center"
           >
-            <ConnectTitle>
-              <ConnectTitleDark>Get in touch</ConnectTitleDark>
-              <br />
-              <ConnectTitleLight>with </ConnectTitleLight>
-              <ConnectTitleDark>us</ConnectTitleDark>
-            </ConnectTitle>
-            <ConnectDescription>
-              {`Whether you're looking to integrate extended service plans,
-              request a quote, or learn how our protection programs work, we'd
-              love to hear from you. Fill out the form and our team will get
-              back to you within one business day.`}
-            </ConnectDescription>
+            {formData?.title ? (
+              <ConnectTitle>{formData.title}</ConnectTitle>
+            ) : null}
+
+            {formData?.description ? (
+              <ConnectDescription>{formData.description} </ConnectDescription>
+            ) : null}
           </ConnectTextContent>
         </ConnectLeftContentWrapper>
         <ConnectContactWrapper>
@@ -106,9 +101,12 @@ function ConnectFormSection() {
                   height={24}
                   priority
                 />
-                <ConnectContactText href="mailto:info@ensureprotect.com">
-                  info@ensureprotect.com
-                </ConnectContactText>
+
+                {formData?.contactEmail ? (
+                  <ConnectContactText href="mailto:info@ensureprotect.com">
+                    {formData.contactEmail}
+                  </ConnectContactText>
+                ) : null}
               </ConnectContactInfo>
             </ConnectContactContent>
           </ConnectContactCard>
@@ -124,9 +122,12 @@ function ConnectFormSection() {
                   height={24}
                   priority
                 />
-                <ConnectContactText href="tel:+18449277689">
-                  +1 844 927-7689
-                </ConnectContactText>
+
+                {formData?.contactNumber ? (
+                  <ConnectContactText href="tel:+18449277689">
+                    {formData.contactNumber}
+                  </ConnectContactText>
+                ) : null}
               </ConnectContactInfo>
             </ConnectContactContent>
           </ConnectContactCardSmall>

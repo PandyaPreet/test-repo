@@ -9,14 +9,14 @@ import ConnectCTASection from "../components/ConnectCTASection";
 import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
 
-function ConnectPage() {
+function ConnectPage({ data }) {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <ConnectHeroSection />
-      <ConnectClientForm />
+      <ConnectHeroSection heroData={data?.heroSection} />
+      <ConnectClientForm formData={data?.formSection} />
       <Wrapper>
-        <ConnectCTASection />
+        <ConnectCTASection ctaData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

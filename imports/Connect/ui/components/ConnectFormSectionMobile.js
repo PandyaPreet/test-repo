@@ -21,7 +21,7 @@ const formSchema = Yup.object().shape({
   message: Yup.string(),
 });
 
-const ConnectFormSectionMobile = () => {
+const ConnectFormSectionMobile = ({ formData }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -65,13 +65,12 @@ const ConnectFormSectionMobile = () => {
     <Flex $direction="column">
       <ConnectSectionContainer $direction="column">
         <ConnectHeaderContainer $direction="column">
-          <ConnectTitle>Get in touch with us</ConnectTitle>
-          <ConnectDescription>
-            Whether you're looking to integrate extended service plans, request
-            a quote, or learn how our protection programs work, we'd love to
-            hear from you. Fill out the form and our team will get back to you
-            within one business day.
-          </ConnectDescription>
+          {formData?.title ? (
+            <ConnectTitle>{formData.title}</ConnectTitle>
+          ) : null}
+          {formData?.description ? (
+            <ConnectDescription>{formData.description} </ConnectDescription>
+          ) : null}
         </ConnectHeaderContainer>
         <ConnectInfoContainer $direction="column">
           <ConnectInfoWrapper $direction="column">
@@ -79,18 +78,22 @@ const ConnectFormSectionMobile = () => {
               <Label>Email</Label>
               <ContentContainer $alignitems="center">
                 <MessageIcon />
-                <ConnectInfo href="mailto:info@ensureprotect.com">
-                  info@ensureprotect.com
-                </ConnectInfo>
+                {formData?.contactEmail ? (
+                  <ConnectInfo href="mailto:info@ensureprotect.com">
+                    {formData.contactEmail}
+                  </ConnectInfo>
+                ) : null}
               </ContentContainer>
             </InfoContainer>
             <InfoContainer>
               <Label>Phone</Label>
               <ContentContainer $alignitems="center">
                 <PhoneIcon />
-                <ConnectInfo href="tel:+18449277689">
-                  +1 (844) 927-7689
-                </ConnectInfo>
+                {formData?.contactNumber ? (
+                  <ConnectInfo href="tel:+18449277689">
+                    {formData.contactNumber}
+                  </ConnectInfo>
+                ) : null}
               </ContentContainer>
             </InfoContainer>
           </ConnectInfoWrapper>

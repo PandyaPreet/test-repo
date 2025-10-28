@@ -4,7 +4,7 @@ import CTABanner from "@/components/CTABanner";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function ConnectCTASection() {
+function ConnectCTASection({ ctaData }) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -19,9 +19,16 @@ function ConnectCTASection() {
 
   return (
     <CTABanner
-      title=" Looking to offer service plans
-            under your brand?"
-      buttonText="Partner With US"
+      title={
+        ctaData && ctaData.title
+          ? ctaData.title
+          : "Looking to offer service plans under your brand?"
+      }
+      buttonText={
+        ctaData && ctaData.ctaButtonLabel
+          ? ctaData.ctaButtonLabel
+          : "Partner With US "
+      }
       {...(isMobile
         ? { backgroundImage: "/assets/cta-banner-image.webp" }
         : { videoUrl: "/assets/HomePageVideo.mp4" })}
