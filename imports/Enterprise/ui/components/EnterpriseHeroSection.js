@@ -1,23 +1,11 @@
 "use client";
 
 import Flex from "@/lib/atoms/Flex";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
-const descriptions = [
-  {
-    icon: "/",
-    text: "Enterprise-Scale Problems Need Enterprise-Ready Coverage",
-    indent: "27%",
-  },
-  {
-    icon: "//",
-    text: "Whether you manage 50 laptops or 50,000 smart endpoints, unexpected failures cost time, money, and credibility. Our group service plans and repair coverage help you reduce unplanned outages, eliminate administrative chaos, and deliver consistent protection across your entire fleet.",
-    indent: "35%",
-  },
-];
-
-export default function EnterpriseHeroSection() {
+export default function EnterpriseHeroSection({ heroData }) {
   const [descHeight, setDescHeight] = useState();
 
   useEffect(() => {
@@ -35,37 +23,41 @@ export default function EnterpriseHeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
+  const items = heroData?.supportingTexts || [];
+
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
-        <HeroImageWrapper>
+        <HeroImageWrapper $bgimg={backgroundImageURL}>
           <HeroContent $direction="column">
-            <HeroTitle>Minimize Downtime.Maximize Productivity.</HeroTitle>
-            <HeroSubtitle>
-              Protect your infrastructure, field devices, and distributed
-              hardware with service plans that deliver fast resolution,
-              SLA-level support, and full lifecycle visibility.
-            </HeroSubtitle>
+            {heroData?.title ? <HeroTitle>{heroData.title}</HeroTitle> : null}
+
+            {heroData?.title ? (
+              <HeroSubtitle>{heroData.description}</HeroSubtitle>
+            ) : null}
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {descriptions.map((item, index) => (
-            <Fragment key={index}>
-              <DescriptionWrapper>
-                <DescriptionChildWrapper>
-                  <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  <DescriptionsText $indent={item.indent}>
-                    {item.text}
-                  </DescriptionsText>
-                </DescriptionChildWrapper>
-              </DescriptionWrapper>
+          {items.map((item, index) => {
+            const icon = "/".repeat(index + 1);
+            const text = typeof item === "string" ? item : item?.text;
+            const indent = typeof item === "string" ? undefined : item?.indent;
 
-              {index !== descriptions.length - 1 && (
-                <DescriptionBorderWrapper />
-              )}
-            </Fragment>
-          ))}
+            return (
+              <Fragment key={index}>
+                <DescriptionWrapper>
+                  <DescriptionChildWrapper>
+                    <DescriptionIcon>{icon}</DescriptionIcon>
+                    <DescriptionsText $indent={indent}>{text}</DescriptionsText>
+                  </DescriptionChildWrapper>
+                </DescriptionWrapper>
+
+                {index !== items.length - 1 && <DescriptionBorderWrapper />}
+              </Fragment>
+            );
+          })}
 
           <DescriptionThirdPartWrapper />
         </DescriptionContainer>
@@ -88,12 +80,15 @@ const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100svh;
-  background: linear-gradient(
-      0deg,
-      rgba(26, 25, 25, 0.4) 0%,
-      rgba(26, 25, 25, 0.4) 100%
-    ),
-    url("/assets/Enterprise/enterprise-hero-bg.webp") no-repeat center center;
+  background: ${(props) =>
+    props.$bgimg
+      ? `linear-gradient(
+          0deg,
+          rgba(26, 25, 25, 0.4) 0%,
+          rgba(26, 25, 25, 0.4) 100%
+        ),
+        url("${props.$bgimg}") center center / cover no-repeat`
+      : `none`};
   background-size: cover;
   display: flex;
   align-items: flex-end;

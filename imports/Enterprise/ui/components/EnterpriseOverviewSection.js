@@ -4,31 +4,27 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const EnterpriseOverviewSection = () => {
+const EnterpriseOverviewSection = ({ benefitsData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/Enterprise/tailored-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/Enterprise/tailored-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/Enterprise/tailored-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/Enterprise/tailored-banner-4.webp",
-    },
-  ];
-  const DESCRIPTIONS = [
-    "Service contracts built for high-volume hardware and connected devices",
-    "Coverage for internal systems, field tools, displays, medical tech, and more",
-    "Tiered SLAs based on device importance or location",
-    "Flexible group enrollment and asset-based coverage assignment",
-    "Custom claims workflows, escalation paths, and reporting access",
-  ];
+  const images =
+    benefitsData && benefitsData.featureImages
+      ? benefitsData.featureImages
+      : [];
+
+  const featureImages = images.map((img) => ({
+    bgImage: getBackgroundImageUrl(img?.asset ? img.asset : null),
+  }));
+
+  const descriptions =
+    benefitsData && benefitsData.featurePoints
+      ? benefitsData.featurePoints
+      : [];
+
+  const title = benefitsData?.title || "";
+
   return (
     <EnterpriseOverviewContainer $fullwidth>
       <EnterpriseOverviewInnerWrapper
@@ -40,17 +36,10 @@ const EnterpriseOverviewSection = () => {
           $justifycontent="flex-end"
         >
           <EnterpriseOverviewDetailsContainer $direction="column" $fullwidth>
-            <EnterpriseOverviewTitle>
-              <EnterpriseOverviewTitleLight>
-                Tailored for{" "}
-              </EnterpriseOverviewTitleLight>
-              <EnterpriseOverviewTitleDark>
-                Enterprise Buyers
-              </EnterpriseOverviewTitleDark>
-            </EnterpriseOverviewTitle>
+            <EnterpriseOverviewTitle>{title}</EnterpriseOverviewTitle>
 
             <EnterpriseOverviewDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
+              {descriptions.map((desc, index) => (
                 <React.Fragment key={index}>
                   <DescriptionBlock
                     onMouseEnter={() => setActiveIndex(index)}
@@ -59,7 +48,7 @@ const EnterpriseOverviewSection = () => {
                     <EnterpriseOverviewDescription>
                       {desc}
                     </EnterpriseOverviewDescription>
-                    {index !== DESCRIPTIONS.length - 1 && (
+                    {index !== descriptions.length - 1 && (
                       <EnterpriseOverviewDescriptionSeparator />
                     )}
                   </DescriptionBlock>
@@ -68,7 +57,8 @@ const EnterpriseOverviewSection = () => {
             </EnterpriseOverviewDescriptionContainer>
           </EnterpriseOverviewDetailsContainer>
         </EnterpriseOverviewDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
       </EnterpriseOverviewInnerWrapper>
     </EnterpriseOverviewContainer>
   );
@@ -131,6 +121,7 @@ const EnterpriseOverviewTitle = styled.h2`
   line-height: 100%;
   letter-spacing: -1.44px;
   margin: 0;
+  color: var(--500, #1a1919);
   @media (max-width: 1194px) {
     font-size: 36px;
     letter-spacing: -1.08px;
@@ -139,14 +130,6 @@ const EnterpriseOverviewTitle = styled.h2`
     font-size: 32px;
     letter-spacing: -0.96px;
   }
-`;
-
-const EnterpriseOverviewTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const EnterpriseOverviewTitleDark = styled.span`
-  color: var(--500, #1a1919);
 `;
 
 const EnterpriseOverviewDescriptionContainer = styled(Flex)`

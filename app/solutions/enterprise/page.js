@@ -1,5 +1,6 @@
 import React from "react";
 import EnterprisePage from "@/imports/Enterprise/ui/page/EnterprisePage";
+import { getEnterprisePage } from "@/imports/Enterprise/ui/api/api";
 
 export const metadata = {
   title:
@@ -18,8 +19,7 @@ export const metadata = {
   },
 };
 
-const Page = () => {
-  return <EnterprisePage />;
-};
-
-export default Page;
+export default async function Page() {
+  const data = await getEnterprisePage();
+  return <EnterprisePage data={data} />;
+}

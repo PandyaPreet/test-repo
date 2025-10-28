@@ -11,16 +11,16 @@ import EnterpriseDetailSection from "../components/EnterpriseDetailSection";
 import EnterpriseCardSection from "../components/EnterpriseCardSection";
 import EnterpriseCTASection from "../components/EnterpriseCTASection";
 
-const EnterprisePage = () => {
+const EnterprisePage = ({ data }) => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <EnterpriseHeroSection />
-      <EnterpriseOverviewSection />
-      <EnterpriseDetailSection />
-      <EnterpriseCardSection />
+      <EnterpriseHeroSection heroData={data?.heroSection} />
+      <EnterpriseOverviewSection benefitsData={data?.featureSection} />
+      <EnterpriseDetailSection featureData={data?.featureSection2} />
+      <EnterpriseCardSection cardData={data?.enterpriseCardSection} />
       <Wrapper>
-        <EnterpriseCTASection />
+        <EnterpriseCTASection ctaData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>
