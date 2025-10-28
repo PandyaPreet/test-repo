@@ -3,22 +3,17 @@
 import Flex from "@/lib/atoms/Flex";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const descriptions = [
-  {
-    icon: "/",
-    text: "                      At Ensure Protect, we design and manage  service plans  for a wide range of industries, helping you increase customer lifetime value and reduce service friction.",
-    indent: "27%",
-  },
-  {
-    icon: "//",
-    text: "                       From power tools to consumer electronics to connected devices and enterprise networks, we help you deliver reliable protection that fits how your customers live, work, and shop.",
-    indent: "35%",
-  },
-];
-
-export default function ConsultingHeroSection() {
+export default function ConsultingHeroSection({ heroSectionData }) {
   const [descHeight, setDescHeight] = useState(null);
+
+  const title = heroSectionData?.title || "";
+  const subtitle = heroSectionData?.description || "";
+  const supportingTexts = heroSectionData?.supportingTexts || [];
+  const bgImageUrl =
+    getBackgroundImageUrl(heroSectionData?.backgroundImage) ||
+    "/assets/Consulting/consulting-hero-bg.webp";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,29 +33,30 @@ export default function ConsultingHeroSection() {
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
-        <HeroImageWrapper>
+        <HeroImageWrapper
+          style={{
+            backgroundImage: `linear-gradient(0deg, rgba(26, 25, 25, 0.4) 0%, rgba(26, 25, 25, 0.4) 100%), url(${bgImageUrl})`,
+          }}
+        >
           <HeroContent $direction="column">
-            <HeroTitle>EXPAND YOUR OFFERING. DELIVER MORE VALUE.</HeroTitle>
-            <HeroSubtitle>
-              If you build solutions for OEMs, retailers, or device
-              companies—let’s add coverage programs to your toolkit.
-            </HeroSubtitle>
+            <HeroTitle>{title}</HeroTitle>
+            <HeroSubtitle>{subtitle}</HeroSubtitle>
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {descriptions.map((item, index) => (
+          {supportingTexts.map((text, index) => (
             <Fragment key={index}>
               <DescriptionWrapper>
                 <DescriptionChildWrapper>
-                  <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  <DescriptionsText $indent={item.indent}>
-                    {item.text}
+                  <DescriptionIcon>{index === 0 ? "/" : "//"}</DescriptionIcon>
+                  <DescriptionsText $indent={index === 0 ? "27%" : "35%"}>
+                    {text}
                   </DescriptionsText>
                 </DescriptionChildWrapper>
               </DescriptionWrapper>
 
-              {index !== descriptions.length - 1 && (
+              {index !== supportingTexts.length - 1 && (
                 <DescriptionBorderWrapper />
               )}
             </Fragment>
@@ -71,6 +67,8 @@ export default function ConsultingHeroSection() {
     </HeroWrapper>
   );
 }
+
+/* -------------------- styled components -------------------- */
 
 const HeroWrapper = styled(Flex)`
   background: rgb(40, 119, 176);
@@ -86,12 +84,8 @@ const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100svh;
-  background: linear-gradient(
-      0deg,
-      rgba(26, 25, 25, 0.4) 0%,
-      rgba(26, 25, 25, 0.4) 100%
-    ),
-    url("/assets/Consulting/consulting-hero-bg.webp") no-repeat center center;
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
   display: flex;
   align-items: flex-end;

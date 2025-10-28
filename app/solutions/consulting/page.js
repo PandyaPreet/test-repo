@@ -1,3 +1,4 @@
+import { getConsultingPage } from "@/imports/Consulting/api/api";
 import ConsultingPage from "@/imports/Consulting/ui/page/ConsultingPage";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export const metadata = {
   },
 };
 
-export default function Page() {
-  return <ConsultingPage />;
+export default async function Page() {
+  const data = await getConsultingPage();
+  return <ConsultingPage data={data} />;
 }

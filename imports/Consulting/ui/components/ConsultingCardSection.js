@@ -4,53 +4,44 @@ import Flex from "@/lib/atoms/Flex";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const RETAILER_SERVICES = [
-  {
-    icon: "/assets/Consulting/consulting-card-icon-1.svg",
-    text: "Warranty and Customer Experience consultants",
-  },
-  {
-    icon: "/assets/Consulting/consulting-card-icon-2.svg",
-    text: "Technical sales solution providers",
-  },
-  {
-    icon: "/assets/Consulting/consulting-card-icon-3.svg",
-    text: "Embedded service integrators",
-  },
-  {
-    icon: "/assets/Consulting/consulting-card-icon-4.svg",
-    text: "Nationwide deployment and field service providers",
-  },
-];
+const ConsultingCardSection = ({ planFeaturesSectionData }) => {
+  const title = planFeaturesSectionData?.title || "";
+  const cards = planFeaturesSectionData?.cards || [];
 
-const ConsultingCardSection = () => {
   return (
     <ConsultingCardContainer $direction="column">
       <ConsultingCardTitleContainer>
-        <div></div>
+        <div />
         <div>
           <Flex style={{ gap: "10px" }}>
-            <ConsultingCardTitleLight>Who </ConsultingCardTitleLight>
-          </Flex>
-          <Flex style={{ gap: "10px" }}>
-            <ConsultingCardTitleDark>This Is For </ConsultingCardTitleDark>
+            <ConsultingCardTitleDark>{title}</ConsultingCardTitleDark>
           </Flex>
         </div>
       </ConsultingCardTitleContainer>
+
       <ConsultingCardGridContainer $direction="column">
         <ConsultingCardGridWrapper $alignitems="center">
-          {RETAILER_SERVICES.map((card, index) => (
-            <ConsultingCard $direction="column" key={index}>
-              <Image
-                height={72}
-                width={72}
-                src={card.icon}
-                alt="retailer service icon"
-              />
-              <ConsultingCardDescription>{card.text}</ConsultingCardDescription>
-            </ConsultingCard>
-          ))}
+          {cards.map((card, index) => {
+            const iconUrl =
+              getBackgroundImageUrl(card?.icon) ||
+              "/assets/Consulting/consulting-card-icon-1.svg";
+            return (
+              <ConsultingCard $direction="column" key={card?._key || index}>
+                <Image
+                  height={72}
+                  width={72}
+                  src={iconUrl}
+                  alt="retailer service icon"
+                  unoptimized
+                />
+                <ConsultingCardDescription>
+                  {card?.description}
+                </ConsultingCardDescription>
+              </ConsultingCard>
+            );
+          })}
         </ConsultingCardGridWrapper>
       </ConsultingCardGridContainer>
     </ConsultingCardContainer>
@@ -59,9 +50,12 @@ const ConsultingCardSection = () => {
 
 export default ConsultingCardSection;
 
+/* -------------------- styled components -------------------- */
+
 const ConsultingCardContainer = styled(Flex)`
   align-self: stretch;
   background: var(--100, #fff);
+
   @media (max-width: 1194px) {
     gap: 32px;
   }
@@ -75,21 +69,10 @@ const ConsultingCardTitleContainer = styled(Flex)`
   gap: 299px;
   align-self: stretch;
   background: var(--100, #fff);
+
   @media (max-width: 1194px) {
     padding: 0px 16px;
     gap: 0px;
-  }
-`;
-
-const ConsultingCardTitleLight = styled.div`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 100%;
-  letter-spacing: -1.44px;
-  @media (max-width: 1194px) {
-    font-size: 36px;
   }
 `;
 
@@ -100,6 +83,8 @@ const ConsultingCardTitleDark = styled.div`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  white-space: pre-wrap;
+
   @media (max-width: 1194px) {
     font-size: 36px;
   }
@@ -115,6 +100,7 @@ const ConsultingCardGridWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+
   @media (max-width: 1194px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -129,14 +115,14 @@ const ConsultingCard = styled(Flex)`
   padding: 16px 16px 32px 16px;
   gap: 10px;
   border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+  justify-content: flex-end;
+
   &:nth-child(odd) {
     background: var(--3, rgba(26, 25, 25, 0.03));
   }
-
   &:nth-child(even) {
     background: var(--5, rgba(26, 25, 25, 0.05));
   }
-  justify-content: flex-end;
 
   img {
     display: none;
@@ -149,6 +135,7 @@ const ConsultingCard = styled(Flex)`
     }
     justify-content: space-between;
   }
+
   @media (max-width: 1194px) {
     justify-content: space-between;
     height: auto;
@@ -157,10 +144,12 @@ const ConsultingCard = styled(Flex)`
     background: #fff;
     border-bottom: none;
     border-right: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
+
     img {
       display: block;
     }
   }
+
   @media (max-width: 768px) {
     border-right: none;
     border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
@@ -174,6 +163,7 @@ const ConsultingCardDescription = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 130%;
+
   @media (max-width: 1194px) {
     max-width: unset;
   }

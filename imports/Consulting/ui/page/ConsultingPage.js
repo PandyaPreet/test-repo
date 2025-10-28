@@ -11,16 +11,20 @@ import ConsultingCTASection from "../components/ConsultingCTASection";
 import Navbar from "@/components/Navbar";
 import ClientFooter from "@/components/ClientFooter";
 
-const ConsultingPage = () => {
+const ConsultingPage = ({ data }) => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <ConsultingHeroSection />
-      <ConsultingWorkTogetherSection />
-      <ConsultingCardSection />
-      <ConsultingPartnerSection />
+      <ConsultingHeroSection heroSectionData={data?.heroSection} />
+      <ConsultingWorkTogetherSection
+        featureSectionData={data?.featureSection}
+      />
+      <ConsultingCardSection
+        planFeaturesSectionData={data?.planFeaturesSection}
+      />
+      <ConsultingPartnerSection featureSection2Data={data?.featureSection2} />
       <Wrapper>
-        <ConsultingCTASection />
+        <ConsultingCTASection ctaSectionData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

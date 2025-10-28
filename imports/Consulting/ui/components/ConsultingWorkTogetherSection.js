@@ -4,23 +4,28 @@ import PlansImageBanner from "@/components/PlansImageBanner";
 import Flex from "@/lib/atoms/Flex";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const ConsultingWorkTogetherSection = () => {
+const ConsultingWorkTogetherSection = ({ featureSectionData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BANNER_IMAGES = [
+  const title = featureSectionData?.title || "";
+  const featurePoints = featureSectionData?.featurePoints || [];
+  const featureImages = featureSectionData?.featureImages || [];
+
+  const BANNERS =
+    featureImages
+      ?.map((img) => ({ bgImage: getBackgroundImageUrl(img) }))
+      .filter((b) => !!b.bgImage) || [];
+
+  const FALLBACK_BANNERS = [
     { bgImage: "/assets/Consulting/right-banner-1.webp" },
     { bgImage: "/assets/Consulting/right-banner-2.webp" },
     { bgImage: "/assets/Consulting/right-banner-3.webp" },
     { bgImage: "/assets/Consulting/right-banner-4.webp" },
   ];
 
-  const DESCRIPTIONS = [
-    "Co-branded or white-labeled protection programs",
-    "Custom service plan design for end clients",
-    "Revenue-sharing opportunities",
-    "Fulfillment, tech, and compliance included",
-  ];
+  const banners = BANNERS.length ? BANNERS : FALLBACK_BANNERS;
 
   return (
     <ConsultingWorkTogetherContainer $fullwidth>
@@ -36,17 +41,10 @@ const ConsultingWorkTogetherSection = () => {
             $direction="column"
             $fullwidth
           >
-            <ConsultingWorkTogetherTitle>
-              <ConsultingWorkTogetherTitleDark>
-                Let’s Work Together{" "}
-              </ConsultingWorkTogetherTitleDark>
-              <ConsultingWorkTogetherTitleLight>
-                to Offer
-              </ConsultingWorkTogetherTitleLight>
-            </ConsultingWorkTogetherTitle>
+            <ConsultingWorkTogetherTitle>{title}</ConsultingWorkTogetherTitle>
 
             <ConsultingWorkTogetherDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
+              {featurePoints.map((desc, index) => (
                 <DescriptionBlock
                   key={index}
                   onMouseEnter={() => setActiveIndex(index)}
@@ -55,7 +53,7 @@ const ConsultingWorkTogetherSection = () => {
                   <ConsultingWorkTogetherDescription>
                     {desc}
                   </ConsultingWorkTogetherDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
+                  {index !== featurePoints.length - 1 && (
                     <ConsultingWorkTogetherDescriptionSeparator />
                   )}
                 </DescriptionBlock>
@@ -64,13 +62,15 @@ const ConsultingWorkTogetherSection = () => {
           </ConsultingWorkTogetherDetailsContainer>
         </ConsultingWorkTogetherDetails>
 
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+        <PlansImageBanner banners={banners} activeIndex={activeIndex} />
       </ConsultingWorkTogetherInnerWrapper>
     </ConsultingWorkTogetherContainer>
   );
 };
 
 export default ConsultingWorkTogetherSection;
+
+/* -------------------- styled components -------------------- */
 
 const ConsultingWorkTogetherContainer = styled(Flex)`
   gap: 10px;
@@ -79,9 +79,11 @@ const ConsultingWorkTogetherContainer = styled(Flex)`
 
 const ConsultingWorkTogetherInnerWrapper = styled(Flex)`
   flex: 1 0 0;
+
   @media (max-width: 1194px) {
     /* padding: 64px 0px; */
   }
+
   @media (max-width: 980px) {
     flex-direction: column;
     gap: 24px;
@@ -92,6 +94,7 @@ const ConsultingWorkTogetherDetails = styled(Flex)`
   width: 580px;
   padding: 0 72px 80px 16px;
   align-self: stretch;
+
   @media (max-width: 980px) {
     width: 100%;
     padding: 24px 16px;
@@ -101,11 +104,13 @@ const ConsultingWorkTogetherDetails = styled(Flex)`
 const ConsultingWorkTogetherDetailsContainer = styled(Flex)`
   max-width: 455px;
   gap: 40px;
+
   @media (max-width: 980px) {
     max-width: none;
     width: 100%;
     gap: 24px;
   }
+
   @media (max-width: 768px) {
     max-width: none;
     width: 100%;
@@ -114,28 +119,23 @@ const ConsultingWorkTogetherDetailsContainer = styled(Flex)`
 `;
 
 const ConsultingWorkTogetherTitle = styled.h2`
+  color: var(--500, #1a1919);
   font-size: 48px;
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
   margin: 0;
+
   @media (max-width: 1194px) {
     font-size: 36px;
     letter-spacing: -1.08px;
   }
+
   @media (max-width: 768px) {
     font-size: 32px;
     letter-spacing: -0.96px;
   }
-`;
-
-const ConsultingWorkTogetherTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const ConsultingWorkTogetherTitleDark = styled.span`
-  color: var(--500, #1a1919);
 `;
 
 const ConsultingWorkTogetherDescriptionContainer = styled(Flex)`
@@ -158,6 +158,7 @@ const ConsultingWorkTogetherDescription = styled.div`
   letter-spacing: -0.42px;
   padding-top: 12px;
   padding-bottom: 12px;
+
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;

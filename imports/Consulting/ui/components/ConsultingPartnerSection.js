@@ -4,23 +4,30 @@ import PlansImageBanner from "@/components/PlansImageBanner";
 import Flex from "@/lib/atoms/Flex";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const ConsultingPartnerSection = () => {
+const ConsultingPartnerSection = ({ featureSection2Data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BANNER_IMAGES = [
+  const title = featureSection2Data?.title || "";
+  const featurePoints = featureSection2Data?.featurePoints || [];
+  const featureImages = featureSection2Data?.featureImages || [];
+
+  // Map Sanity images -> banner objects { bgImage }
+  const BANNERS =
+    featureImages
+      ?.map((img) => ({ bgImage: getBackgroundImageUrl(img) }))
+      .filter((b) => !!b.bgImage) || [];
+
+  // Fallbacks if CMS has no images
+  const FALLBACK_BANNERS = [
     { bgImage: "/assets/Consulting/left-banner-1.webp" },
     { bgImage: "/assets/Consulting/left-banner-2.webp" },
     { bgImage: "/assets/Consulting/left-banner-3.webp" },
     { bgImage: "/assets/Consulting/left-banner-4.webp" },
   ];
 
-  const DESCRIPTIONS = [
-    "Discovery workshops and whiteboarding",
-    "API and onboarding documentation",
-    "Sample plan templates and pricing models",
-    "Channel support and client-facing materials",
-  ];
+  const banners = BANNERS.length ? BANNERS : FALLBACK_BANNERS;
 
   return (
     <ConsultingPartnerContainer $fullwidth>
@@ -28,24 +35,17 @@ const ConsultingPartnerSection = () => {
         $justifycontent="space-between"
         $alignitems="center"
       >
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+        <PlansImageBanner banners={banners} activeIndex={activeIndex} />
 
         <ConsultingPartnerDetails
           $direction="column"
           $justifycontent="flex-end"
         >
           <ConsultingPartnerDetailsContainer $direction="column" $fullwidth>
-            <ConsultingPartnerTitle>
-              <ConsultingPartnerTitleDark>
-                Partner Enablement{" "}
-              </ConsultingPartnerTitleDark>
-              <ConsultingPartnerTitleLight>
-                Includes
-              </ConsultingPartnerTitleLight>
-            </ConsultingPartnerTitle>
+            <ConsultingPartnerTitle>{title}</ConsultingPartnerTitle>
 
             <ConsultingPartnerDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
+              {featurePoints.map((desc, index) => (
                 <DescriptionBlock
                   key={index}
                   onMouseEnter={() => setActiveIndex(index)}
@@ -54,7 +54,7 @@ const ConsultingPartnerSection = () => {
                   <ConsultingPartnerDescription>
                     {desc}
                   </ConsultingPartnerDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
+                  {index !== featurePoints.length - 1 && (
                     <ConsultingPartnerDescriptionSeparator />
                   )}
                 </DescriptionBlock>
@@ -69,6 +69,8 @@ const ConsultingPartnerSection = () => {
 
 export default ConsultingPartnerSection;
 
+/* -------------------- styled components -------------------- */
+
 const ConsultingPartnerContainer = styled(Flex)`
   gap: 10px;
   background: var(--100, #fff);
@@ -76,6 +78,7 @@ const ConsultingPartnerContainer = styled(Flex)`
 
 const ConsultingPartnerInnerWrapper = styled(Flex)`
   flex: 1 0 0;
+
   @media (max-width: 1194px) {
     /* padding: 64px 0px; */
   }
@@ -89,6 +92,7 @@ const ConsultingPartnerDetails = styled(Flex)`
   width: 580px;
   padding: 0 72px 80px 16px;
   align-self: stretch;
+
   @media (max-width: 980px) {
     width: 100%;
     padding: 24px 16px;
@@ -98,6 +102,7 @@ const ConsultingPartnerDetails = styled(Flex)`
 const ConsultingPartnerDetailsContainer = styled(Flex)`
   max-width: 455px;
   gap: 40px;
+
   @media (max-width: 980px) {
     max-width: none;
     width: 100%;
@@ -111,12 +116,14 @@ const ConsultingPartnerDetailsContainer = styled(Flex)`
 `;
 
 const ConsultingPartnerTitle = styled.h2`
+  color: var(--500, #1a1919);
   font-size: 48px;
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
   margin: 0;
+
   @media (max-width: 1194px) {
     font-size: 36px;
     letter-spacing: -1.08px;
@@ -125,14 +132,6 @@ const ConsultingPartnerTitle = styled.h2`
     font-size: 32px;
     letter-spacing: -0.96px;
   }
-`;
-
-const ConsultingPartnerTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const ConsultingPartnerTitleDark = styled.span`
-  color: var(--500, #1a1919);
 `;
 
 const ConsultingPartnerDescriptionContainer = styled(Flex)`
@@ -155,6 +154,7 @@ const ConsultingPartnerDescription = styled.div`
   letter-spacing: -0.42px;
   padding-top: 12px;
   padding-bottom: 12px;
+
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
