@@ -13,7 +13,7 @@ export const metadata = {
     siteName: "Ensure Protect",
     images: [
       {
-        url: "/Group.jpg",
+        url: "https://ensureprotect.com/Group.jpg",
         width: 1200,
         height: 630,
         alt: "Ensure Protect preview image",
