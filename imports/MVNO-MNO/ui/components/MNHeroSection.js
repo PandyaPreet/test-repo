@@ -3,22 +3,22 @@
 import Flex from "@/lib/atoms/Flex";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const descriptions = [
-  {
-    icon: "/",
-    text: "At Ensure Protect, we design and manage service plans for a wide range of industries, helping you increase customer lifetime value and reduce service friction.",
-    indent: "27%",
-  },
-  {
-    icon: "//",
-    text: "From power tools to consumer electronics to connected devices and enterprise networks, we help you deliver reliable protection that fits how your customers live, work, and shop.",
-    indent: "35%",
-  },
-];
+export default function MNHeroSection({ heroSectionData }) {
+  const [descHeight, setDescHeight] = useState(null);
 
-export default function MNHeroSection() {
-  const [descHeight, setDescHeight] = useState();
+  const title =
+    heroSectionData?.title || "Service That Scales with Every Connection";
+  const subtitle =
+    heroSectionData?.description ||
+    "Deliver seamless, embedded protection plans for smart devices — without disrupting your ecosystem or your users.";
+
+  const supportingTexts = heroSectionData?.supportingTexts || [];
+  const bgUrl =
+    (heroSectionData?.backgroundImage &&
+      getBackgroundImageUrl(heroSectionData.backgroundImage)) ||
+    "/assets/MVNO-MNO/mn-hero-bg.webp";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,36 +35,41 @@ export default function MNHeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const indents = ["27%", "35%"]; // keep original spacing for first two rows
+
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
-        <HeroImageWrapper>
+        <HeroImageWrapper $bg={bgUrl}>
           <HeroContent $direction="column">
-            <HeroTitle>Service That Scales with Every Connection</HeroTitle>
-            <HeroSubtitle>
-              Deliver seamless, embedded protection plans for smart devices —
-              without disrupting your ecosystem or your users.
-            </HeroSubtitle>
+            <HeroTitle>{title}</HeroTitle>
+            <HeroSubtitle>{subtitle}</HeroSubtitle>
           </HeroContent>
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {descriptions.map((item, index) => (
-            <Fragment key={index}>
-              <DescriptionWrapper>
-                <DescriptionChildWrapper>
-                  <DescriptionIcon>{item.icon}</DescriptionIcon>
-                  <DescriptionsText $indent={item.indent}>
-                    {item.text}
-                  </DescriptionsText>
-                </DescriptionChildWrapper>
-              </DescriptionWrapper>
+          {(supportingTexts.length
+            ? supportingTexts
+            : [
+                "At Ensure Protect, we design and manage service plans for a wide range of industries, helping you increase customer lifetime value and reduce service friction.",
+                "From power tools to consumer electronics to connected devices and enterprise networks, we help you deliver reliable protection that fits how your customers live, work, and shop.",
+              ]
+          ).map((text, index, arr) => {
+            const indent = indents[index] || "27%";
+            const icon = "/".repeat(index + 1);
+            return (
+              <Fragment key={index}>
+                <DescriptionWrapper>
+                  <DescriptionChildWrapper>
+                    <DescriptionIcon>{icon}</DescriptionIcon>
+                    <DescriptionsText $indent={indent}>{text}</DescriptionsText>
+                  </DescriptionChildWrapper>
+                </DescriptionWrapper>
 
-              {index !== descriptions.length - 1 && (
-                <DescriptionBorderWrapper />
-              )}
-            </Fragment>
-          ))}
+                {index !== arr.length - 1 && <DescriptionBorderWrapper />}
+              </Fragment>
+            );
+          })}
           <DescriptionThirdPartWrapper />
         </DescriptionContainer>
       </HeroInner>
@@ -91,7 +96,7 @@ const HeroImageWrapper = styled.div`
       rgba(26, 25, 25, 0.4) 0%,
       rgba(26, 25, 25, 0.4) 100%
     ),
-    url("/assets/MVNO-MNO/mn-hero-bg.webp") no-repeat center center;
+    url("${(p) => p.$bg}") no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: flex-end;
@@ -158,11 +163,11 @@ const DescriptionContainer = styled(Flex)`
   box-sizing: border-box;
   flex-wrap: wrap;
 
-  ${({ $height }) =>
-    $height
+  ${(p) =>
+    p.$height
       ? `
-        margin-top: -${$height - 180}px;
-        height: ${$height}px;
+        margin-top: -${p.$height - 180}px;
+        height: ${p.$height}px;
       `
       : `
         margin-top: 0;
@@ -176,12 +181,12 @@ const DescriptionContainer = styled(Flex)`
     padding: 24px 16px;
     gap: 16px;
 
-    ${({ $height }) =>
-      $height
+    ${(p) =>
+      p.$height
         ? `
-        margin-top: -${Math.min($height - 180, 300)}px;
+        margin-top: -${Math.min(p.$height - 180, 300)}px;
         height: auto; 
-        padding-top: ${Math.min($height - 180, 300)}px; 
+        padding-top: ${Math.min(p.$height - 180, 300)}px; 
       `
         : `
         margin-top: 0;
@@ -235,7 +240,7 @@ const DescriptionsText = styled.p`
   letter-spacing: -0.42px;
   text-transform: uppercase;
   color: #fff;
-  text-indent: ${({ $indent }) => $indent || "27%"};
+  text-indent: ${(p) => p.$indent || "27%"};
 `;
 
 const DescriptionBorderWrapper = styled(Flex)`

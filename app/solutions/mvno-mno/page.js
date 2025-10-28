@@ -1,3 +1,4 @@
+import { getMVNOPage } from "@/imports/MVNO-MNO/api/api";
 import MobileNetworkPage from "@/imports/MVNO-MNO/ui/page/MobileNetworkPage";
 
 export const metadata = {
@@ -16,6 +17,7 @@ export const metadata = {
   },
 };
 
-export default function Page() {
-  return <MobileNetworkPage />;
+export default async function Page() {
+  const data = await getMVNOPage();
+  return <MobileNetworkPage data={data} />;
 }

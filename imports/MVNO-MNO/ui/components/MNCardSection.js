@@ -4,10 +4,27 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-function MNCardSection() {
+function MNCardSection({ cardSectionData }) {
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(600);
 
+  // ---- Extract Sanity content ----
+  const card =
+    Array.isArray(cardSectionData?.cards) && cardSectionData.cards.length
+      ? cardSectionData.cards[0]
+      : null;
+
+  const title = card?.title || "Smart Devices Deserve Smart Support";
+
+  const descriptions =
+    Array.isArray(card?.description) && card.description.length
+      ? card.description
+      : [
+          "As the world connects everything from thermostats to industrial sensors, the need for device-level support and repair coverage has grown dramatically.",
+          "We offer embedded coverage that activates in real time—during setup, in the app, or at the dashboard level—so your customers are protected.",
+        ];
+
+  // ---- Dynamic content height ----
   useEffect(() => {
     const updateHeight = () => {
       if (contentRef.current) {
@@ -20,6 +37,7 @@ function MNCardSection() {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
+
   return (
     <CardsContainer $direction={"column"}>
       <CardsWrapper $justifycontent={"space-between"} $alignitems={"center"}>
@@ -39,21 +57,21 @@ function MNCardSection() {
           >
             <ContentSection $direction="column">
               <HeaderSection>
-                <HeaderSectionTitleDark>Smart Devices</HeaderSectionTitleDark>
-                <br />
-                <HeaderSectionTitleLight>Deserve </HeaderSectionTitleLight>
-                <HeaderSectionTitleDark>Smart</HeaderSectionTitleDark>
-                <br />
-                <HeaderSectionTitleDark>Support</HeaderSectionTitleDark>
+                <HeaderSectionTitleDark>{title}</HeaderSectionTitleDark>
               </HeaderSection>
+
               <SubHeaderSection>
-                As the world connects everything from thermostats to industrial
-                sensors, the need for device-level support and repair coverage
-                has grown dramatically.
-                <br />
-                We offer embedded coverage that activates in real time—during
-                setup, in the app, or at the dashboard level—so your customers
-                are protected.
+                {descriptions.map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    {i !== descriptions.length - 1 && (
+                      <>
+                        <br />
+                        <br />
+                      </>
+                    )}
+                  </span>
+                ))}
               </SubHeaderSection>
             </ContentSection>
           </ContentWrapper>
@@ -69,6 +87,8 @@ function MNCardSection() {
 }
 
 export default MNCardSection;
+
+/* ----------------- styles ----------------- */
 
 const CardsContainer = styled(Flex)`
   width: 100%;
@@ -142,7 +162,6 @@ const SecondBlock = styled.div`
       border-left: none !important;
     }
   `}
-
   ${({ $isRight }) =>
     $isRight &&
     `
@@ -150,7 +169,6 @@ const SecondBlock = styled.div`
       border-right: none !important;
     }
   `}
-
   @media (max-width: 468px) {
     width: clamp(20px, 8vw, 195px);
   }
@@ -191,6 +209,7 @@ const HeaderSection = styled.h2`
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
+  color: var(--500, #1a1919);
   @media (max-width: 1194px) {
     font-size: 36px;
   }
@@ -201,10 +220,6 @@ const HeaderSection = styled.h2`
 
 const HeaderSectionTitleDark = styled.span`
   color: var(--500, #1a1919);
-`;
-
-const HeaderSectionTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
 `;
 
 const SubHeaderSection = styled.p`

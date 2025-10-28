@@ -4,62 +4,43 @@ import Flex from "@/lib/atoms/Flex";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const RETAILER_SERVICES = [
-  {
-    icon: "/assets/MVNO-MNO/mn-icon-1.svg",
-    text: "API-based embedded plan activation",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-  {
-    icon: "/assets/MVNO-MNO/mn-icon-2.svg",
-    text: "Protection from electro-mechanical failure and damage",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/MVNO-MNO/mn-icon-3.svg",
-    text: "Optional maintenance programs and service handling",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-  {
-    icon: "/assets/MVNO-MNO/mn-icon-4.svg",
-    text: "Portal and app integration for claims or service scheduling",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/MVNO-MNO/mn-icon-5.svg",
-    text: "Transparent coverage tied to device ID or serial number",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-];
+const MNServicesSection = ({ whatWeProvideSectionData }) => {
+  console.log("whatWeProvideSectionData", whatWeProvideSectionData);
 
-const MNServicesSection = () => {
+  const title = whatWeProvideSectionData?.title || "What We Provide";
+  const cards = whatWeProvideSectionData?.cards || [];
+
   return (
     <ServicesContainer $direction="column">
       <TitleCardContainer>
         <div></div>
         <div>
-          <Flex style={{ gap: "10px" }}>
-            <TitleLight>What </TitleLight>
-          </Flex>
-          <Flex style={{ gap: "10px" }}>
-            <TitleDark>We </TitleDark>
-            <TitleDark>Provide </TitleDark>
-          </Flex>
+          <TitleDark>{title}</TitleDark>
         </div>
       </TitleCardContainer>
+
       <ServicesCardContainer $direction="column">
         <ServicesCardWrapper $alignitems="center">
-          {RETAILER_SERVICES.map((card, index) => (
-            <ServicesCard
-              $direction="column"
-              bgcolor={card.bgcolor}
-              key={index}
-            >
-              <Image height={72} width={72} src={card.icon} alt="some icon" />
-              <ServiceCardDescription>{card.text}</ServiceCardDescription>
-            </ServicesCard>
-          ))}
+          {cards.map((card, index) => {
+            const iconUrl = getBackgroundImageUrl(card.icon);
+            return (
+              <ServicesCard $direction="column" key={card._key || index}>
+                {iconUrl && (
+                  <Image
+                    height={72}
+                    width={72}
+                    src={iconUrl}
+                    alt={card.description || "service icon"}
+                  />
+                )}
+                <ServiceCardDescription>
+                  {card.description}
+                </ServiceCardDescription>
+              </ServicesCard>
+            );
+          })}
         </ServicesCardWrapper>
       </ServicesCardContainer>
     </ServicesContainer>
@@ -67,6 +48,8 @@ const MNServicesSection = () => {
 };
 
 export default MNServicesSection;
+
+/* -------------------- styles -------------------- */
 
 const ServicesContainer = styled(Flex)`
   align-self: stretch;
@@ -90,22 +73,9 @@ const TitleCardContainer = styled(Flex)`
   }
 `;
 
-const TitleLight = styled.div`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 100%; /* 48px */
-  letter-spacing: -1.44px;
-  @media (max-width: 1194px) {
-    font-size: 36px;
-  }
-`;
-
 const TitleDark = styled.div`
   color: var(--500, #1a1919);
   font-size: 48px;
-  font-style: normal;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
@@ -124,6 +94,7 @@ const ServicesCardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+
   @media (max-width: 1194px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -138,8 +109,15 @@ const ServicesCard = styled(Flex)`
   padding: 16px 16px 32px 16px;
   gap: 10px;
   border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
-  background: ${({ bgcolor }) => bgcolor};
   justify-content: flex-end;
+
+  /* alternate background via nth-child */
+  &:nth-child(odd) {
+    background: var(--3, rgba(26, 25, 25, 0.03));
+  }
+  &:nth-child(even) {
+    background: var(--5, rgba(26, 25, 25, 0.05));
+  }
 
   img {
     display: none;
@@ -152,6 +130,7 @@ const ServicesCard = styled(Flex)`
     }
     justify-content: space-between;
   }
+
   @media (max-width: 1194px) {
     justify-content: space-between;
     height: auto;
@@ -164,6 +143,7 @@ const ServicesCard = styled(Flex)`
       display: block;
     }
   }
+
   @media (max-width: 768px) {
     border-right: none;
     border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
@@ -174,7 +154,6 @@ const ServiceCardDescription = styled.div`
   color: var(--500, #1a1919);
   max-width: 227px;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
   line-height: 130%;
   @media (max-width: 1194px) {

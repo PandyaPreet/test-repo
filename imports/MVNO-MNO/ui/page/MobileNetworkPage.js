@@ -11,16 +11,18 @@ import MNCTASection from "../components/MNCTASection";
 import Navbar from "@/components/Navbar";
 import ClientFooter from "@/components/ClientFooter";
 
-const MobileNetworkPage = () => {
+const MobileNetworkPage = ({ data }) => {
   return (
     <PageWrapper>
       <Navbar />
-      <MNHeroSection />
-      <MNCardSection />
-      <MNServicesSection />
-      <MNOverview />
+      <MNHeroSection heroSectionData={data?.heroSection} />
+      <MNCardSection cardSectionData={data?.cardSection} />
+      <MNServicesSection
+        whatWeProvideSectionData={data?.whatWeProvideSection}
+      />
+      <MNOverview featureSectionData={data?.featureSection} />
       <Wrapper>
-        <MNCTASection />
+        <MNCTASection ctaSectionData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

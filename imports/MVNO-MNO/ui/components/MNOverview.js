@@ -4,31 +4,38 @@ import Flex from "@/lib/atoms/Flex";
 import PlansImageBanner from "@/components/PlansImageBanner";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const MNOverview = () => {
+const MNOverview = ({ featureSectionData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const BANNER_IMAGES = [
-    {
-      bgImage: "/assets/MVNO-MNO/mvno-banner-1.webp",
-    },
-    {
-      bgImage: "/assets/MVNO-MNO/mvno-banner-2.webp",
-    },
-    {
-      bgImage: "/assets/MVNO-MNO/mvno-banner-3.webp",
-    },
-    {
-      bgImage: "/assets/MVNO-MNO/mvno-banner-4.webp",
-    },
-  ];
+  // ---- Sanity mappings & fallbacks ----
+  const title = featureSectionData?.title || "The Business Case: Increase ARPU";
 
-  const DESCRIPTIONS = [
-    "Reduce support volume from device failures",
-    "Increase revenue through bundled coverage sales",
-    "Strengthen device lifecycle economics",
-    "Build long-term trust and reduce replacements",
-  ];
+  const featurePoints =
+    Array.isArray(featureSectionData?.featurePoints) &&
+    featureSectionData.featurePoints.length
+      ? featureSectionData.featurePoints
+      : [
+          "Reduce support volume from device failures",
+          "Increase revenue through bundled coverage sales",
+          "Strengthen device lifecycle economics",
+          "Build long-term trust and reduce replacements",
+        ];
+
+  const bannersFromSanity =
+    Array.isArray(featureSectionData?.featureImages) &&
+    featureSectionData.featureImages.length
+      ? featureSectionData.featureImages
+          .map((img) => getBackgroundImageUrl(img))
+          .filter(Boolean)
+          .map((url) => ({ bgImage: url }))
+      : [
+          { bgImage: "/assets/MVNO-MNO/mvno-banner-1.webp" },
+          { bgImage: "/assets/MVNO-MNO/mvno-banner-2.webp" },
+          { bgImage: "/assets/MVNO-MNO/mvno-banner-3.webp" },
+          { bgImage: "/assets/MVNO-MNO/mvno-banner-4.webp" },
+        ];
 
   return (
     <EnterpriseOverviewContainer $fullwidth>
@@ -42,17 +49,11 @@ const MNOverview = () => {
         >
           <EnterpriseOverviewDetailsContainer $direction="column" $fullwidth>
             <EnterpriseOverviewTitle>
-              <EnterpriseOverviewTitleLight>
-                The Bussiness{" "}
-              </EnterpriseOverviewTitleLight>
-              <EnterpriseOverviewTitleDark>Case: </EnterpriseOverviewTitleDark>
-              <EnterpriseOverviewTitleDark>
-                Increase ARPU
-              </EnterpriseOverviewTitleDark>
+              <EnterpriseOverviewTitleDark>{title}</EnterpriseOverviewTitleDark>
             </EnterpriseOverviewTitle>
 
             <EnterpriseOverviewDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
+              {featurePoints.map((desc, index) => (
                 <React.Fragment key={index}>
                   <DescriptionBlock
                     onMouseEnter={() => setActiveIndex(index)}
@@ -61,7 +62,7 @@ const MNOverview = () => {
                     <EnterpriseOverviewDescription>
                       {desc}
                     </EnterpriseOverviewDescription>
-                    {index !== DESCRIPTIONS.length - 1 && (
+                    {index !== featurePoints.length - 1 && (
                       <EnterpriseOverviewDescriptionSeparator />
                     )}
                   </DescriptionBlock>
@@ -70,13 +71,19 @@ const MNOverview = () => {
             </EnterpriseOverviewDescriptionContainer>
           </EnterpriseOverviewDetailsContainer>
         </EnterpriseOverviewDetails>
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+
+        <PlansImageBanner
+          banners={bannersFromSanity}
+          activeIndex={activeIndex}
+        />
       </EnterpriseOverviewInnerWrapper>
     </EnterpriseOverviewContainer>
   );
 };
 
 export default MNOverview;
+
+/* ---------------- styles (unchanged) ---------------- */
 
 const EnterpriseOverviewContainer = styled(Flex)`
   gap: 10px;
@@ -85,9 +92,6 @@ const EnterpriseOverviewContainer = styled(Flex)`
 
 const EnterpriseOverviewInnerWrapper = styled(Flex)`
   flex: 1 0 0;
-  @media (max-width: 1194px) {
-    /* padding: 64px 0px; */
-  }
   @media (max-width: 980px) {
     flex-direction: column;
     gap: 24px;
@@ -128,7 +132,6 @@ const EnterpriseOverviewDetailsContainer = styled(Flex)`
 
 const EnterpriseOverviewTitle = styled.h2`
   font-size: 48px;
-  font-style: normal;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -1.44px;
@@ -143,10 +146,6 @@ const EnterpriseOverviewTitle = styled.h2`
   }
 `;
 
-const EnterpriseOverviewTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
 const EnterpriseOverviewTitleDark = styled.span`
   color: var(--500, #1a1919);
 `;
@@ -158,17 +157,15 @@ const EnterpriseOverviewDescriptionContainer = styled(Flex)`
 const EnterpriseOverviewDescription = styled.div`
   color: var(--500, #1a1919);
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
   line-height: 120%;
-  padding-bottom: 12px;
-  padding-top: 12px;
+  padding: 12px 0;
   letter-spacing: -0.42px;
   @media (max-width: 980px) {
     width: 100%;
     font-size: 14px;
     max-width: 552px;
-    letter-spacing: none;
+    letter-spacing: normal;
   }
 `;
 
