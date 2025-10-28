@@ -9,6 +9,24 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
+  openGraph: {
+    url: SITE_URL,
+    siteName: "Ensure Protect",
+    images: [
+      {
+        url: "/Group.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ensure Protect preview image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/Group.jpg"],
+  },
 };
 
 export const viewport = {
