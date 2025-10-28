@@ -11,8 +11,6 @@ if (typeof window !== "undefined") {
 }
 
 const RetailResultSection = ({ data = {} }) => {
-  // Expecting Sanity-shaped data:
-  // { title, description, pillarsHeader, pillarsTitle: [{_key, cardTitle}, ...] }
   const {
     title = "",
     description = "",
@@ -27,7 +25,7 @@ const RetailResultSection = ({ data = {} }) => {
   const animationRef = useRef(null);
   const titleRef = useRef(null);
 
-  // Keep 4-height config (Sanity data has 4 items)
+  // Maintain the same animation shape (4 columns expected)
   const cardHeights = {
     0: [164, 107, 44, 86],
     25: [264, 207, 144, 186],
@@ -38,22 +36,15 @@ const RetailResultSection = ({ data = {} }) => {
   };
 
   useEffect(() => {
-    // Ensure refs array length matches pillars count (defaults to 4 if not provided)
-    const count =
-      Array.isArray(pillarsTitle) && pillarsTitle.length
-        ? pillarsTitle.length
-        : 4;
+    const count = Array.isArray(pillarsTitle) ? pillarsTitle.length : 0;
     cardRefs.current = cardRefs.current.slice(0, count);
   }, [pillarsTitle]);
 
   const handleMilestoneChange = useCallback((progress) => {
-    if (animationRef.current) {
-      animationRef.current.kill();
-    }
+    if (animationRef.current) animationRef.current.kill();
 
     const getInterpolatedHeights = (currentProgress) => {
       const milestones = [0, 25, 50, 75, 100];
-
       let startMilestone = 0;
       let endMilestone = 25;
 
@@ -73,9 +64,13 @@ const RetailResultSection = ({ data = {} }) => {
 
       return cardRefs.current.map((_, index) => {
         const startHeight =
-          cardHeights[startMilestone][index] ?? cardHeights[startMilestone][0];
+          cardHeights[startMilestone]?.[index] ??
+          cardHeights[startMilestone]?.[0] ??
+          0;
         const endHeight =
-          cardHeights[endMilestone][index] ?? cardHeights[endMilestone][0];
+          cardHeights[endMilestone]?.[index] ??
+          cardHeights[endMilestone]?.[0] ??
+          0;
         return startHeight + (endHeight - startHeight) * rangeProgress;
       });
     };
@@ -91,7 +86,7 @@ const RetailResultSection = ({ data = {} }) => {
         tl.to(
           card,
           {
-            height: targetHeights[index],
+            height: targetHeights[index] || 0,
             duration: 0.8,
             ease: "power2.out",
           },
@@ -125,6 +120,7 @@ const RetailResultSection = ({ data = {} }) => {
         "sync"
       );
     }
+
     if (titleRef.current) {
       tl.to(
         titleRef.current,
@@ -142,7 +138,6 @@ const RetailResultSection = ({ data = {} }) => {
     if (!sectionRef.current) return;
 
     let scrollTrigger;
-
     const initScrollAnimation = () => {
       scrollTrigger = ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -153,18 +148,10 @@ const RetailResultSection = ({ data = {} }) => {
           const currentProgress = Math.round(self.progress * 100);
           handleMilestoneChange(currentProgress);
         },
-        onEnter: () => {
-          handleMilestoneChange(0);
-        },
-        onLeave: () => {
-          handleMilestoneChange(100);
-        },
-        onEnterBack: () => {
-          handleMilestoneChange(0);
-        },
-        onLeaveBack: () => {
-          handleMilestoneChange(0);
-        },
+        onEnter: () => handleMilestoneChange(0),
+        onLeave: () => handleMilestoneChange(100),
+        onEnterBack: () => handleMilestoneChange(0),
+        onLeaveBack: () => handleMilestoneChange(0),
       });
     };
 
@@ -172,47 +159,14 @@ const RetailResultSection = ({ data = {} }) => {
 
     return () => {
       clearTimeout(timeoutId);
-      if (scrollTrigger) {
-        scrollTrigger.kill();
-      }
-      if (animationRef.current) {
-        animationRef.current.kill();
-      }
+      if (scrollTrigger) scrollTrigger.kill();
+      if (animationRef.current) animationRef.current.kill();
     };
   }, [handleMilestoneChange]);
 
   const addToRefs = useCallback((el) => {
-    if (el && !cardRefs.current.includes(el)) {
-      cardRefs.current.push(el);
-    }
+    if (el && !cardRefs.current.includes(el)) cardRefs.current.push(el);
   }, []);
-
-  // Title rendering: If it matches the known phrasing, keep the original stylized layout.
-  const renderTitle = () => {
-    const normalized = (title || "").trim();
-    const known = "You Own the Experience. We Power It.";
-    if (normalized === known) {
-      return (
-        <>
-          <ResultTitle>
-            <Light>You</Light> <Dark>Own the</Dark>
-          </ResultTitle>
-          <ResultTitle>
-            <Dark>Experience.</Dark> <Light>We</Light>
-          </ResultTitle>
-          <ResultTitle>
-            <Dark>Power It.</Dark>
-          </ResultTitle>
-        </>
-      );
-    }
-    // Fallback: render full title in Dark style on one line
-    return (
-      <ResultTitle>
-        <Dark>{normalized}</Dark>
-      </ResultTitle>
-    );
-  };
 
   return (
     <div style={{ height: "200vh" }} ref={sectionRef}>
@@ -227,7 +181,6 @@ const RetailResultSection = ({ data = {} }) => {
             <ResultTitle>
               <Dark>{title}</Dark>
             </ResultTitle>
-
             <ResultDescription>{description}</ResultDescription>
           </ResultContent>
         </ResultHeaderContainer>
@@ -254,7 +207,7 @@ const RetailResultSection = ({ data = {} }) => {
           >
             {(Array.isArray(pillarsTitle) ? pillarsTitle : []).map((p, idx) => (
               <FeatureCard role="listitem" ref={addToRefs} key={p?._key || idx}>
-                <CardText>{p?.cardTitle}</CardText>
+                <CardText>{p?.cardTitle || ""}</CardText>
               </FeatureCard>
             ))}
           </AsideBottom>
