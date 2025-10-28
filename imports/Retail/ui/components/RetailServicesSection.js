@@ -4,74 +4,46 @@ import Flex from "@/lib/atoms/Flex";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
-const RETAILER_SERVICES = [
-  {
-    icon: "/assets/retailer-services-icon-1.svg",
-    text: "White-labeled or co-branded protection plans at checkout (online or in-store)",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-2.svg",
-    text: "Repair, replacement, and maintenance coverage for mechanical and accidental damage",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-3.svg",
-    text: "Program designs tailored by product category and price point",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-4.svg",
-    text: "Embedded ecommerce modules and point-of-sale system integrations",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-5.svg",
-    text: "Branded claim portals and 24/7 customer support",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-6.svg",
-    text: "Sales training tools, pitch prompts, and in-store enablement",
-    bgcolor: "var(--5, rgba(26, 25, 25, 0.05))",
-  },
-  {
-    icon: "/assets/retailer-services-icon-7.svg",
-    text: "Real-time dashboards to track attach rate, conversions, and NPS",
-    bgcolor: "var(--3, rgba(26, 25, 25, 0.03))",
-  },
-];
+const RetailServicesSection = ({ whatWeProvideSectionData = {} }) => {
+  const { title, cards = [] } = whatWeProvideSectionData;
 
-const RetailServicesSection = () => {
   return (
     <ServicesContainer $direction="column">
       <TitleCardContainer>
         <div></div>
         <h2>
-          <Flex style={{ gap: "10px" }}>
-            <TitleLight>What </TitleLight>
-            <TitleDark>We </TitleDark>
-          </Flex>
-          <Flex style={{ gap: "10px" }}>
-            <TitleDark>Provide </TitleDark>
-            <TitleLight>for </TitleLight>
-            <TitleDark>Retailers</TitleDark>
-          </Flex>
+          <TitleDark>{title}</TitleDark>
         </h2>
       </TitleCardContainer>
+
       <ServicesCardContainer $direction="column">
         <ServicesCardWrapper $alignitems="center">
-          {RETAILER_SERVICES.map((card, index) => (
-            <ServicesCard
-              $direction="column"
-              bgcolor={card.bgcolor}
-              key={index}
-            >
-              <Image height={72} width={72} src={card.icon} alt="some icon" />
-              <ServiceCardDescription>{card.text}</ServiceCardDescription>
-            </ServicesCard>
-          ))}
+          {Array.isArray(cards) &&
+            cards.map((card, index) => {
+              const iconUrl = card?.icon
+                ? getBackgroundImageUrl(card.icon)
+                : null;
+              const hasValidIcon =
+                typeof iconUrl === "string" && iconUrl.length > 0;
+
+              return (
+                <ServicesCard $direction="column" key={index}>
+                  {hasValidIcon && (
+                    <Image
+                      height={72}
+                      width={72}
+                      src={iconUrl}
+                      alt="service icon"
+                    />
+                  )}
+                  <ServiceCardDescription>
+                    {card?.description}
+                  </ServiceCardDescription>
+                </ServicesCard>
+              );
+            })}
         </ServicesCardWrapper>
       </ServicesCardContainer>
     </ServicesContainer>
@@ -79,6 +51,8 @@ const RetailServicesSection = () => {
 };
 
 export default RetailServicesSection;
+
+/* ===== styles (unchanged) ===== */
 
 const ServicesContainer = styled(Flex)`
   align-self: stretch;
@@ -102,6 +76,7 @@ const TitleCardContainer = styled(Flex)`
   }
 `;
 
+/* eslint-disable-next-line no-unused-vars */
 const TitleLight = styled.span`
   color: var(--40, rgba(26, 25, 25, 0.4));
   font-size: 48px;
@@ -136,6 +111,7 @@ const ServicesCardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+
   @media (max-width: 1194px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -150,8 +126,15 @@ const ServicesCard = styled(Flex)`
   padding: 16px 16px 32px 16px;
   gap: 10px;
   border-bottom: 1px dashed var(--50, rgba(26, 25, 25, 0.5));
-  background: ${({ bgcolor }) => bgcolor};
   justify-content: flex-end;
+
+  /* alternate backgrounds on the card itself */
+  &:nth-child(odd) {
+    background: var(--3, rgba(26, 25, 25, 0.03));
+  }
+  &:nth-child(even) {
+    background: var(--5, rgba(26, 25, 25, 0.05));
+  }
 
   img {
     display: none;
@@ -164,6 +147,7 @@ const ServicesCard = styled(Flex)`
     }
     justify-content: space-between;
   }
+
   @media (max-width: 1194px) {
     justify-content: space-between;
     height: auto;

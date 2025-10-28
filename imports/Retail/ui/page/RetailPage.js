@@ -11,16 +11,20 @@ import RetailServicesSection from "../components/RetailServicesSection";
 import RetailResultWrapper from "../components/RetailResultWrapper";
 import RetailCTASection from "../components/RetailCTASection";
 
-const RetailPage = () => {
+const RetailPage = ({ data }) => {
   return (
     <PageWrapper $fullwidth $direction="column">
       <Navbar />
-      <RetailHeroSection />
-      <RetailOverviewSection />
-      <RetailServicesSection />
+      <RetailHeroSection heroSectionData={data?.heroSection} />
+      <RetailOverviewSection
+        retailOverviewSectionData={data?.retailOverviewSection}
+      />
+      <RetailServicesSection
+        whatWeProvideSectionData={data?.whatWeProvideSection}
+      />
       <Wrapper>
-        <RetailResultWrapper />
-        <RetailCTASection />
+        <RetailResultWrapper theResultSectionData={data?.theResultSection} />
+        <RetailCTASection ctaSectionData={data?.ctaSection} />
         <ClientFooter />
       </Wrapper>
     </PageWrapper>

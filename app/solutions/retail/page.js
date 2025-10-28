@@ -1,3 +1,4 @@
+import { getRetailPage } from "@/imports/Retail/api/api";
 import RetailPage from "@/imports/Retail/ui/page/RetailPage";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export const metadata = {
   },
 };
 
-export default function Page() {
-  return <RetailPage />;
+export default async function Page() {
+  const data = await getRetailPage();
+  return <RetailPage data={data} />;
 }

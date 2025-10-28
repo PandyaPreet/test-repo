@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import RetailResultSection from "./RetailsResultSection/RetailResultSection";
 import RetailResultSectionMobile from "./RetailsResultSection/RetailResultSectionMobile";
 
-export default function RetailResultWrapper() {
+export default function RetailResultWrapper({ theResultSectionData }) {
   const [deviceSize, setDeviceSize] = useState(null);
 
   useEffect(() => {
@@ -32,5 +32,9 @@ export default function RetailResultWrapper() {
   if (!deviceSize) return null;
 
   const isDesktop = deviceSize === "medium" || deviceSize === "large";
-  return isDesktop ? <RetailResultSection /> : <RetailResultSectionMobile />;
+  return isDesktop ? (
+    <RetailResultSection data={theResultSectionData} />
+  ) : (
+    <RetailResultSectionMobile data={theResultSectionData} />
+  );
 }

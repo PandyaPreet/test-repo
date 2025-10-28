@@ -10,7 +10,16 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const RetailResultSection = () => {
+const RetailResultSection = ({ data = {} }) => {
+  // Expecting Sanity-shaped data:
+  // { title, description, pillarsHeader, pillarsTitle: [{_key, cardTitle}, ...] }
+  const {
+    title = "",
+    description = "",
+    pillarsHeader = "",
+    pillarsTitle = [],
+  } = data || {};
+
   const sectionRef = useRef(null);
   const cardRefs = useRef([]);
   const cardContainerRef = useRef(null);
@@ -18,6 +27,7 @@ const RetailResultSection = () => {
   const animationRef = useRef(null);
   const titleRef = useRef(null);
 
+  // Keep 4-height config (Sanity data has 4 items)
   const cardHeights = {
     0: [164, 107, 44, 86],
     25: [264, 207, 144, 186],
@@ -28,8 +38,13 @@ const RetailResultSection = () => {
   };
 
   useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, 4);
-  }, []);
+    // Ensure refs array length matches pillars count (defaults to 4 if not provided)
+    const count =
+      Array.isArray(pillarsTitle) && pillarsTitle.length
+        ? pillarsTitle.length
+        : 4;
+    cardRefs.current = cardRefs.current.slice(0, count);
+  }, [pillarsTitle]);
 
   const handleMilestoneChange = useCallback((progress) => {
     if (animationRef.current) {
@@ -39,7 +54,6 @@ const RetailResultSection = () => {
     const getInterpolatedHeights = (currentProgress) => {
       const milestones = [0, 25, 50, 75, 100];
 
-      // Find current milestone range
       let startMilestone = 0;
       let endMilestone = 25;
 
@@ -58,8 +72,10 @@ const RetailResultSection = () => {
         (currentProgress - startMilestone) / (endMilestone - startMilestone);
 
       return cardRefs.current.map((_, index) => {
-        const startHeight = cardHeights[startMilestone][index];
-        const endHeight = cardHeights[endMilestone][index];
+        const startHeight =
+          cardHeights[startMilestone][index] ?? cardHeights[startMilestone][0];
+        const endHeight =
+          cardHeights[endMilestone][index] ?? cardHeights[endMilestone][0];
         return startHeight + (endHeight - startHeight) * rangeProgress;
       });
     };
@@ -120,7 +136,7 @@ const RetailResultSection = () => {
         "sync"
       );
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -132,7 +148,7 @@ const RetailResultSection = () => {
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5, // Smoother scrubbing
+        scrub: 0.5,
         onUpdate: (self) => {
           const currentProgress = Math.round(self.progress * 100);
           handleMilestoneChange(currentProgress);
@@ -171,6 +187,33 @@ const RetailResultSection = () => {
     }
   }, []);
 
+  // Title rendering: If it matches the known phrasing, keep the original stylized layout.
+  const renderTitle = () => {
+    const normalized = (title || "").trim();
+    const known = "You Own the Experience. We Power It.";
+    if (normalized === known) {
+      return (
+        <>
+          <ResultTitle>
+            <Light>You</Light> <Dark>Own the</Dark>
+          </ResultTitle>
+          <ResultTitle>
+            <Dark>Experience.</Dark> <Light>We</Light>
+          </ResultTitle>
+          <ResultTitle>
+            <Dark>Power It.</Dark>
+          </ResultTitle>
+        </>
+      );
+    }
+    // Fallback: render full title in Dark style on one line
+    return (
+      <ResultTitle>
+        <Dark>{normalized}</Dark>
+      </ResultTitle>
+    );
+  };
+
   return (
     <div style={{ height: "200vh" }} ref={sectionRef}>
       <ResultContainer $justifycontent="center" $alignitems="center">
@@ -181,23 +224,11 @@ const RetailResultSection = () => {
           $fullwidth
         >
           <ResultContent>
-            <div>
-              <ResultTitle>
-                <Light>You</Light> <Dark>Own the</Dark>
-              </ResultTitle>
-              <ResultTitle>
-                <Dark>Experience.</Dark> <Light>We</Light>
-              </ResultTitle>
-              <ResultTitle>
-                <Dark>Power It.</Dark>
-              </ResultTitle>
-            </div>
+            <ResultTitle>
+              <Dark>{title}</Dark>
+            </ResultTitle>
 
-            <ResultDescription>
-              We stay behind the curtain—so your customers experience your
-              brand, your tone, and your service standards throughout every part
-              of the coverage lifecycle.
-            </ResultDescription>
+            <ResultDescription>{description}</ResultDescription>
           </ResultContent>
         </ResultHeaderContainer>
 
@@ -212,7 +243,7 @@ const RetailResultSection = () => {
             $alignitems="center"
             $justifycontent="center"
           >
-            <AsideTitle ref={titleRef}>The Result?</AsideTitle>
+            <AsideTitle ref={titleRef}>{pillarsHeader}</AsideTitle>
           </AsideTop>
 
           <AsideBottom
@@ -221,18 +252,11 @@ const RetailResultSection = () => {
             $fullwidth
             ref={cardContainerRef}
           >
-            <FeatureCard role="listitem" ref={addToRefs}>
-              <CardText>Higher margins</CardText>
-            </FeatureCard>
-            <FeatureCard role="listitem" ref={addToRefs}>
-              <CardText>Fewer returns</CardText>
-            </FeatureCard>
-            <FeatureCard role="listitem" ref={addToRefs}>
-              <CardText>Repeat customers</CardText>
-            </FeatureCard>
-            <FeatureCard role="listitem" ref={addToRefs}>
-              <CardText>A support model that scales with your growth</CardText>
-            </FeatureCard>
+            {(Array.isArray(pillarsTitle) ? pillarsTitle : []).map((p, idx) => (
+              <FeatureCard role="listitem" ref={addToRefs} key={p?._key || idx}>
+                <CardText>{p?.cardTitle}</CardText>
+              </FeatureCard>
+            ))}
           </AsideBottom>
         </ResultAside>
       </ResultContainer>
@@ -241,6 +265,8 @@ const RetailResultSection = () => {
 };
 
 export default RetailResultSection;
+
+/* ===== styles (unchanged) ===== */
 
 const ResultContainer = styled(Flex)`
   width: 100%;

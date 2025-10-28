@@ -3,10 +3,18 @@
 import CTABanner from "@/components/CTABanner";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { getBackgroundImageUrl } from "@/lib/imageUtils"; // helper for sanity image URLs
 
-const RetailCTASection = () => {
+const RetailCTASection = ({ ctaSectionData = {} }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
+
+  const {
+    title = "",
+    description = "",
+    ctaButtonLabel = "",
+    backgroundImage = null,
+  } = ctaSectionData || {};
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,18 +25,20 @@ const RetailCTASection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const backgroundImageUrl = backgroundImage
+    ? getBackgroundImageUrl(backgroundImage)
+    : "/assets/cta-banner-image.webp";
+
   return (
-    <>
-      <CTABanner
-        title="Let's Create a Protection Program Built for Growth"
-        description="We make it easy to launch, sell, and support protection plans —while you focus on your brand and customer experience."
-        buttonText="CONNECT WITH US"
-        {...(isMobile
-          ? { backgroundImage: "/assets/cta-banner-image.webp" }
-          : { videoUrl: "/assets/HomePageVideo.mp4" })}
-        onButtonClick={() => router.push("/connect")}
-      />
-    </>
+    <CTABanner
+      title={title}
+      description={description}
+      buttonText={ctaButtonLabel || "CONNECT WITH US"}
+      {...(isMobile
+        ? { backgroundImage: backgroundImageUrl }
+        : { videoUrl: "/assets/HomePageVideo.mp4" })}
+      onButtonClick={() => router.push("/connect")}
+    />
   );
 };
 

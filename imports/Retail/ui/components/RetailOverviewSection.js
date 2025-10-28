@@ -4,89 +4,29 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const RetailOverviewSection = () => {
+const RetailOverviewSection = ({ retailOverviewSectionData }) => {
   const contentRefs = useRef([]);
-  const [heights, setHeights] = useState([600, 600]);
+  const cards = retailOverviewSectionData?.cards ?? [];
+  const [heights, setHeights] = useState(cards.map(() => 600));
 
   useEffect(() => {
     const updateHeights = () => {
       const newHeights = contentRefs.current.map((el) =>
         el ? el.offsetHeight + 120 : 600
       );
-      setHeights(newHeights);
+      setHeights(newHeights.length ? newHeights : cards.map(() => 600));
     };
 
     updateHeights();
     window.addEventListener("resize", updateHeights);
     return () => window.removeEventListener("resize", updateHeights);
-  }, []);
-
-  const CARDS_DATA = [
-    {
-      id: "retail-reality",
-      variant: "light",
-      title: (
-        <>
-          <HeaderSectionTitleLight>
-            The <br />
-          </HeaderSectionTitleLight>
-          <HeaderSectionTitleDark>Retail Reality</HeaderSectionTitleDark>
-        </>
-      ),
-      description: (
-        <>
-          <p>
-            Margins are tight. Loyalty is hard-won. And service is the
-            battleground where most retail brands win or lose long-term trust.
-          </p>
-          <p className="intro-text">
-            Whether you're selling electronics, power tools & appliances, or
-            connected home goods, your customers expect reliable coverage—and a
-            seamless experience when things go wrong.
-          </p>
-          <p className="highlight-text intro-text">
-            We help you <strong>deliver both.</strong>
-          </p>
-        </>
-      ),
-      bg: "var(--5, rgba(26, 25, 25, 0.05))",
-      textColor: "dark",
-    },
-    {
-      id: "why-ensure-protect",
-      variant: "brand",
-      title: (
-        <>
-          <HeaderSectionTitleLight>
-            Why <br />{" "}
-          </HeaderSectionTitleLight>
-          <HeaderSectionTitleWhite>Ensure Protect?</HeaderSectionTitleWhite>
-        </>
-      ),
-      description: (
-        <>
-          <p>
-            Ensure Protect helps retail and ecommerce brands add high-performing
-            extended service plans and protection programs to their
-            point-of-sale experience.
-          </p>
-          <p className="borderWhite">
-            Our programs are either fully white-labeled, or co-branded, designed
-            for multi-channel selling, and built to maximize attachment rate and
-            lifetime value—without adding operational overhead.
-          </p>
-        </>
-      ),
-      bg: "var(--500, #2877b0)",
-      textColor: "light",
-    },
-  ];
+  }, [cards]);
 
   return (
     <CardsContainer $direction="column">
-      {CARDS_DATA.map((card, index) => (
+      {cards.map((card, index) => (
         <CardsWrapper
-          key={card.id}
+          key={card._key || index}
           $justifycontent="space-between"
           $alignitems="center"
         >
@@ -101,14 +41,16 @@ const RetailOverviewSection = () => {
           <ContentBlock>
             <ContentWrapper
               ref={(el) => (contentRefs.current[index] = el)}
-              $bg={card.bg}
+              $isEven={index % 2 === 1}
               $alignitems="center"
               $justifycontent="center"
             >
               <ContentSection $direction="column">
                 <HeaderSection>{card.title}</HeaderSection>
-                <SubHeaderSection $light={card.textColor === "light"}>
-                  {card.description}
+                <SubHeaderSection>
+                  {card.bulletPoints?.map((point, i) => (
+                    <p key={i}>{point}</p>
+                  ))}
                 </SubHeaderSection>
               </ContentSection>
             </ContentWrapper>
@@ -125,6 +67,8 @@ const RetailOverviewSection = () => {
 };
 
 export default RetailOverviewSection;
+
+/* ------------------- Styled Components ------------------- */
 
 const CardsContainer = styled(Flex)`
   width: 100%;
@@ -218,10 +162,15 @@ const ContentBlock = styled(Flex)`
 
 const ContentWrapper = styled(Flex)`
   padding: 0px 80px;
-  background: ${(p) => p.$bg};
   height: 100%;
   z-index: 1;
   width: 100%;
+
+  /* Odd-even background alternation */
+  background: ${(p) =>
+    p.$isEven ? "var(--500, #2877b0)" : "var(--5, rgba(26, 25, 25, 0.05))"};
+  color: ${(p) => (p.$isEven ? "#fff" : "#1a1919")};
+
   @media (max-width: 1194px) {
     padding: 0px 120px;
   }
@@ -243,57 +192,37 @@ const HeaderSection = styled.h2`
   line-height: 100%;
   letter-spacing: -1.44px;
   max-width: 350px;
+
   @media (max-width: 1194px) {
     font-size: 36px;
   }
   @media (max-width: 768px) {
     font-size: 24px;
   }
+
+  /* auto title color by even/odd */
+  ${ContentWrapper}:nth-child(odd) & {
+    color: #1a1919;
+  }
+  ${ContentWrapper}:nth-child(even) & {
+    color: #fff;
+  }
 `;
 
-const HeaderSectionTitleDark = styled.span`
-  color: var(--500, #1a1919);
-`;
-
-const HeaderSectionTitleWhite = styled.span`
-  color: var(--100, #fff);
-`;
-
-const HeaderSectionTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
-`;
-
-const SubHeaderSection = styled.p`
+const SubHeaderSection = styled.div`
   font-size: 14px;
   font-weight: 400;
   line-height: 120%;
   max-width: 480px;
-  color: ${({ $light }) =>
-    $light ? "var(--300, #e5e5e5)" : "var(--80, rgba(26, 25, 25, 0.8))"};
   display: flex;
   flex-direction: column;
   gap: 12px;
+
   p {
     margin: 0;
   }
+
   @media (max-width: 768px) {
     font-size: 12px;
-  }
-
-  p.intro-text {
-    border-top: 0.5px dashed var(--40, rgba(26, 25, 25, 0.4));
-    padding-top: 12px;
-  }
-  p.borderWhite {
-    border-top: 0.5px dashed var(--40, rgba(255, 255, 255, 0.4));
-    padding-top: 12px;
-  }
-  p.highlight-text {
-    font-weight: 400;
-    color: var(--500, #1a1919);
-
-    strong {
-      font-weight: 700;
-    }
   }
 `;

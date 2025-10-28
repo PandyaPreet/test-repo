@@ -4,21 +4,16 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 
-const RetailResultSectionMobile = () => {
-  const RESULT_CARDS = [
-    {
-      title: "Higher margins",
-    },
-    {
-      title: "Fewer returns",
-    },
-    {
-      title: "Repeat customers",
-    },
-    {
-      title: "A support model that scales with your growth",
-    },
-  ];
+const RetailResultSectionMobile = ({ data = {} }) => {
+  const {
+    title = "",
+    description = "",
+    pillarsHeader = "",
+    pillarsTitle = [],
+  } = data || {};
+
+  const cards = Array.isArray(pillarsTitle) ? pillarsTitle.slice(0, 4) : [];
+
   return (
     <Flex $direction="column" $justifycontent="center" $alignitems="center">
       <ResultHeaderContainer
@@ -26,25 +21,23 @@ const RetailResultSectionMobile = () => {
         $justifycontent="center"
         $alignitems="center"
       >
-        <TitleText>You Own the Experience. We Power It.</TitleText>
-        <DescriptionText>
-          We stay behind the curtain—so your customers experience your brand,
-          your tone, and your service standards throughout every part of the
-          coverage lifecycle.
-        </DescriptionText>
+        <TitleText>{title}</TitleText>
+        <DescriptionText>{description}</DescriptionText>
       </ResultHeaderContainer>
+
       <ResultCardContainer $direction="column" $justifycontent="center">
         <ResultCardTitleContainer
           $direction="column"
           $justifycontent="center"
           $alignitems="center"
         >
-          <ResultCardTitle>The Result?</ResultCardTitle>
+          <ResultCardTitle>{pillarsHeader}</ResultCardTitle>
         </ResultCardTitleContainer>
+
         <ResultCardsWrapper $direction="column">
-          {RESULT_CARDS.map((card, index) => (
-            <ResultCard $direction="column" key={index}>
-              <CardTitle>{card.title}</CardTitle>
+          {cards.map((card, index) => (
+            <ResultCard $direction="column" key={card?._key || index}>
+              <CardTitle>{card?.cardTitle}</CardTitle>
             </ResultCard>
           ))}
         </ResultCardsWrapper>
@@ -54,6 +47,8 @@ const RetailResultSectionMobile = () => {
 };
 
 export default RetailResultSectionMobile;
+
+/* ===== styles (unchanged) ===== */
 
 const ResultHeaderContainer = styled(Flex)`
   padding: 24px 16px 92px 16px;
