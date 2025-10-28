@@ -19,7 +19,6 @@ const descriptions = [
 ];
 
 export default function OEMHeroSection({ heroData }) {
-  console.log("heroData", heroData);
   const [descHeight, setDescHeight] = useState(null);
 
   useEffect(() => {
