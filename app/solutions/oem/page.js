@@ -1,3 +1,4 @@
+import { getOemPage } from "@/imports/OEM/ui/api/api";
 import OEMpage from "@/imports/OEM/ui/page/OEMpage";
 
 export const metadata = {
@@ -13,6 +14,7 @@ export const metadata = {
   alternates: { canonical: "https://ensureprotect.com/solutions/oem" },
 };
 
-export default function Page() {
+export default async function Page() {
+  const data = await getOemPage();
   return <OEMpage />;
 }

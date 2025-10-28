@@ -4,7 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-function AboutUsCardsSection() {
+function AboutUsCardsSection({ cardData }) {
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(600);
 
@@ -39,18 +39,10 @@ function AboutUsCardsSection() {
           >
             <ContentSection $direction="column">
               <HeaderSection>
-                <HeaderSectionTitleDark>Designed to </HeaderSectionTitleDark>
-                <HeaderSectionTitleLight>Be Invisible</HeaderSectionTitleLight>
-                <HeaderSectionTitleDark>
-                  — But Indispensable
-                </HeaderSectionTitleDark>
+                {cardData && cardData.title ? cardData.title : ""}
               </HeaderSection>
               <SubHeaderSection>
-                Our platform and team operate behind the scenes, so your
-                customers only see your brand—on portals, claims, emails, and
-                support touchpoints. We believe the best service plan experience
-                should feel like an extension of your product and your brand,
-                not a separate process.
+                {cardData && cardData.description ? cardData.description : ""}
               </SubHeaderSection>
             </ContentSection>
           </ContentWrapper>

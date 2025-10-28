@@ -4,7 +4,7 @@ import CTABanner from "@/components/CTABanner";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function AboutUsCTASection() {
+function AboutUsCTASection({ ctaData }) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -22,9 +22,16 @@ function AboutUsCTASection() {
       {...(isMobile
         ? { backgroundImage: "/assets/cta-banner-image.webp" }
         : { videoUrl: "/assets/SolutionsPageVideo.mp4" })}
-      title="Let's Build What's Next, Together"
-      buttonText="Schedule a Discovery Call"
-      backgroundImage="/assets/cta-banner-image.webp"
+      title={
+        ctaData && ctaData.title
+          ? ctaData.title
+          : "Let's Build What's Next, Together"
+      }
+      buttonText={
+        ctaData && ctaData.ctaButtonLabel
+          ? ctaData.ctaButtonLabel
+          : "Schedule a Discovery Call"
+      }
       onButtonClick={() => router.push("/connect")}
     />
   );

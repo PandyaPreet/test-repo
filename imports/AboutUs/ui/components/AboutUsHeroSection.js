@@ -22,7 +22,7 @@ export default function AboutUsHeroSection({ heroData }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   const backgroundImageURL = getBackgroundImageUrl(heroData?.backgroundImage);
-  const items = heroData?.supportingTexts || []; // [{ text, indent } or string]
+  const items = heroData?.supportingTexts || [];
 
   return (
     <AboutUsHeroWrapper $direction="column">

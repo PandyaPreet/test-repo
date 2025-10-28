@@ -12,7 +12,6 @@ import AboutUsStatsSection from "../components/AboutUsStatsSection";
 import AboutUsCTASection from "../components/AboutUsCTASection";
 
 function AboutUsPage({ data }) {
-  console.log("data===", data);
   return (
     <PageWrapper>
       <Navbar />

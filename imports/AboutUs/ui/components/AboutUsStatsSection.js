@@ -4,24 +4,7 @@ import Flex from "@/lib/atoms/Flex";
 import React from "react";
 import styled from "styled-components";
 
-const STATS = [
-  {
-    value: "40+",
-    description:
-      "Years in warranty, logistics, insurance, and service protection plans",
-  },
-  {
-    value: "50",
-    description: "State licensing and compliance coverage",
-  },
-  {
-    value: "4",
-    description:
-      "Time zone, claims, call, and fulfillment centers optimized for NPS and speed",
-  },
-];
-
-function AboutUsStatsSection() {
+function AboutUsStatsSection({ statsData }) {
   return (
     <StatsBlock
       $alignitems="flex-end"
@@ -33,18 +16,18 @@ function AboutUsStatsSection() {
       </StatsTitleWrapper>
       <AboutStatsMetricsWrapper>
         <StatsMetricsTitleWrapper>
-          <StatsMetricsTitle>Proven Experience</StatsMetricsTitle>
+          <StatsMetricsTitle>
+            {statsData && statsData.title ? statsData.title : ""}
+          </StatsMetricsTitle>
           <StatsMetricsDescription>
-            We believe service plans should increase trust, not frustration.
+            {statsData && statsData.description ? statsData.description : ""}
           </StatsMetricsDescription>
         </StatsMetricsTitleWrapper>
         <StatsMetricsWrapper $alignitems="center">
-          {STATS.map((stat, index) => (
-            <StatsMetricsBlock $direction="column" key={index}>
+          {statsData?.stats?.map((stat) => (
+            <StatsMetricsBlock $direction="column" key={stat._key}>
               <StatsMetricsValue>{stat.value}</StatsMetricsValue>
-              <StatsMetricsDescription>
-                {stat.description}
-              </StatsMetricsDescription>
+              <StatsMetricsDescription>{stat.label}</StatsMetricsDescription>
             </StatsMetricsBlock>
           ))}
         </StatsMetricsWrapper>

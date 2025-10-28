@@ -7,29 +7,19 @@ import PlansImageBanner from "@/components/PlansImageBanner";
 import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
 function AboutUsFeatureSection({ featureData }) {
-  console.log("featureData", featureData);
   const [activeIndex, setActiveIndex] = useState(0);
   const images =
     featureData && featureData.featureImages ? featureData.featureImages : [];
-  console.log("images", images);
 
   const featureImages = images.map((img, i) => ({
     bgImage: getBackgroundImageUrl(img && img.asset ? img.asset : null),
   }));
-  console.log("featureImages", featureImages);
 
   const BANNER_IMAGES = [
     { bgImage: "/assets/About/about-feature-1.webp" },
     { bgImage: "/assets/About/about-feature-2.webp" },
     { bgImage: "/assets/About/about-feature-3.webp" },
     { bgImage: "/assets/About/about-feature-4.webp" },
-  ];
-
-  const DESCRIPTIONS = [
-    "We don't cross-sell other insurance to your customers, You own the relationship.",
-    "We deliver full-service protection: plan setup, underwriting, program development, compliance, tech, claims, and logistics.",
-    "We're not a carrier—we build plans that serve your business, not ours, with a variety of risk structures to fit your business.",
-    "We help you turn aftermarket service into a strategic growth driver.",
   ];
 
   return (
@@ -41,30 +31,33 @@ function AboutUsFeatureSection({ featureData }) {
         <AboutUsFeatureDetails $direction="column" $justifycontent="flex-end">
           <AboutUsFeatureDetailsContainer $direction="column" $fullwidth>
             <AboutUsFeatureTitle>
-              <AboutUsFeatureTitleLight>Your </AboutUsFeatureTitleLight>
-              <AboutUsFeatureTitleDark>Brand.</AboutUsFeatureTitleDark>
-              <br />
-              <AboutUsFeatureTitleDark>Our Backbone.</AboutUsFeatureTitleDark>
+              {featureData && featureData.title ? featureData.title : ""}
             </AboutUsFeatureTitle>
 
             <AboutUsFeatureDescriptionContainer $direction="column">
-              {DESCRIPTIONS.map((desc, index) => (
-                <DescriptionBlock
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(0)}
-                >
-                  <AboutUsFeatureDescription>{desc}</AboutUsFeatureDescription>
-                  {index !== DESCRIPTIONS.length - 1 && (
-                    <AboutUsFeatureDescriptionSeparator />
-                  )}
-                </DescriptionBlock>
-              ))}
+              {featureData &&
+                featureData.featurePoints &&
+                featureData.featurePoints.map((desc, index) => (
+                  <React.Fragment key={index}>
+                    <DescriptionBlock
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(0)}
+                    >
+                      <AboutUsFeatureDescription>
+                        {desc}
+                      </AboutUsFeatureDescription>
+                      {featureData.featurePoints &&
+                        index !== featureData.featurePoints.length - 1 && (
+                          <AboutUsFeatureDescriptionSeparator />
+                        )}
+                    </DescriptionBlock>
+                  </React.Fragment>
+                ))}
             </AboutUsFeatureDescriptionContainer>
           </AboutUsFeatureDetailsContainer>
         </AboutUsFeatureDetails>
 
-        <PlansImageBanner banners={BANNER_IMAGES} activeIndex={activeIndex} />
+        <PlansImageBanner banners={featureImages} activeIndex={activeIndex} />
       </AboutUsFeatureInnerWrapper>
     </AboutUsFeatureContainer>
   );
@@ -118,6 +111,8 @@ const AboutUsFeatureTitle = styled.h2`
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
+  width: 100%;
+  max-width: 310px;
   letter-spacing: -1.44px;
   margin: 0;
   @media (max-width: 1194px) {
