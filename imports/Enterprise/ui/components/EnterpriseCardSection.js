@@ -4,9 +4,12 @@ import Flex from "@/lib/atoms/Flex";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-function EnterpriseCardSection() {
+function EnterpriseCardSection({ cardData = {} }) {
+  console.log("cardData", cardData);
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(600);
+
+  const cards = Array.isArray(cardData?.cards) ? cardData.cards : [];
 
   useEffect(() => {
     const updateHeight = () => {
@@ -22,53 +25,49 @@ function EnterpriseCardSection() {
   }, []);
 
   return (
-    <CardsContainer $direction={"column"}>
-      <CardsWrapper $justifycontent={"space-between"} $alignitems={"center"}>
-        <HorizontalLineTop />
-        <HorizontalLineBottom />
+    <CardsContainer $direction="column">
+      {cards.map((card, index) => (
+        <CardsWrapper
+          key={card._key || index}
+          $justifycontent="space-between"
+          $alignitems="center"
+        >
+          <HorizontalLineTop />
+          <HorizontalLineBottom />
 
-        <DashedBlocks style={{ height: `${contentHeight}px` }}>
-          <FirstBlock />
-          <SecondBlock $isLeft />
-        </DashedBlocks>
+          <DashedBlocks style={{ height: `${contentHeight}px` }}>
+            <FirstBlock />
+            <SecondBlock $isLeft />
+          </DashedBlocks>
 
-        <ContentBlock>
-          <ContentWrapper
-            ref={contentRef}
-            $alignitems="center"
-            $justifycontent="center"
-          >
-            <ContentSection $direction="column">
-              <HeaderSection>
-                <HeaderSectionTitleLight>Simplify </HeaderSectionTitleLight>
-                <HeaderSectionTitleDark>Support </HeaderSectionTitleDark>
-                <HeaderSectionTitleLight>Across </HeaderSectionTitleLight>
+          <ContentBlock>
+            <ContentWrapper
+              ref={contentRef}
+              $alignitems="center"
+              $justifycontent="center"
+            >
+              <ContentSection $direction="column">
+                <HeaderSection>
+                  <HeaderSectionTitleDark>{card.title}</HeaderSectionTitleDark>
+                </HeaderSection>
+                <SubHeaderSection>{card.description}</SubHeaderSection>
+              </ContentSection>
+            </ContentWrapper>
+          </ContentBlock>
 
-                <HeaderSectionTitleDark>
-                  Departments and Regions
-                </HeaderSectionTitleDark>
-              </HeaderSection>
-              <SubHeaderSection>
-                Whether your team operates regionally or nationwide, our
-                platform offers centralized control with localized support.
-                Device replacements, on-site, depot and mail-in repairs, and
-                logistics are managed through trusted vendors —backed by
-                real-time performance data.
-              </SubHeaderSection>
-            </ContentSection>
-          </ContentWrapper>
-        </ContentBlock>
-
-        <DashedBlocks style={{ height: `${contentHeight}px` }}>
-          <SecondBlock $isRight />
-          <FirstBlock />
-        </DashedBlocks>
-      </CardsWrapper>
+          <DashedBlocks style={{ height: `${contentHeight}px` }}>
+            <SecondBlock $isRight />
+            <FirstBlock />
+          </DashedBlocks>
+        </CardsWrapper>
+      ))}
     </CardsContainer>
   );
 }
 
 export default EnterpriseCardSection;
+
+/* ===== styles (unchanged) ===== */
 
 const CardsContainer = styled(Flex)`
   width: 100%;
@@ -207,10 +206,6 @@ const HeaderSection = styled.h2`
 
 const HeaderSectionTitleDark = styled.span`
   color: var(--500, #1a1919);
-`;
-
-const HeaderSectionTitleLight = styled.span`
-  color: var(--40, rgba(26, 25, 25, 0.4));
 `;
 
 const SubHeaderSection = styled.p`
