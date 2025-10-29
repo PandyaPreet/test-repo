@@ -47,9 +47,15 @@ function ConnectFormSection({ formData }) {
         body: JSON.stringify(data),
       });
 
-      const resdata = await res.json();
+      await res.json();
 
       if (res.ok) {
+        if (typeof window !== "undefined" && window?.gtag) {
+          window.gtag?.("event", "form_submit", {
+            event_category: "engagement",
+            event_label: "connect Form",
+          });
+        }
         reset();
       }
     } catch (error) {

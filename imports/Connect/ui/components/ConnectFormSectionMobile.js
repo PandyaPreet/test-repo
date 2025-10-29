@@ -52,6 +52,12 @@ const ConnectFormSectionMobile = ({ formData }) => {
       const resdata = await res.json();
 
       if (res.ok) {
+        if (typeof window !== "undefined" && window?.gtag) {
+          window.gtag?.("event", "form_submit", {
+            event_category: "engagement",
+            event_label: "connect Form",
+          });
+        }
         reset();
       }
     } catch (error) {
