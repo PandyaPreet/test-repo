@@ -199,6 +199,7 @@ const ContentWrapper = styled(Flex)`
 
 const ContentSection = styled(Flex)`
   gap: 40px;
+  max-width: 376px;
   @media (max-width: 980px) {
     gap: 16px;
   }

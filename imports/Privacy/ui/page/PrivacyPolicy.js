@@ -3,11 +3,11 @@ import PrivacyHeader from "../components/PrivacyHeader";
 import PrivacyFooter from "../components/PrivacyFooter";
 import PrivacyPolicyContent from "../components/PrivacyPolicyContent";
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({ data }) => {
   return (
     <Fragment>
       <PrivacyHeader />
-      <PrivacyPolicyContent />
+      <PrivacyPolicyContent data={data} />
       <PrivacyFooter />
     </Fragment>
   );

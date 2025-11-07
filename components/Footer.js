@@ -1,24 +1,39 @@
 "use client";
 
-import { useMediaQuery } from "@uidotdev/usehooks";
 import FooterDesktop from "./FooterDesktop";
 import FooterMobile from "./FooterMobile";
+import styled from "styled-components";
 
-export default function ResponsiveFooter() {
-  const isSmallDevice = useMediaQuery("only screen and (max-width: 979px)");
-  const isMediumDevice = useMediaQuery(
-    "only screen and (min-width: 980px) and (max-width: 1199px)"
+export default function Footer() {
+  return (
+    <FooterContainer>
+      <DesktopFooter>
+        <FooterDesktop />
+      </DesktopFooter>
+      <MobileFooter>
+        <FooterMobile />
+      </MobileFooter>
+    </FooterContainer>
   );
-  const isLargeDevice = useMediaQuery("only screen and (min-width: 1200px)");
-
-  const ready = [isSmallDevice, isMediumDevice, isLargeDevice].every(
-    (v) => typeof v === "boolean"
-  );
-
-  if (!ready) return null;
-
-  // Treat tablet landscape (≥900px) as desktop
-  const isDesktop = isMediumDevice || isLargeDevice;
-
-  return isDesktop ? <FooterDesktop /> : <FooterMobile />;
 }
+
+const FooterContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const DesktopFooter = styled.div`
+  display: block;
+
+  @media (max-width: 979px) {
+    display: none;
+  }
+`;
+
+const MobileFooter = styled.div`
+  display: none;
+
+  @media (max-width: 979px) {
+    display: block;
+  }
+`;

@@ -250,7 +250,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button variant="outline" size="xl">
+              <Button variant="outline" size="full">
                 Login
               </Button>
             </Link>

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getRetailPage } from "@/imports/Retail/api/api";
 import RetailPage from "@/imports/Retail/ui/page/RetailPage";
 

@@ -59,6 +59,8 @@ function AboutUsCardsSection({ cardData }) {
 
 export default AboutUsCardsSection;
 
+// STYLED COMPONENTS
+
 const CardsContainer = styled(Flex)`
   width: 100%;
   padding: 80px 0px;

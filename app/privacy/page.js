@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+
+import { getPrivacyPage } from "@/imports/Privacy/api/api";
 import PrivacyPolicy from "@/imports/Privacy/ui/page/PrivacyPolicy";
 
 export const metadata = {
@@ -18,6 +21,7 @@ export const metadata = {
   },
 };
 
-export default function Page() {
-  return <PrivacyPolicy />;
+export default async function Page() {
+  const data = await getPrivacyPage();
+  return <PrivacyPolicy data={data} />;
 }

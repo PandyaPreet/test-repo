@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getConnectPage } from "@/imports/Connect/ui/api/api";
 import ConnectPage from "@/imports/Connect/ui/page/ConnectPage";
 

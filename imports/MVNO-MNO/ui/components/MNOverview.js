@@ -10,32 +10,14 @@ const MNOverview = ({ featureSectionData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // ---- Sanity mappings & fallbacks ----
-  const title = featureSectionData?.title || "The Business Case: Increase ARPU";
+  const title = featureSectionData?.title;
 
-  const featurePoints =
-    Array.isArray(featureSectionData?.featurePoints) &&
-    featureSectionData.featurePoints.length
-      ? featureSectionData.featurePoints
-      : [
-          "Reduce support volume from device failures",
-          "Increase revenue through bundled coverage sales",
-          "Strengthen device lifecycle economics",
-          "Build long-term trust and reduce replacements",
-        ];
+  const featurePoints = featureSectionData.featurePoints;
 
-  const bannersFromSanity =
-    Array.isArray(featureSectionData?.featureImages) &&
-    featureSectionData.featureImages.length
-      ? featureSectionData.featureImages
-          .map((img) => getBackgroundImageUrl(img))
-          .filter(Boolean)
-          .map((url) => ({ bgImage: url }))
-      : [
-          { bgImage: "/assets/MVNO-MNO/mvno-banner-1.webp" },
-          { bgImage: "/assets/MVNO-MNO/mvno-banner-2.webp" },
-          { bgImage: "/assets/MVNO-MNO/mvno-banner-3.webp" },
-          { bgImage: "/assets/MVNO-MNO/mvno-banner-4.webp" },
-        ];
+  const bannersFromSanity = featureSectionData.featureImages
+    .map((img) => getBackgroundImageUrl(img))
+    .filter(Boolean)
+    .map((url) => ({ bgImage: url }));
 
   return (
     <EnterpriseOverviewContainer $fullwidth>

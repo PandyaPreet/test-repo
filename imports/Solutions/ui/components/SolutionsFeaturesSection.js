@@ -9,25 +9,16 @@ import { getBackgroundImageUrl } from "@/lib/imageUtils";
 const SolutionsFeaturesSection = ({ featureSectionData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const title = featureSectionData?.title || "";
-  const featurePoints = featureSectionData?.featurePoints || [];
-  const featureImages = featureSectionData?.featureImages || [];
+  const title = featureSectionData?.title;
+  const featurePoints = featureSectionData?.featurePoints;
+  const featureImages = featureSectionData?.featureImages;
 
-  const BANNERS =
+  const banners =
     featureImages
       ?.map((img) => ({
         bgImage: getBackgroundImageUrl(img),
       }))
       .filter((b) => !!b.bgImage) || [];
-
-  const FALLBACK_BANNERS = [
-    { bgImage: "/assets/Solutions/solutions-banner-1.jpg" },
-    { bgImage: "/assets/Solutions/solutions-banner-2.jpg" },
-    { bgImage: "/assets/Solutions/solutions-banner-3.jpg" },
-    { bgImage: "/assets/Solutions/solutions-banner-4.jpg" },
-  ];
-
-  const banners = BANNERS.length ? BANNERS : FALLBACK_BANNERS;
 
   return (
     <SolutionsFeaturesContainer $fullwidth>

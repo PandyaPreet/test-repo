@@ -7,10 +7,8 @@ import styled from "styled-components";
 import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
 const MNServicesSection = ({ whatWeProvideSectionData }) => {
-  console.log("whatWeProvideSectionData", whatWeProvideSectionData);
-
-  const title = whatWeProvideSectionData?.title || "What We Provide";
-  const cards = whatWeProvideSectionData?.cards || [];
+  const title = whatWeProvideSectionData?.title;
+  const cards = whatWeProvideSectionData?.cards;
 
   return (
     <ServicesContainer $direction="column">

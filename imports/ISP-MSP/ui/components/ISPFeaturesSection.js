@@ -15,7 +15,6 @@ const ISPFeaturesSection = ({ planFeaturesSectionData }) => {
   return (
     <ISPFeaturesContainer $direction="column">
       <ISPFeaturesTitleContainer>
-        <div></div>
         <div>
           <Flex style={{ gap: "10px" }}>
             <ISPFeaturesTitleDark>{title}</ISPFeaturesTitleDark>

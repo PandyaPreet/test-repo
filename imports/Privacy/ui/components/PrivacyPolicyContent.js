@@ -4,29 +4,26 @@ import Flex from "@/lib/atoms/Flex";
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
-import { markdown } from "./privacyPolicyMarkdown";
+import moment from "moment";
 
-const PrivacyPolicyContent = () => {
+const PrivacyPolicyContent = ({ data }) => {
   return (
     <Fragment>
       <HeaderContainer $direction="column" $alignitems="center">
         <HeaderContentWrapper $direction="column">
-          <HeaderTitle>Ensure Protect Privacy Policy</HeaderTitle>
-          <HeaderSubtitle>
-            Last updated: January, 2024 <br /> This Privacy Policy describes Our
-            policies and procedures on the collection, use and disclosure of
-            Your information when You use the Service and tells You about Your
-            privacy rights and how the law protects You. We use Your Personal
-            data to provide and improve the Service. By using the Service, You
-            agree to the collection and use of information in accordance with
-            this Privacy Policy.
-          </HeaderSubtitle>
+          <HeaderTitle>{data?.title}</HeaderTitle>
+          <Flex $direction="column">
+            <HeaderSubtitle>
+              Last updated: {moment(data?.lastUpdated).format("MMMM, YYYY")}
+            </HeaderSubtitle>
+            <HeaderSubtitle>{data?.description}</HeaderSubtitle>
+          </Flex>
         </HeaderContentWrapper>
       </HeaderContainer>
 
       <PolicyContainer $direction="column" $alignitems="center">
         <MarkdownWrapper>
-          <ReactMarkdown>{markdown}</ReactMarkdown>
+          <ReactMarkdown>{data?.content}</ReactMarkdown>
         </MarkdownWrapper>
       </PolicyContainer>
     </Fragment>

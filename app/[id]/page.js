@@ -1,13 +1,29 @@
-import DealersLoginPage from "@/imports/Dealers/DealersLoginPage";
+import { getDealerPage } from "@/imports/Dealers/api/api";
+import DealersLoginPage from "@/imports/Dealers/ui/page/DealersLoginPage";
+
 import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params }) {
   const { id } = await params;
+  const data = await getDealerPage(id);
   const validDealers = [
-    "atwoods",
-    "5devices",
+    "calranch-frame",
+    "lmfleetsupply",
+    "seeds",
+    "education",
+    "eastwood",
+    "buchheit",
+    "coastal-frame",
     "ruralking",
+    "atwoods",
+    "fcfarmandhome",
+    "theisens",
+    "shoppers",
+    "fhs",
+    "instaprotek",
+    "5devices",
+    "scw",
     "rides",
     "bikemart",
     "gorhambikeandski",
@@ -15,25 +31,12 @@ export default async function Page({ params }) {
     "pedal",
     "wheelandsprocket",
     "globalbikes",
-    "seeds",
-    "lmfleetsupply",
-    "fcfarmandhome",
-    "theisens",
-    "scw",
-    "buchheit",
-    "shoppers",
-    "instaprotek",
-    "fhsfpp-frame-brochure",
-    "fhs",
-    "education",
     "biggear",
-    "eastwood",
-    "servicecenter",
   ];
 
   if (!validDealers.includes(id)) {
     notFound();
   }
 
-  return <DealersLoginPage id={id} />;
+  return <DealersLoginPage id={id} data={data} />;
 }

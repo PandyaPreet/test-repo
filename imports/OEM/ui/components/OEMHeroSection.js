@@ -5,19 +5,6 @@ import { getBackgroundImageUrl } from "@/lib/imageUtils";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
-const descriptions = [
-  {
-    icon: "/",
-    text: "Make Protection Part of the Product",
-    indent: "27%",
-  },
-  {
-    icon: "//",
-    text: "Today's customers expect more than a user manual and a 1-year warranty. They want meaningful protection, easy repair/replace resolution, and a support experience that matches the product they trusted enough to buy. We help you meet that expectation — and turn it into a growth opportunity.",
-    indent: "35%",
-  },
-];
-
 export default function OEMHeroSection({ heroData }) {
   const [descHeight, setDescHeight] = useState(null);
 

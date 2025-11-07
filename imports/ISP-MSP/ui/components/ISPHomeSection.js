@@ -6,18 +6,19 @@ import styled from "styled-components";
 import { getBackgroundImageUrl } from "@/lib/imageUtils";
 
 export default function ISPHomeSection({ heroSectionData }) {
-  const title = heroSectionData?.title || "Add Value with Every Subscription";
+  const title = heroSectionData?.title;
+  const description = heroSectionData?.description;
   const bgUrl =
     (heroSectionData?.backgroundImage &&
       getBackgroundImageUrl(heroSectionData.backgroundImage)) ||
     "/assets/ISP-MSP/isp-hero-bg.webp";
-
   return (
     <HeroWrapper $direction="column">
       <HeroInner>
         <HeroImageWrapper $bg={bgUrl}>
           <HeroContent $direction="column">
             <HeroTitle>{title}</HeroTitle>
+            <HeroSubtitle>{description}</HeroSubtitle>
           </HeroContent>
         </HeroImageWrapper>
       </HeroInner>

@@ -11,6 +11,7 @@ import ClientFooter from "@/components/ClientFooter";
 import Navbar from "@/components/Navbar";
 import styled from "styled-components";
 import Flex from "@/lib/atoms/Flex";
+import ServicePlansCard from "../components/ServicePlansCard";
 
 const HomePage = ({ data }) => {
   return (
@@ -18,7 +19,7 @@ const HomePage = ({ data }) => {
       <Navbar />
       <HeroSection heroData={data?.heroSection} />
       <PlansSection plansData={data?.featureSection} />
-      <ServicesSection serviceData={data?.solutionsSection} />
+      <ServicePlansCard serviceData={data?.solutionsSection} />
       <PartnersSection partnersData={data?.whatWeDoSection} />
       <StatsSection statsData={data?.statsSection} />
       <Wrapper>

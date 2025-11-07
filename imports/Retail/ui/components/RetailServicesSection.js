@@ -12,7 +12,6 @@ const RetailServicesSection = ({ whatWeProvideSectionData = {} }) => {
   return (
     <ServicesContainer $direction="column">
       <TitleCardContainer>
-        <div></div>
         <h2>
           <TitleDark>{title}</TitleDark>
         </h2>

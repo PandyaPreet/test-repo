@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import * as Yup from "yup";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = Yup.object().shape({
   fullName: Yup.string().required("Full name is required"),
@@ -21,6 +22,7 @@ const formSchema = Yup.object().shape({
 
 function ConnectFormSection({ formData }) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -57,6 +59,7 @@ function ConnectFormSection({ formData }) {
           });
         }
         reset();
+        router.push("/thank-you");
       }
     } catch (error) {
       console.error("Error submitting form:", error);

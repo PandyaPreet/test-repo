@@ -48,7 +48,7 @@ function CTABanner({
           <CTADescription> {description}</CTADescription>
         </CTAContentWrapper>
 
-        <Button variant="secondary" size="xl" onClick={onButtonClick}>
+        <Button variant="secondary" size="full" onClick={onButtonClick}>
           {buttonText}
           <ButtonIcon />
         </Button>

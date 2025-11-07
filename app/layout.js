@@ -1,15 +1,23 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import Script from "next/script";
 
 export const metadata = {
   metadataBase: new URL("https://ensureprotect.com"),
+  title: "Ensure Protect – Trusted Insurance & Financial Protection",
+  description:
+    "Ensure Protect offers comprehensive insurance and financial protection solutions designed to safeguard your future with trust and reliability.",
   robots: { index: true, follow: true },
   icons: { icon: "/favicon.svg" },
   alternates: {
-    canonical: "/",
+    canonical: "https://ensureprotect.com/",
   },
   openGraph: {
+    title: "Ensure Protect – Trusted Insurance & Financial Protection",
+    description:
+      "Ensure Protect offers comprehensive insurance and financial protection solutions designed to safeguard your future.",
+    url: "https://ensureprotect.com/",
     siteName: "Ensure Protect",
     images: [
       {
@@ -24,7 +32,10 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/Group.jpg"],
+    title: "Ensure Protect – Trusted Insurance & Financial Protection",
+    description:
+      "Ensure Protect offers reliable insurance and financial protection tailored for peace of mind.",
+    images: ["https://ensureprotect.com/Group.jpg"],
   },
 };
 
@@ -41,12 +52,12 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="3lCw_IqwooftJtlYfnRU7VmHCKQdVLeDKa8rbaPqUds"
         />
-        <script
+        <Script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-P38G9X9LF3`}
+          src="https://www.googletagmanager.com/gtag/js?id=G-P38G9X9LF3"
           strategy="afterInteractive"
         />
-        <script
+        <Script
           id="gtag-init"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{

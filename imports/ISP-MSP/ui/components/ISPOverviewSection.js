@@ -10,32 +10,14 @@ const ISPOverviewSection = ({ featureSectiondData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // ---- Sanity mappings & fallbacks ----
-  const title = featureSectiondData?.title || "Ideal For:";
+  const title = featureSectiondData?.title;
 
-  const featurePoints =
-    Array.isArray(featureSectiondData?.featurePoints) &&
-    featureSectiondData.featurePoints.length
-      ? featureSectiondData.featurePoints
-      : [
-          "Wi-Fi and broadband providers",
-          "Smart home platforms",
-          "Connected device resellers and MVNO",
-          "White-label tech or hardware bundles",
-        ];
+  const featurePoints = featureSectiondData.featurePoints;
 
-  const bannersFromSanity =
-    Array.isArray(featureSectiondData?.featureImages) &&
-    featureSectiondData.featureImages.length
-      ? featureSectiondData.featureImages
-          .map((img) => getBackgroundImageUrl(img)) // or getBackgroundImageUrl(img.asset._ref)
-          .filter(Boolean)
-          .map((url) => ({ bgImage: url }))
-      : [
-          { bgImage: "/assets/ISP-MSP/isp-banner-1.webp" },
-          { bgImage: "/assets/ISP-MSP/isp-banner-2.webp" },
-          { bgImage: "/assets/ISP-MSP/isp-banner-3.webp" },
-          { bgImage: "/assets/ISP-MSP/isp-banner-4.webp" },
-        ];
+  const bannersFromSanity = featureSectiondData.featureImages
+    .map((img) => getBackgroundImageUrl(img))
+    .filter(Boolean)
+    .map((url) => ({ bgImage: url }));
 
   return (
     <ISPOverviewContainer $fullwidth>

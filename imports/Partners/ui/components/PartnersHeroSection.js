@@ -31,8 +31,11 @@ export default function PartnersHeroSection({ heroData }) {
       <PartnersHeroInner>
         <PartnersHeroImageWrapper $bgimg={backgroundImageURL}>
           <PartnersHeroContent $direction="column">
-            {heroData?.title ? (
-              <PartnersHeroTitle>{heroData.title}</PartnersHeroTitle>
+            {heroData?.title || heroData?.description ? (
+              <>
+                <PartnersHeroTitle>{heroData.title}</PartnersHeroTitle>
+                <HeroSubtitle>{heroData.description}</HeroSubtitle>
+              </>
             ) : null}
           </PartnersHeroContent>
         </PartnersHeroImageWrapper>
@@ -241,4 +244,12 @@ const PartnersDescriptionThirdPartWrapper = styled(
   @media (max-width: 1194px) {
     display: none;
   }
+`;
+
+const HeroSubtitle = styled.div`
+  color: #fff;
+  font-family: Arial;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
 `;

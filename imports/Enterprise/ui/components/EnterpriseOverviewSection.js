@@ -42,7 +42,9 @@ const EnterpriseOverviewSection = ({ benefitsData }) => {
               {descriptions.map((desc, index) => (
                 <React.Fragment key={index}>
                   <DescriptionBlock
-                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseEnter={() =>
+                      setActiveIndex(index % featureImages.length)
+                    }
                     onMouseLeave={() => setActiveIndex(0)}
                   >
                     <EnterpriseOverviewDescription>

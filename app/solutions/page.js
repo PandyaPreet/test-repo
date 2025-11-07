@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getSolutionsPage } from "@/imports/Solutions/api/api";
 import SolutionsPage from "@/imports/Solutions/ui/page/SolutionsPage";
 

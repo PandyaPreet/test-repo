@@ -181,6 +181,15 @@ const ContentWrapper = styled(Flex)`
 
 const ContentSection = styled(Flex)`
   gap: 40px;
+
+  /* auto title color by even/odd */
+  &:nth-child(odd) & {
+    color: #1a1919;
+  }
+  &:nth-child(even) & {
+    color: #fff;
+  }
+
   @media (max-width: 980px) {
     gap: 16px;
   }
@@ -198,14 +207,6 @@ const HeaderSection = styled.h2`
   }
   @media (max-width: 768px) {
     font-size: 24px;
-  }
-
-  /* auto title color by even/odd */
-  ${ContentWrapper}:nth-child(odd) & {
-    color: #1a1919;
-  }
-  ${ContentWrapper}:nth-child(even) & {
-    color: #fff;
   }
 `;
 

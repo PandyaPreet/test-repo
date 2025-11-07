@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getHomePage } from "@/imports/Home/api/api";
 import HomePage from "@/imports/Home/ui/page/HomePage";
 

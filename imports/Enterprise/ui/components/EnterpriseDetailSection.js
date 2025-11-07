@@ -16,27 +16,11 @@ const EnterpriseDetailSection = ({ featureData = {} }) => {
   } = featureData || {};
 
   // Map Sanity images to banner format
-  const BANNER_IMAGES =
-    Array.isArray(featureImages) && featureImages.length > 0
-      ? featureImages.map((img) => ({
-          bgImage: getBackgroundImageUrl(img),
-        }))
-      : [
-          { bgImage: "/assets/Enterprise/enterprise-banner-1.webp" },
-          { bgImage: "/assets/Enterprise/enterprise-banner-2.webp" },
-          { bgImage: "/assets/Enterprise/enterprise-banner-3.webp" },
-          { bgImage: "/assets/Enterprise/enterprise-banner-4.webp" },
-        ];
+  const BANNER_IMAGES = featureImages.map((img) => ({
+    bgImage: getBackgroundImageUrl(img),
+  }));
 
-  const DESCRIPTIONS =
-    Array.isArray(featurePoints) && featurePoints.length > 0
-      ? featurePoints
-      : [
-          "Centralized claims and service coordination.",
-          "White-labeled portals to maintain internal branding.",
-          "Reporting dashboards segmented by department, region, or asset class.",
-          "Customized plans including accidental damage for handheld devices, and on-site service for larger installed devices.",
-        ];
+  const DESCRIPTIONS = featurePoints;
 
   return (
     <EnterpriseDetailContainer $fullwidth>

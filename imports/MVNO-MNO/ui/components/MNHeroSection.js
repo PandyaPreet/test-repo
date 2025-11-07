@@ -8,17 +8,13 @@ import { getBackgroundImageUrl } from "@/lib/imageUtils";
 export default function MNHeroSection({ heroSectionData }) {
   const [descHeight, setDescHeight] = useState(null);
 
-  const title =
-    heroSectionData?.title || "Service That Scales with Every Connection";
-  const subtitle =
-    heroSectionData?.description ||
-    "Deliver seamless, embedded protection plans for smart devices — without disrupting your ecosystem or your users.";
+  const title = heroSectionData?.title;
+  const subtitle = heroSectionData?.description;
 
   const supportingTexts = heroSectionData?.supportingTexts || [];
   const bgUrl =
-    (heroSectionData?.backgroundImage &&
-      getBackgroundImageUrl(heroSectionData.backgroundImage)) ||
-    "/assets/MVNO-MNO/mn-hero-bg.webp";
+    heroSectionData?.backgroundImage &&
+    getBackgroundImageUrl(heroSectionData.backgroundImage);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,13 +44,7 @@ export default function MNHeroSection({ heroSectionData }) {
         </HeroImageWrapper>
 
         <DescriptionContainer $height={descHeight}>
-          {(supportingTexts.length
-            ? supportingTexts
-            : [
-                "At Ensure Protect, we design and manage service plans for a wide range of industries, helping you increase customer lifetime value and reduce service friction.",
-                "From power tools to consumer electronics to connected devices and enterprise networks, we help you deliver reliable protection that fits how your customers live, work, and shop.",
-              ]
-          ).map((text, index, arr) => {
+          {supportingTexts.map((text, index, arr) => {
             const indent = indents[index] || "27%";
             const icon = "/".repeat(index + 1);
             return (

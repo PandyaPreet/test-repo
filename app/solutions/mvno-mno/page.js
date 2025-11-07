@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getMVNOPage } from "@/imports/MVNO-MNO/api/api";
 import MobileNetworkPage from "@/imports/MVNO-MNO/ui/page/MobileNetworkPage";
 

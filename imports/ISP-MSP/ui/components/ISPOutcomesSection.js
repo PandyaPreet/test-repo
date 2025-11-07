@@ -10,32 +10,16 @@ const ISPOutcomesSection = ({ featureSection2Data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // ---- Sanity mappings & fallbacks ----
-  const title = featureSection2Data?.title || "Outcomes that Matter:";
+  const title = featureSection2Data?.title;
 
-  const featurePoints =
-    Array.isArray(featureSection2Data?.featurePoints) &&
-    featureSection2Data.featurePoints.length
-      ? featureSection2Data.featurePoints
-      : [
-          "Lower churn from better post-install support",
-          "Increased monthly revenue via service add-ons",
-          "Fewer escalations and ticket volumes for device failures",
-          "Branded customer experience across all service interactions",
-        ];
+  const featurePoints = featureSection2Data.featurePoints;
 
   const bannersFromSanity =
     Array.isArray(featureSection2Data?.featureImages) &&
-    featureSection2Data.featureImages.length
-      ? featureSection2Data.featureImages
-          .map((img) => getBackgroundImageUrl(img)) // or getBackgroundImageUrl(img.asset._ref)
-          .filter(Boolean)
-          .map((url) => ({ bgImage: url }))
-      : [
-          { bgImage: "/assets/ISP-MSP/outcomes-banner-1.webp" },
-          { bgImage: "/assets/ISP-MSP/outcomes-banner-2.webp" },
-          { bgImage: "/assets/ISP-MSP/outcomes-banner-3.webp" },
-          { bgImage: "/assets/ISP-MSP/outcomes-banner-4.webp" },
-        ];
+    featureSection2Data.featureImages
+      .map((img) => getBackgroundImageUrl(img))
+      .filter(Boolean)
+      .map((url) => ({ bgImage: url }));
 
   return (
     <ISPOutcomesContainer $fullwidth>

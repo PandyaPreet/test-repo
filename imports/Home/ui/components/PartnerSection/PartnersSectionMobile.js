@@ -26,8 +26,7 @@ const PARTNER_CARDS = [
 ];
 
 const PartnersSectionMobile = ({ partnersData }) => {
-  const cards =
-    partnersData && partnersData.cards ? partnersData.cards : PARTNER_CARDS;
+  const cards = partnersData.cards;
 
   return (
     <PartnersContainer>

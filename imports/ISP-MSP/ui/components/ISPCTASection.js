@@ -9,19 +9,13 @@ const ISPCTASection = ({ ctaSectionData }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
-  const title =
-    ctaSectionData?.title ||
-    "Let's Create a Protection Program Built for Growth";
+  const title = ctaSectionData?.title;
 
-  const description =
-    ctaSectionData?.description ||
-    "We make it easy to launch, sell, and support protection plans — while you focus on your brand and customer experience.";
+  const description = ctaSectionData?.description;
 
-  const buttonText = ctaSectionData?.ctaButtonLabel || "CONNECT WITH US";
+  const buttonText = ctaSectionData?.ctaButtonLabel;
 
-  const backgroundImage = ctaSectionData?.backgroundImage
-    ? getBackgroundImageUrl(ctaSectionData.backgroundImage)
-    : "/assets/cta-banner-image.webp";
+  const backgroundImage = getBackgroundImageUrl(ctaSectionData.backgroundImage);
 
   useEffect(() => {
     const handleResize = () => {

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getOemPage } from "@/imports/OEM/ui/api/api";
 import OEMpage from "@/imports/OEM/ui/page/OEMpage";
 

@@ -23,7 +23,11 @@ const NotFound = () => {
             {`We couldn't find the page you're looking for. It might have been moved or doesn't exist anymore.`}
           </SubHeaderBlockDescription>
         </SubHeaderBlock>
-        <Button variant="secondary" size="xl" onClick={() => router.push("/")}>
+        <Button
+          variant="secondary"
+          size="full"
+          onClick={() => router.push("/")}
+        >
           GO HOME
         </Button>
       </ContentContainer>

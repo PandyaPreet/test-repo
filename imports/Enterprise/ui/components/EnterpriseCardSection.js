@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 function EnterpriseCardSection({ cardData = {} }) {
-  console.log("cardData", cardData);
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(600);
 

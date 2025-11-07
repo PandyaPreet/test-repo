@@ -5,6 +5,7 @@ import React from "react";
 import styled from "styled-components";
 import FooterBrandLogo from "./svg/FooterBrandLogo";
 import Link from "next/link";
+import Image from "next/image";
 
 const ROUTES = [
   {
@@ -33,7 +34,12 @@ const FooterMobile = () => {
     <FooterContainer $direction="column">
       <LogoContainer>
         <LogoWrapper $direction="column">
-          <FooterBrandLogo />
+          <Image
+            src="/assets/FooterLogoMobile.png"
+            width={147}
+            height={48}
+            alt="Footer Logo"
+          />
         </LogoWrapper>
       </LogoContainer>
 

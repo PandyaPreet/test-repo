@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import EnterprisePage from "@/imports/Enterprise/ui/page/EnterprisePage";
 import { getEnterprisePage } from "@/imports/Enterprise/ui/api/api";

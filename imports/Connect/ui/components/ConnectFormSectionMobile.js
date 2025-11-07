@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import styled from "styled-components";
 import InputLayout from "@/lib/atoms/InputLayout";
+import { useRouter } from "next/navigation";
 
 const formSchema = Yup.object().shape({
   fullName: Yup.string().required("Full name is required"),
@@ -23,6 +24,7 @@ const formSchema = Yup.object().shape({
 
 const ConnectFormSectionMobile = ({ formData }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -59,6 +61,7 @@ const ConnectFormSectionMobile = ({ formData }) => {
           });
         }
         reset();
+        router.push("/thank-you");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -143,13 +146,17 @@ const ConnectFormSectionMobile = ({ formData }) => {
         />
 
         <InputLayout
-          {...register("message")} // Fixed typo from "messgae" to "message"
+          {...register("message")}
           dark
           placeholder="MESSAGE / ADDITIONAL DETAILS"
           disabled={isLoading}
         />
 
-        <Button size="xl" onClick={handleSubmit(onSubmit)} disabled={isLoading}>
+        <Button
+          size="full"
+          onClick={handleSubmit(onSubmit)}
+          disabled={isLoading}
+        >
           {isLoading ? "SENDING..." : "SEND MESSAGE"}
           {!isLoading && <ButtonIcon />}
         </Button>

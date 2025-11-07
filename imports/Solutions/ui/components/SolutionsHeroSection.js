@@ -36,9 +36,7 @@ export default function SolutionsHeroSection({ heroSectionData }) {
       <HeroInner $fullwidth>
         <HeroImageWrapper
           style={{
-            backgroundImage: `url(${
-              backgroundImageUrl || "/assets/solutions_hero_bg.png"
-            })`,
+            backgroundImage: `url(${backgroundImageUrl})`,
           }}
         >
           <HeroContent $direction="column">

@@ -18,8 +18,9 @@ const SolutionsCTASection = ({ ctaSectionData }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const title = ctaSectionData?.title || "";
-  const buttonText = ctaSectionData?.ctaButtonLabel || "Learn More";
+  const title = ctaSectionData?.title;
+  const description = ctaSectionData?.description;
+  const buttonText = ctaSectionData?.ctaButtonLabel;
   const backgroundImage = getBackgroundImageUrl(
     ctaSectionData?.backgroundImage
   );
@@ -27,7 +28,7 @@ const SolutionsCTASection = ({ ctaSectionData }) => {
   return (
     <CTABanner
       title={title}
-      description="Empower your business with tailored protection solutions that fit your customers, your products, and your brand."
+      description={description}
       buttonText={buttonText}
       {...(isMobile
         ? {

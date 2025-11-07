@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getConsultingPage } from "@/imports/Consulting/api/api";
 import ConsultingPage from "@/imports/Consulting/ui/page/ConsultingPage";
 

@@ -27,7 +27,7 @@ const ConsultingPartnerSection = ({ featureSection2Data }) => {
     { bgImage: "/assets/Consulting/left-banner-4.webp" },
   ];
 
-  const banners = BANNERS.length ? BANNERS : FALLBACK_BANNERS;
+  const banners = BANNERS;
 
   return (
     <ConsultingPartnerContainer $fullwidth>
