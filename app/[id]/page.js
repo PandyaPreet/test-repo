@@ -1,11 +1,16 @@
 import { getDealerPage } from "@/imports/Dealers/api/api";
 import DealersLoginPage from "@/imports/Dealers/ui/page/DealersLoginPage";
 
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params }) {
   const { id } = await params;
+
+  if (id === "servicecenter") {
+    redirect("https://ensureprotect1.wpengine.com/servicecenter");
+  }
+
   const data = await getDealerPage(id);
   const validDealers = [
     "calranch-frame",
