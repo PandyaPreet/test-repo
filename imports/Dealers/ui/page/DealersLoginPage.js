@@ -125,7 +125,7 @@ function DealersLoginPage({ data, id }) {
 
 export default DealersLoginPage;
 
-/* ---------------------------- Styled Components ---------------------------- */
+/* ---------------------------- Styled Components here ---------------------------- */
 
 const PageWrapper = styled(Flex)`
   background-color: #fff;
