@@ -1,7 +1,7 @@
 import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
 import ProviderLayout from "@/lib/ProviderLayout";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 export const metadata = {
   metadataBase: new URL("https://ensureprotect.com"),
