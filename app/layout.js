@@ -75,7 +75,8 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <ProviderLayout>
-            <ViewTransition>{children}</ViewTransition>
+            {children}
+            <Toaster />
           </ProviderLayout>
         </StyledComponentsRegistry>
       </body>

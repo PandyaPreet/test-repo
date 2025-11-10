@@ -3,9 +3,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    viewTransition: true,
-  },
+
   images: {
     remotePatterns: [
       {

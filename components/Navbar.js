@@ -66,6 +66,10 @@ export default function Navbar() {
 
   const handleLinkClick = () => setIsOpen(false);
 
+  const handleNavigation = (href) => {
+    router.push(href);
+  };
+
   return (
     <Main
       flex-direction="column"
@@ -90,30 +94,31 @@ export default function Navbar() {
                   <React.Fragment key={item.href || item.name}>
                     <MenuItemWrapper tabIndex={0}>
                       {item.name === "Solutions" ? (
-                        <Link href={item.href} passHref>
-                          <Button variant="menu" $isActive={isTopActive}>
-                            {item.name}
-                            {item.submenu && (
-                              <MenuWrapper>
-                                <MenuIcon />
-                              </MenuWrapper>
-                            )}
-                          </Button>
-                        </Link>
+                        <Button
+                          variant="menu"
+                          $isActive={isTopActive}
+                          onClick={() => handleNavigation(item.href)}
+                        >
+                          {item.name}
+                          {item.submenu && (
+                            <MenuWrapper>
+                              <MenuIcon />
+                            </MenuWrapper>
+                          )}
+                        </Button>
                       ) : (
-                        <Link href={item.href} passHref>
-                          <MenuItem
-                            $alignitems="center"
-                            $isactive={isTopActive}
-                          >
-                            {item.name}
-                            {item.submenu && (
-                              <MenuWrapper>
-                                <MenuIcon />
-                              </MenuWrapper>
-                            )}
-                          </MenuItem>
-                        </Link>
+                        <MenuItem
+                          onClick={() => handleNavigation(item.href)}
+                          $alignitems="center"
+                          $isactive={isTopActive}
+                        >
+                          {item.name}
+                          {item.submenu && (
+                            <MenuWrapper>
+                              <MenuIcon />
+                            </MenuWrapper>
+                          )}
+                        </MenuItem>
                       )}
 
                       {item.submenu && (
@@ -132,13 +137,12 @@ export default function Navbar() {
                                     onMouseLeave={() => setHoveredSub(null)}
                                     onFocus={() => setHoveredSub(sub.href)}
                                     onBlur={() => setHoveredSub(null)}
+                                    onClick={() => handleNavigation(sub.href)}
                                   >
-                                    <Link href={sub.href} passHref>
-                                      <SubMenuItem $isactive={isSubActive}>
-                                        {sub.name}
-                                        <RedirectIcon />
-                                      </SubMenuItem>
-                                    </Link>
+                                    <SubMenuItem $isactive={isSubActive}>
+                                      {sub.name}
+                                      <RedirectIcon />
+                                    </SubMenuItem>
                                   </SubmenuItemWrapper>
                                 );
                               })}
@@ -204,9 +208,7 @@ export default function Navbar() {
                 return (
                   <SidebarItem key={i}>
                     <SidebarItemLink
-                      href={item.href || "#"}
-                      passHref
-                      onClick={handleLinkClick}
+                      onClick={() => handleNavigation(item.href)}
                     >
                       <SidebarItemLabel
                         $alignitems="center"
@@ -229,10 +231,9 @@ export default function Navbar() {
                             <SidebarSubItem
                               key={sub.href}
                               $isactive={isSubActive}
+                              onClick={() => handleNavigation(sub.href)}
                             >
-                              <Link href={sub.href} onClick={handleLinkClick}>
-                                {sub.name}
-                              </Link>
+                              {sub.name}
                             </SidebarSubItem>
                           );
                         })}
@@ -456,7 +457,7 @@ const SidebarItem = styled.div`
   border-bottom: 1px dashed rgba(26, 25, 25, 0.4);
 `;
 
-const SidebarItemLink = styled(Link)`
+const SidebarItemLink = styled.div`
   text-decoration: none;
 `;
 
