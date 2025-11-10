@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 import { getConnectPage } from "@/imports/Connect/ui/api/api";
 import ConnectPage from "@/imports/Connect/ui/page/ConnectPage";

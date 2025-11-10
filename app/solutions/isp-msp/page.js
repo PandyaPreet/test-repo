@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 import { getISPPage } from "@/imports/ISP-MSP/api/api";
 import ISPCablePage from "@/imports/ISP-MSP/ui/page/ISPCablePage";

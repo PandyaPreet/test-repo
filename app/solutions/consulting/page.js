@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 import { getConsultingPage } from "@/imports/Consulting/api/api";
 import ConsultingPage from "@/imports/Consulting/ui/page/ConsultingPage";

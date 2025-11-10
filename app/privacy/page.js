@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 import { getPrivacyPage } from "@/imports/Privacy/api/api";
 import PrivacyPolicy from "@/imports/Privacy/ui/page/PrivacyPolicy";
