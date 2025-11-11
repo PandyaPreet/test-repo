@@ -10,6 +10,9 @@ export default async function Page({ params }) {
   if (id === "servicecenter") {
     redirect("https://ensureprotect1.wpengine.com/servicecenter");
   }
+  if (id === "dealer-login") {
+    redirect("https://ensureprotect1.wpengine.com/dealer-login/");
+  }
 
   const data = await getDealerPage(id);
   const validDealers = [
@@ -37,6 +40,7 @@ export default async function Page({ params }) {
     "wheelandsprocket",
     "globalbikes",
     "biggear",
+    "dealer-login",
   ];
 
   if (!validDealers.includes(id)) {
